@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useSelector, shallowEqual } from 'react-redux';
+import Header from './components/header/Header';
+import Home from './components/home/Home';
+import Admin from './components/admin/Admin';
+import { RootState } from './store/reducers/rootReducer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+  const auth = useSelector((state: RootState) => state.firebase.auth, shallowEqual);
+  
+  if(auth.isLoaded) {
+    return (
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/admin-dashboard" component={Admin} />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+  else {
+    return <></>
+  }
 }
 
 export default App;
