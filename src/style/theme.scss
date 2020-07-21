@@ -1,12 +1,13 @@
-$primary-color: #D2E9E9;
-$secondary-color: #008080;
-$accent-color: #287EA9;
+$primary-color: #5995ED;
+$secondary-color: #044389;
+$accent-color: #FFAD05;
 $background-color: #f5f8fc;
 $text-color: #525766;
 $link-color: #F9F086;
+$error-color: red;
 $header-height: 56px;
 $footer-height: 38px;
-$heading-font: 'Ubuntu', 'sans-serif';
+$heading-font: 'Rubik', 'sans-serif';
 
 @mixin image-container {
   display: flex;
@@ -40,11 +41,9 @@ $heading-font: 'Ubuntu', 'sans-serif';
   padding: 0.25rem 1rem;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
-  border: 2px solid #FFF;
+  border: 2px solid $secondary-color;
   border-radius: 5px;
-  background-color: transparent;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+  background-color: $secondary-color;
   color: #FFF;
   display: inline-block;
   cursor: pointer;
@@ -61,7 +60,8 @@ $heading-font: 'Ubuntu', 'sans-serif';
   }
 
   &:hover {
-    background-color: $accent-color;;
+    background-color: transparent;
+    color: #000;
   }
 }
 
@@ -81,4 +81,18 @@ $heading-font: 'Ubuntu', 'sans-serif';
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@mixin spinner($width, $color, $speed) {
+  border-radius: 50%;
+  border: $width solid #ccc;
+  border-top: $width solid $color;
+  border-bottom: $width solid $color;
+  animation: rotate-spinner $speed linear infinite;
+}
+
+@keyframes rotate-spinner {
+  to {
+    transform: rotate(360deg);
+  }
 }

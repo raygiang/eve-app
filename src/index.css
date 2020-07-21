@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Rubik&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -8,11 +8,11 @@
 }
 
 body {
-  font-family: 'Montserrat', 'sans-serif';
+  font-family: 'Karla', 'sans-serif';
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Ubuntu', 'sans-serif';
+  font-family: 'Rubik', 'sans-serif';
 }
 
 .page-wrapper {

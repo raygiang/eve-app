@@ -1,43 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '../../../../store/reducers/rootReducer';
-import { logIn } from '../../../../store/actions/authActions';
+import firebase from '../../../../config/firebaseConfig';
+import './LoginForm.scss';
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
+  const [authError, setAuthError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, errors } = useForm();
-  const authError = useSelector((state: RootState) => state.auth.authError, shallowEqual);
 
   const onSubmit = (data: any) => {
-    dispatch(logIn(data));
+    setSubmitting(true);
+    firebase.auth().signInWithEmailAndPassword(data.email, data.password).then((user: any) => {
+      setSubmitting(false);
+    }).catch((error: {message: string}) => {
+      setAuthError(error.message);
+      setSubmitting(false);
+    });
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+    <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="login-form__heading">Log In</h2>
+      <div className="login-form__row">
         <label htmlFor="email">Email:</label>
         <input
           id="email"
+          className={ errors.email ? 'login-form__input--error' : 'login-form__input' }
           name="email"
           type="text"
           ref={register({ required: 'Please enter an email address.' })}
         />
-        { errors.email && <p>{ errors.email.message }</p> }
+        { errors.email && <p className="login-form__error">{ errors.email.message }</p> }
       </div>
-      <div>
+      <div className="login-form__row">
         <label htmlFor="password">Password:</label>
         <input
           id="password"
+          className={ errors.password ? 'login-form__input--error' : 'login-form__input' }
           name="password"
           type="password"
           ref={register({ required: 'Please enter your password.' })}
         />
-        { errors.password && <p>{ errors.password.message }</p> }
+        { errors.password && <p className="login-form__error">{ errors.password.message }</p> }
       </div>
-      { authError && <p>{ authError }</p> }
-      <input type="submit" />
+      { authError && <p className="login-form__error">{ authError }</p> }
+      <div className="login-form__row">
+        { submitting && <span className="login-form__spinner" aria-hidden="true"></span> }
+        <button className="login-form__submit" type="submit" disabled={submitting}>Log in</button>
+      </div>
     </form>
   )
 }

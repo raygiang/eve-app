@@ -6,7 +6,6 @@ import Header from './components/header/Header';
 import Home from './components/home/Home';
 import Admin from './components/admin/Admin';
 import Login from './components/admin/login/Login';
-import './style/theme.scss';
 
 const App = () => {
   const auth = useSelector((state: RootState) => state.firebase.auth, shallowEqual);

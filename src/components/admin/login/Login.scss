@@ -1,0 +1,12 @@
+.login-page {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__heading {
+    padding: 1rem;
+    text-align: center;
+    font-size: 30px;
+  }
+}

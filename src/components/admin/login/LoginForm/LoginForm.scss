@@ -1,0 +1,49 @@
+@import '../../../../style/theme.scss';
+
+.login-form {
+  $root: &;
+  margin: 0 auto;
+  padding: 2rem 2rem;
+  width: 70%;
+  max-width: 600px;
+  box-shadow: 0 0 5px -2px $secondary-color;
+  border-radius: 10px;
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+
+    &:last-child {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+
+  &__input {
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #AAA;
+
+    &--error {
+      @extend #{$root}__input;
+      border-color: $error-color;
+    }
+  }
+
+  &__submit {
+    @include primary-button;
+    width: 200px;
+  }
+
+  &__spinner {
+    width: 25px;
+    height: 25px;
+    margin: auto 0.5rem auto 0;
+    @include spinner(5px, $primary-color, 1s);
+  }
+
+  &__error {
+    color: $error-color;
+  }
+}
