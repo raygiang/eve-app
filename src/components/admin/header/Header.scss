@@ -2,16 +2,17 @@
 
 .admin-header {
   border-bottom: 1px solid $secondary-color;
+  height: $header-height;
   
   a {
     text-decoration: none;
   }
 
   &__wrapper {
-    height: $header-height;
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+    height: 100%;
   }
 
   &__heading {
@@ -29,6 +30,10 @@
       grid-template-columns: auto auto auto auto;
       column-gap: 1rem;
       margin: auto 0;
+    }
+
+    button {
+      @include svg-button;
     }
   }
 }

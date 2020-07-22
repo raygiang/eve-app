@@ -21,14 +21,7 @@
   }
 
   &__input {
-    padding: 0.25rem 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #AAA;
-
-    &--error {
-      @extend #{$root}__input;
-      border-color: $error-color;
-    }
+    @include form-input;
   }
 
   &__submit {

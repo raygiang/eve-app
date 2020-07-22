@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import firebase from '../../../../config/firebaseConfig';
 import './LoginForm.scss';
 
-const LoginForm = () => {
+const LoginForm = () : JSX.Element => {
   const [authError, setAuthError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, errors } = useForm();
@@ -25,7 +25,7 @@ const LoginForm = () => {
         <label htmlFor="email">Email:</label>
         <input
           id="email"
-          className={ errors.email ? 'login-form__input--error' : 'login-form__input' }
+          className={ errors.email ? 'login-form__input error' : 'login-form__input' }
           name="email"
           type="text"
           ref={register({ required: 'Please enter an email address.' })}
@@ -36,7 +36,7 @@ const LoginForm = () => {
         <label htmlFor="password">Password:</label>
         <input
           id="password"
-          className={ errors.password ? 'login-form__input--error' : 'login-form__input' }
+          className={ errors.password ? 'login-form__input error' : 'login-form__input' }
           name="password"
           type="password"
           ref={register({ required: 'Please enter your password.' })}

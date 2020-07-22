@@ -1,0 +1,23 @@
+@import '../../../style/theme.scss';
+
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - #{$header-height} - #{$footer-height});
+
+  &__spinner {
+    height: 75px;
+    width: 75px;
+    @include spinner(10px, $primary-color, 2s);
+  }
+
+  &__wrapper {
+    padding: 2rem 1rem;
+  }
+
+  &__message {
+    text-align: center;
+    padding: 1rem 0;
+  }
+}

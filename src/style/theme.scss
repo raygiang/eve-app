@@ -1,10 +1,11 @@
 $primary-color: #5995ED;
 $secondary-color: #044389;
 $accent-color: #FFAD05;
-$background-color: #f5f8fc;
+$background-color: #BFD6F8;
 $text-color: #525766;
 $link-color: #F9F086;
-$error-color: red;
+$success-color: #006100;
+$error-color: #BD0000;
 $header-height: 65px;
 $footer-height: 38px;
 $heading-font: 'Rubik', 'sans-serif';
@@ -74,6 +75,32 @@ $heading-font: 'Rubik', 'sans-serif';
 
   &:hover {
     border-color: transparent;
+  }
+}
+
+@mixin form-input {
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #AAA;
+
+  &.error {
+    border-color: $error-color;
+  }
+}
+
+@mixin svg-button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  svg {
+    font-size: 20px;
+  }
+
+  &:hover {
+    svg {
+      color: $primary-color;
+    }
   }
 }
 

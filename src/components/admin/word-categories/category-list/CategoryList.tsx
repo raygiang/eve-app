@@ -1,28 +1,39 @@
 import React, { useState } from 'react';
-import { Flipper, Flipped } from "react-flip-toolkit";
+import { Flipper } from "react-flip-toolkit";
+import CategoryCard from './CategoryCard/CategoryCard';
+import { TopLevelCategories } from '../models/models';
+import CategoryCardExpanded from './CategoryCard/CategoryCardExpanded';
+import './CategoryList.scss';
 
-interface TopLevelCategories {
-  [id: string]: {
-    name: string,
-    subcategories: string[]
-  }
-}
-
-const CategoryList = ({ categories } : { categories: TopLevelCategories }) => {
+const CategoryList = ({ categories } : { categories: TopLevelCategories }) : JSX.Element => {
   const [focusedIndex, setFocusedIndex] = useState<null | number>(null);
 
-  console.log(categories);
+  const categoryClicked = (index: number) : void => {
+    setFocusedIndex(index !== focusedIndex ? index : null);
+  }
+
+  const shouldFlip = (index: number) => (prevDecisionData: number, currentDecisionData: number) =>
+    index === prevDecisionData || index === currentDecisionData;
 
   const renderCategories = () : JSX.Element[] => {
     const categoryIds = Object.keys(categories);
     return categoryIds.map((id: string, index: number) : JSX.Element => (
       <li key={index}>
-        <Flipped
-          flipId={`category-${index}`}
-          stagger="card"
-        >
-          <div>{categories[id].name}</div>
-        </Flipped>
+        {
+          index !== focusedIndex
+            ? <CategoryCard
+                index={index}
+                category={categories[id]}
+                categoryClicked={categoryClicked}
+                shouldFlip={shouldFlip}
+              />
+            : <CategoryCardExpanded
+                index={index}
+                category={categories[id]}
+                categoryClicked={categoryClicked}
+                shouldFlip={shouldFlip}
+              />
+        }
       </li>
     ));
   }
@@ -32,13 +43,15 @@ const CategoryList = ({ categories } : { categories: TopLevelCategories }) => {
       flipKey={focusedIndex}
       className="categories"
       spring="gentle"
+      decisionData={focusedIndex}
       staggerConfig={{
         card: {
-          reverse: focusedIndex !== null
+          reverse: focusedIndex !== null,
+          speed: 0.5
         }
       }}
-      decisionData={focusedIndex}
     >
+      <h2 className="categories__heading">Top Level Categories</h2>
       <ul className="categories__list">
         {
           Object.keys(categories).length
