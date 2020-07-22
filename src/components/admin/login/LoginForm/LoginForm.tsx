@@ -8,7 +8,7 @@ const LoginForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: any) : void => {
     setSubmitting(true);
     firebase.auth().signInWithEmailAndPassword(data.email, data.password).then((user: any) => {
       setSubmitting(false);
