@@ -2,7 +2,8 @@ import React from 'react';
 import { Flipped } from "react-flip-toolkit";
 import { CategoryCardProps } from '../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import DeleteButton from './delete-button/DeleteButton';
 import './Category.scss';
 
 const CategoryCard = ({ index, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
@@ -27,9 +28,7 @@ const CategoryCard = ({ index, category, categoryClicked, shouldFlip } : Categor
                 <FontAwesomeIcon icon={faEdit} />
               </button>
               <Flipped flipId={`delete-${index}`} stagger="card-content" shouldFlip={shouldFlip(index)}>
-                <button>
-                  <FontAwesomeIcon icon={faTrashAlt} />
-                </button>
+                <DeleteButton />
               </Flipped>
             </div>
           </div>

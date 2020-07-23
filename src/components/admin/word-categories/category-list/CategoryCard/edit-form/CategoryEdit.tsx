@@ -34,10 +34,14 @@ const CategoryEdit = ({ index, categoryClicked } : CategoryEditProps) : JSX.Elem
         />
       </div>
       <div className="category-edit__submit-options">
-        <button className="category-edit__save-option" title="Save">
+        <button type="submit" className="category-edit__save-option" title="Save">
           <FontAwesomeIcon icon={faSave} />
         </button>
-        <button className="category-edit__cancel-option" title="Cancel" onClick={():any => categoryClicked(index)}>
+        <button
+          className="category-edit__cancel-option"
+          title="Cancel"
+          onClick={():any => categoryClicked(index)}
+        >
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
