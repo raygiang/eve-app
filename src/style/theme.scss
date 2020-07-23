@@ -102,6 +102,12 @@ $heading-font: 'Rubik', 'sans-serif';
       color: $primary-color;
     }
   }
+
+  &:disabled {
+    svg {
+      color: #CCC;
+    }
+  }
 }
 
 @mixin background-image {

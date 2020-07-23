@@ -11,8 +11,8 @@ const CategoryCard = ({ index, category, categoryClicked, shouldFlip } : Categor
     <Flipped
       flipId={`category-${index}`}
       stagger="card"
-      onStart={el => {
-        setTimeout(() => {
+      onStart={(el: HTMLElement) : void => {
+        setTimeout((): void => {
           el.classList.add("expanded")
         }, 300)
       }}

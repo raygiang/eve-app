@@ -1,12 +1,20 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
+import 'tippy.js/themes/light-border.css';
 import 'tippy.js/dist/tippy.css';
 import './DeleteButton.scss';
 
 const DeleteButton = () : JSX.Element => {
+  const [disabled, setDisabled] = useState<boolean>(true);
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
+
+  useEffect((): void => {
+    setTimeout((): void => {
+      setDisabled(false);
+    }, 1150)
+  }, []);
   
   const cancelClick = () : void => {
     buttonRef?.click();
@@ -27,8 +35,9 @@ const DeleteButton = () : JSX.Element => {
       content={confirmPopover}
       interactive={true}
       trigger="click"
+      theme="light-border"
     >
-      <button ref={setButtonRef}>
+      <button ref={setButtonRef} disabled={disabled}>
         <FontAwesomeIcon icon={faTrashAlt} />
       </button>
     </Tippy>

@@ -12,13 +12,13 @@ interface CategoryEditProps {
 
 const CategoryEdit = ({ index, categoryClicked } : CategoryEditProps) : JSX.Element => {
   // const [categoryError, setCategoryError] = useState('');
-  // const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data: any) : void => {
-    // setSubmitting(true);
+    setSubmitting(true);
     console.log(data);
-    // setSubmitting(false);
+    setSubmitting(false);
   }
 
   return (
@@ -34,13 +34,19 @@ const CategoryEdit = ({ index, categoryClicked } : CategoryEditProps) : JSX.Elem
         />
       </div>
       <div className="category-edit__submit-options">
-        <button type="submit" className="category-edit__save-option" title="Save">
+        <button
+          type="submit"
+          className="category-edit__save-option"
+          title="Save"
+          disabled={submitting}
+        >
           <FontAwesomeIcon icon={faSave} />
         </button>
         <button
           className="category-edit__cancel-option"
           title="Cancel"
           onClick={():any => categoryClicked(index)}
+          disabled={submitting}
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>

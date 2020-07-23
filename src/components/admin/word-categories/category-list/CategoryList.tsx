@@ -47,7 +47,7 @@ const CategoryList = ({ categories } : { categories: TopLevelCategories }) : JSX
       staggerConfig={{
         card: {
           reverse: focusedIndex !== null,
-          speed: 0.5
+          speed: 0.1
         }
       }}
     >
