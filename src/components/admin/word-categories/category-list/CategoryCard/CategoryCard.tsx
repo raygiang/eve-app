@@ -3,6 +3,7 @@ import { Flipped } from "react-flip-toolkit";
 import { CategoryCardProps } from '../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import DeleteButton from '../../../general/delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
@@ -38,7 +39,11 @@ const CategoryCard = ({ index, categoryId, category, categoryClicked, shouldFlip
         <Flipped inverseFlipId={`category-${index}`} shouldInvert={shouldFlip(index)}>
           <div className="category__content-container">
             <Flipped flipId={`heading-${index}`} stagger="card-content" shouldFlip={shouldFlip(index)}>
-              <h3 className="category--expanded__name">{category.name}</h3>
+              <h3 className="category__name">
+                <Link to={`/admin-dashboard/subcategories/${categoryId}`}>
+                  {category.name}
+                </Link>
+              </h3>
             </Flipped>
             <div className="category__button-container">
               <button onClick={():any => categoryClicked(index)}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import firebase from '../../../config/firebaseConfig';
@@ -19,9 +20,9 @@ const Header = () => {
         </div>
         <nav className="admin-header__nav">
           <ul>
-            <li><a href="/admin-dashboard/edit-home">Edit Home</a></li>
-            <li><a href="/admin-dashboard/word-categories">Edit Word Categories</a></li>
-            <li><a href="/admin-dashboard/weekly-study-guides">Edit Weekly Exercises</a></li>
+            <li><Link to="/admin-dashboard/edit-home">Edit Home</Link></li>
+            <li><Link to="/admin-dashboard/word-categories">Edit Word Categories</Link></li>
+            <li><Link to="/admin-dashboard/weekly-study-guides">Edit Weekly Exercises</Link></li>
             <li>
               <button onClick={logOut} title="Log Out">
                 <FontAwesomeIcon icon={faDoorOpen} />

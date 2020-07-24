@@ -9,6 +9,7 @@ import Home from './home/Home';
 import EditHome from './edit-home/EditHome';
 import WordCategories from './word-categories/WordCategories';
 import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
+import Subcategories from './subcategories/Subcategories';
 import PageNotFound from '../general/404/PageNotFound';
 import Loading from '../general/loading/Loading';
 import './Admin.scss'
@@ -36,6 +37,7 @@ const Admin = () : JSX.Element => {
         <Route exact path="/admin-dashboard" component={Home} />
         <Route exact path="/admin-dashboard/edit-home" component={EditHome} />
         <Route exact path="/admin-dashboard/word-categories" component={WordCategories} />
+        <Route exact path="/admin-dashboard/subcategories/:categoryId" component={Subcategories} />
         <Route exact path="/admin-dashboard/weekly-study-guides" component={WeeklyStudyGuides} />
         <Route path="/admin-dashboard" component={PageNotFound} />
       </Switch>
