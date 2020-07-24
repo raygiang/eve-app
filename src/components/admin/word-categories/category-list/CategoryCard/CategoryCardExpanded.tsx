@@ -9,13 +9,11 @@ import './Category.scss';
 const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
-  const deleteTopLevelCategory = firebase.functions().httpsCallable('deleteTopLevelCategory');
-
-  if(!category) return <></>;
+  const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
 
   const deleteCategory = (): void => {
     setDeleting(true);
-    deleteTopLevelCategory({ id: categoryId }).then((): void => {
+    topLevelCategoriesCollection.doc(categoryId).delete().then((): void => {
       setDeleting(false);
     }).catch((error: {message: string}) => {
       setDeleteError(error.message);
@@ -46,7 +44,7 @@ const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, sh
                 </Flipped>
               </div>
             </div>
-            <CategoryEdit index={index} categoryClicked={categoryClicked} />
+            <CategoryEdit index={index} categoryId={categoryId} categoryClicked={categoryClicked} />
             { deleteError && <p className="category--expanded__delete-error">{ deleteError }</p> }
           </div>
         </Flipped>

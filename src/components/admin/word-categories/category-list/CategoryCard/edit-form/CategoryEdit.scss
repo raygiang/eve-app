@@ -33,6 +33,10 @@
   &__cancel-option {
     color: $error-color;
   }
+
+  &__error {
+    color: $error-color;
+  }
 }
 
 .expanded {

@@ -7,11 +7,11 @@ const CategoryAdd = () : JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
   const { register, handleSubmit, errors } = useForm();
-  const addTopLevelCategory = firebase.functions().httpsCallable('addTopLevelCategory');
+  const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
-    addTopLevelCategory({ name: data.name }).then((): void => {
+    topLevelCategoriesCollection.doc().set({ name: data.name }).then((): void => {
       setSubmitting(false);
     }).catch((error: {message: string}) => {
       setAddError(error.message);

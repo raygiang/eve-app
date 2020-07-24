@@ -7,7 +7,6 @@ import './CategoryList.scss';
 
 const CategoryList = ({ categories } : { categories: TopLevelCategories }) : JSX.Element => {
   const [focusedIndex, setFocusedIndex] = useState<null | number>(null);
-  console.log(categories);
 
   const categoryClicked = (index: number) : void => {
     setFocusedIndex(index !== focusedIndex ? index : null);

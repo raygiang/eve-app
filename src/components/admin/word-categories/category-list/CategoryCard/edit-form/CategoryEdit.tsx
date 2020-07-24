@@ -3,22 +3,29 @@ import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CategoryClickFunction } from '../../../models/models';
+import firebase from '../../../../../../config/firebaseConfig';
 import './CategoryEdit.scss';
 
 interface CategoryEditProps {
   index: number,
-  categoryClicked: CategoryClickFunction
+  categoryId: string,
+  categoryClicked: CategoryClickFunction,
 }
 
-const CategoryEdit = ({ index, categoryClicked } : CategoryEditProps) : JSX.Element => {
-  // const [categoryError, setCategoryError] = useState('');
+const CategoryEdit = ({ index, categoryId, categoryClicked } : CategoryEditProps) : JSX.Element => {
+  const [updateError, setUpdateError] = useState('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const { register, handleSubmit, errors } = useForm();
+  const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
-    console.log(data);
-    setSubmitting(false);
+    topLevelCategoriesCollection.doc(categoryId).update({ id: categoryId, name: data.name }).then((): void => {
+      setSubmitting(false);
+    }).catch((error: {message: string}) => {
+      setUpdateError(error.message);
+      setSubmitting(false);
+    });
   }
 
   return (
@@ -51,6 +58,7 @@ const CategoryEdit = ({ index, categoryClicked } : CategoryEditProps) : JSX.Elem
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
+      { updateError && <p className="category-edit__error">{ updateError }</p> }
     </form>
   )
 }
