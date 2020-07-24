@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import CategoryEdit from './edit-form/CategoryEdit';
 import { Flipped } from "react-flip-toolkit";
-import { CategoryCardProps } from '../../models/models';
+import { CategoryTypes, CategoryCardProps } from '../../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../../general/delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
 
-const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage } : CategoryCardProps) : JSX.Element => {
+const CategoryCardExpanded = ({ type, index, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage } : CategoryCardProps) : JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
-  const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
+  const collectionName = type === CategoryTypes.Top ? 'top-level-categories' : 'subcategories';
+  const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const deleteCategory = (): void => {
     setDeleting(true);
-    topLevelCategoriesCollection.doc(categoryId).delete().then((): void => {
+    categoriesCollection.doc(categoryId).delete().then((): void => {
       setSuccessMessage(`${category.name} has been Deleted`);
-      setDeleting(false);
     }).catch((error: {message: string}) => {
       setSuccessMessage('');
       setDeleteError(error.message);
@@ -52,6 +52,7 @@ const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, sh
               </div>
             </div>
             <CategoryEdit
+              type={type}
               index={index}
               categoryId={categoryId}
               categoryName={category.name}

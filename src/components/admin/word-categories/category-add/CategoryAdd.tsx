@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { CategoryTypes } from '../../models/models';
 import firebase from '../../../../config/firebaseConfig';
 import './CategoryAdd.scss';
 
 interface CategoryAddProps {
+  type: CategoryTypes,
   successMessage: string,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+  parentId?: string,
 }
 
-const CategoryAdd = ({ successMessage, setSuccessMessage }: CategoryAddProps) : JSX.Element => {
+const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: CategoryAddProps) : JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
   const { register, handleSubmit, errors, reset } = useForm();
-  const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
+  const collectionName = type === CategoryTypes.Top ? 'top-level-categories' : 'subcategories';
+  const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
-    topLevelCategoriesCollection.doc().set({ name: data.name, subcategories: [] }).then((): void => {
+
+    const newDocument = type === CategoryTypes.Top
+      ? {
+          name: data.name,
+          subcategories: []
+        }
+      : {
+          name: data.name,
+          groups: [],
+          parent: parentId
+        }
+
+    categoriesCollection.doc().set(newDocument).then((): void => {
       setSubmitting(false);
       setAddError('');
       setSuccessMessage(`${data.name} successfully added`);
@@ -30,7 +46,7 @@ const CategoryAdd = ({ successMessage, setSuccessMessage }: CategoryAddProps) : 
 
   return (
     <form className="category-add" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="category-add__heading">Add a New Category</h2>
+      <h2 className="category-add__heading">Add a New {type}</h2>
       <div className="category-add__form-content">
         <div className="category-add__field-row">
           <label htmlFor="name">Name: </label>

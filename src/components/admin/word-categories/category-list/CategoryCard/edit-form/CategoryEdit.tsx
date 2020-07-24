@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { CategoryClickFunction } from '../../../models/models';
+import { CategoryTypes, CategoryClickFunction } from '../../../../models/models';
 import firebase from '../../../../../../config/firebaseConfig';
 import './CategoryEdit.scss';
 
 interface CategoryEditProps {
+  type: CategoryTypes,
   index: number,
   categoryId: string,
   categoryName: string,
@@ -14,17 +15,18 @@ interface CategoryEditProps {
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
 }
 
-const CategoryEdit = ({ index, categoryId, categoryName, categoryClicked, setSuccessMessage } : CategoryEditProps) : JSX.Element => {
+const CategoryEdit = ({ type, index, categoryId, categoryName, categoryClicked, setSuccessMessage } : CategoryEditProps) : JSX.Element => {
   const [updateError, setUpdateError] = useState('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [cancelRef, setCancelRef] = useState<HTMLButtonElement | null>(null);
   const { register, handleSubmit, errors } = useForm();
-  const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
+  const collectionName = type === CategoryTypes.Top ? 'top-level-categories' : 'subcategories';
+  const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const onSubmit = (data: any) : void => {
     if(categoryName !== data.name) {
       setSubmitting(true);
-      topLevelCategoriesCollection.doc(categoryId).update({ id: categoryId, name: data.name }).then((): void => {
+      categoriesCollection.doc(categoryId).update({ id: categoryId, name: data.name }).then((): void => {
         setSuccessMessage(`Renamed to ${data.name}`);
         setSubmitting(false);
         cancelRef?.click();

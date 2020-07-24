@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Flipper } from "react-flip-toolkit";
+import { CategoryTypes, TopLevelCategories } from '../../models/models';
 import CategoryCard from './CategoryCard/CategoryCard';
-import { TopLevelCategories } from '../models/models';
 import CategoryCardExpanded from './CategoryCard/CategoryCardExpanded';
 import './CategoryList.scss';
 
 interface CategoryListProps {
+  type: CategoryTypes,
   categories: TopLevelCategories,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
 }
 
-const CategoryList = ({ categories, setSuccessMessage } : CategoryListProps) : JSX.Element => {
+const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProps) : JSX.Element => {
   const [focusedIndices, setFocusedIndices] = useState<Map<number, boolean>>(new Map());
 
   const categoryClicked = (index: number) : void => {
@@ -31,6 +32,7 @@ const CategoryList = ({ categories, setSuccessMessage } : CategoryListProps) : J
             {
               !focusedIndices.get(index)
                 ? <CategoryCard
+                    type={type}
                     index={index}
                     categoryId={id}
                     category={categories[id]}
@@ -39,6 +41,7 @@ const CategoryList = ({ categories, setSuccessMessage } : CategoryListProps) : J
                     setSuccessMessage={setSuccessMessage}
                   />
                 : <CategoryCardExpanded
+                    type={type}
                     index={index}
                     categoryId={id}
                     category={categories[id]}
@@ -67,12 +70,12 @@ const CategoryList = ({ categories, setSuccessMessage } : CategoryListProps) : J
         }
       }}
     >
-      <h2 className="categories__heading">Top Level Categories</h2>
+      <h2 className="categories__heading">{type} List</h2>
       <ul className="categories__list">
         {
           Object.keys(categories).length
             ? renderCategories()
-            : <li>No top level categories have been added yet</li>
+            : <li>No {type.toLowerCase()} has been added yet.</li>
         }
       </ul>
     </Flipper>
