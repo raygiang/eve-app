@@ -35,8 +35,4 @@
     margin: auto 0.5rem auto 0;
     @include spinner(5px, $primary-color, 1s);
   }
-
-  &__error {
-    color: $error-color;
-  }
 }

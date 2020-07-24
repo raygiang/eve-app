@@ -5,11 +5,18 @@ import { TopLevelCategories } from '../models/models';
 import CategoryCardExpanded from './CategoryCard/CategoryCardExpanded';
 import './CategoryList.scss';
 
-const CategoryList = ({ categories } : { categories: TopLevelCategories }) : JSX.Element => {
-  const [focusedIndex, setFocusedIndex] = useState<null | number>(null);
+interface CategoryListProps {
+  categories: TopLevelCategories,
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+}
+
+const CategoryList = ({ categories, setSuccessMessage } : CategoryListProps) : JSX.Element => {
+  const [focusedIndices, setFocusedIndices] = useState<Map<number, boolean>>(new Map());
 
   const categoryClicked = (index: number) : void => {
-    setFocusedIndex(index !== focusedIndex ? index : null);
+    let copyIndexMap = new Map(focusedIndices);
+    focusedIndices.get(index) ? copyIndexMap.delete(index) : copyIndexMap.set(index, true);
+    setFocusedIndices(copyIndexMap);
   }
 
   const shouldFlip = (index: number) => (prevDecisionData: number, currentDecisionData: number) =>
@@ -17,42 +24,46 @@ const CategoryList = ({ categories } : { categories: TopLevelCategories }) : JSX
 
   const renderCategories = () : JSX.Element[] => {
     const categoryIds = Object.keys(categories);
-    return categoryIds.map((id: string, index: number) : JSX.Element => {
-      if(categories[id] === null) return <></>;
-      return (
-        <li key={index}>
-          {
-            index !== focusedIndex
-              ? <CategoryCard
-                  index={index}
-                  categoryId={id}
-                  category={categories[id]}
-                  categoryClicked={categoryClicked}
-                  shouldFlip={shouldFlip}
-                />
-              : <CategoryCardExpanded
-                  index={index}
-                  categoryId={id}
-                  category={categories[id]}
-                  categoryClicked={categoryClicked}
-                  shouldFlip={shouldFlip}
-                />
-          }
-        </li>
-      )
-    });
+    return categoryIds.reduce((result: JSX.Element[], id: string, index: number) => {
+      if(categories[id] !== null) {
+        result.push(
+          <li key={index}>
+            {
+              !focusedIndices.get(index)
+                ? <CategoryCard
+                    index={index}
+                    categoryId={id}
+                    category={categories[id]}
+                    categoryClicked={categoryClicked}
+                    shouldFlip={shouldFlip}
+                    setSuccessMessage={setSuccessMessage}
+                  />
+                : <CategoryCardExpanded
+                    index={index}
+                    categoryId={id}
+                    category={categories[id]}
+                    categoryClicked={categoryClicked}
+                    shouldFlip={shouldFlip}
+                    setSuccessMessage={setSuccessMessage}
+                  />
+            }
+          </li>
+        )
+      }
+      return result;
+    }, []);
   }
 
   return (
     <Flipper
-      flipKey={focusedIndex}
+      flipKey={focusedIndices.keys()}
       className="categories"
       spring="gentle"
-      decisionData={focusedIndex}
+      decisionData={focusedIndices.keys()}
       staggerConfig={{
         card: {
-          reverse: focusedIndex !== null,
-          speed: 0.1
+          reverse: focusedIndices.size > 0,
+          speed: 0.5
         }
       }}
     >

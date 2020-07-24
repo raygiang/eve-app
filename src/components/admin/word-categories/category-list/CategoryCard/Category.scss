@@ -14,10 +14,6 @@
     grid-template-columns: 1fr 1fr;
     column-gap: 0.5rem;
   }
-  
-  &__delete-error {
-    color: $error-color;
-  }
 
   button {
     @include svg-button;

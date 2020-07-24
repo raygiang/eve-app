@@ -7,7 +7,7 @@ import DeleteButton from '../../../general/delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
 
-const CategoryCard = ({ index, categoryId, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
+const CategoryCard = ({ index, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage } : CategoryCardProps) : JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
   const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
@@ -15,8 +15,10 @@ const CategoryCard = ({ index, categoryId, category, categoryClicked, shouldFlip
   const deleteCategory = (): void => {
     setDeleting(true);
     topLevelCategoriesCollection.doc(categoryId).delete().then((): void => {
+      setSuccessMessage(`${category.name} has been Deleted`);
       setDeleting(false);
     }).catch((error: {message: string}) => {
+      setSuccessMessage('');
       setDeleteError(error.message);
       setDeleting(false);
     });
@@ -46,7 +48,7 @@ const CategoryCard = ({ index, categoryId, category, categoryClicked, shouldFlip
                 <DeleteButton disabled={deleting} deleteFunction={deleteCategory} />
               </Flipped>
             </div>
-            { deleteError && <p className="category__delete-error">{ deleteError }</p> }
+            { deleteError && <p className="category__delete-error error">{ deleteError }</p> }
           </div>
         </Flipped>
       </div>

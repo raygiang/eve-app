@@ -3,19 +3,28 @@ import { useForm } from 'react-hook-form';
 import firebase from '../../../../config/firebaseConfig';
 import './CategoryAdd.scss';
 
-const CategoryAdd = () : JSX.Element => {
+interface CategoryAddProps {
+  successMessage: string,
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+}
+
+const CategoryAdd = ({ successMessage, setSuccessMessage }: CategoryAddProps) : JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
   const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
-    topLevelCategoriesCollection.doc().set({ name: data.name }).then((): void => {
+    topLevelCategoriesCollection.doc().set({ name: data.name, subcategories: [] }).then((): void => {
       setSubmitting(false);
+      setAddError('');
+      setSuccessMessage(`${data.name} successfully added`);
+      reset();
     }).catch((error: {message: string}) => {
-      setAddError(error.message);
       setSubmitting(false);
+      setAddError(error.message);
+      setSuccessMessage('');
     });
   }
 
@@ -38,8 +47,9 @@ const CategoryAdd = () : JSX.Element => {
           <button className="category-add__submit" type="submit" disabled={submitting}>Add</button>
         </div>
       </div>
-      { errors.name && <p className="category-add__error">{ errors.name.message }</p> }
-      { addError && <p className="category-add__error">{ addError }</p> }
+      { errors.name && <p className="category-add__error error">{ errors.name.message }</p> }
+      { successMessage && <p className="category-add__success success">{ successMessage }</p> }
+      { addError && <p className="category-add__error error">{ addError }</p> }
     </form>
   )
 }

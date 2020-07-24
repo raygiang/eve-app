@@ -6,7 +6,7 @@ import DeleteButton from '../../../general/delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
 
-const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
+const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage } : CategoryCardProps) : JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
   const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
@@ -14,8 +14,10 @@ const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, sh
   const deleteCategory = (): void => {
     setDeleting(true);
     topLevelCategoriesCollection.doc(categoryId).delete().then((): void => {
+      setSuccessMessage(`${category.name} has been Deleted`);
       setDeleting(false);
     }).catch((error: {message: string}) => {
+      setSuccessMessage('');
       setDeleteError(error.message);
       setDeleting(false);
     });
@@ -28,7 +30,7 @@ const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, sh
       onStart={el => {
         setTimeout(() => {
           el.classList.add("expanded")
-        }, 300)
+        }, 300);
       }}
     >
       <div className="category--expanded">
@@ -44,8 +46,14 @@ const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, sh
                 </Flipped>
               </div>
             </div>
-            <CategoryEdit index={index} categoryId={categoryId} categoryClicked={categoryClicked} />
-            { deleteError && <p className="category--expanded__delete-error">{ deleteError }</p> }
+            <CategoryEdit
+              index={index}
+              categoryId={categoryId}
+              categoryName={category.name}
+              categoryClicked={categoryClicked}
+              setSuccessMessage={setSuccessMessage}
+            />
+            { deleteError && <p className="category--expanded__delete-error error">{ deleteError }</p> }
           </div>
         </Flipped>
       </div>

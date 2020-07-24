@@ -30,7 +30,7 @@ const LoginForm = () : JSX.Element => {
           type="text"
           ref={register({ required: 'Please enter an email address.' })}
         />
-        { errors.email && <p className="login-form__error">{ errors.email.message }</p> }
+        { errors.email && <p className="login-form__error error">{ errors.email.message }</p> }
       </div>
       <div className="login-form__row">
         <label htmlFor="password">Password:</label>
@@ -41,9 +41,9 @@ const LoginForm = () : JSX.Element => {
           type="password"
           ref={register({ required: 'Please enter your password.' })}
         />
-        { errors.password && <p className="login-form__error">{ errors.password.message }</p> }
+        { errors.password && <p className="login-form__error error">{ errors.password.message }</p> }
       </div>
-      { authError && <p className="login-form__error">{ authError }</p> }
+      { authError && <p className="login-form__error error">{ authError }</p> }
       <div className="login-form__row">
         { submitting && <span className="login-form__spinner" aria-hidden="true"></span> }
         <button className="login-form__submit" type="submit" disabled={submitting}>Log in</button>

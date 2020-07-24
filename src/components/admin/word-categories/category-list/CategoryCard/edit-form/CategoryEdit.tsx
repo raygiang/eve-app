@@ -9,23 +9,35 @@ import './CategoryEdit.scss';
 interface CategoryEditProps {
   index: number,
   categoryId: string,
+  categoryName: string,
   categoryClicked: CategoryClickFunction,
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
 }
 
-const CategoryEdit = ({ index, categoryId, categoryClicked } : CategoryEditProps) : JSX.Element => {
+const CategoryEdit = ({ index, categoryId, categoryName, categoryClicked, setSuccessMessage } : CategoryEditProps) : JSX.Element => {
   const [updateError, setUpdateError] = useState('');
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [cancelRef, setCancelRef] = useState<HTMLButtonElement | null>(null);
   const { register, handleSubmit, errors } = useForm();
   const topLevelCategoriesCollection = firebase.firestore().collection('top-level-categories');
 
   const onSubmit = (data: any) : void => {
-    setSubmitting(true);
-    topLevelCategoriesCollection.doc(categoryId).update({ id: categoryId, name: data.name }).then((): void => {
-      setSubmitting(false);
-    }).catch((error: {message: string}) => {
-      setUpdateError(error.message);
-      setSubmitting(false);
-    });
+    if(categoryName !== data.name) {
+      setSubmitting(true);
+      topLevelCategoriesCollection.doc(categoryId).update({ id: categoryId, name: data.name }).then((): void => {
+        setSuccessMessage(`Renamed to ${data.name}`);
+        setSubmitting(false);
+        cancelRef?.click();
+      }).catch((error: {message: string}) => {
+        setSuccessMessage('');
+        setUpdateError(error.message);
+        setSubmitting(false);
+      });
+    }
+    else {
+      setSuccessMessage('');
+      cancelRef?.click();
+    }
   }
 
   return (
@@ -37,6 +49,7 @@ const CategoryEdit = ({ index, categoryId, categoryClicked } : CategoryEditProps
           name="name"
           className={errors.name ? 'category-edit__field error' : 'category-edit__field'}
           type="text"
+          defaultValue={categoryName}
           ref={register({ required: 'Please enter a new name.' })}
         />
       </div>
@@ -50,15 +63,18 @@ const CategoryEdit = ({ index, categoryId, categoryClicked } : CategoryEditProps
           <FontAwesomeIcon icon={faSave} />
         </button>
         <button
+          type="button"
           className="category-edit__cancel-option"
           title="Cancel"
-          onClick={():any => categoryClicked(index)}
           disabled={submitting}
+          onClick={() => categoryClicked(index)}
+          ref={setCancelRef}
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
-      { updateError && <p className="category-edit__error">{ updateError }</p> }
+      { errors.name && <p className="category-edit__error error">{ errors.name.message }</p> }
+      { updateError && <p className="category-edit__error error">{ updateError }</p> }
     </form>
   )
 }

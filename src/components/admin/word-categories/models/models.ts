@@ -16,4 +16,5 @@ export interface CategoryCardProps {
   category: Category,
   categoryClicked: CategoryClickFunction,
   shouldFlip: ShouldFlipFunction,
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
 }
