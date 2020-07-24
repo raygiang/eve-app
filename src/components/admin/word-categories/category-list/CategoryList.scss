@@ -2,10 +2,9 @@
 
 .categories {
   width: 80%;
-  min-width: 280px;
   max-width: 700px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0 1rem;
 
   &__heading {
     padding-bottom: 1rem;
@@ -14,7 +13,7 @@
   &__list {
     list-style: none;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     row-gap: 1rem;
   }
 }

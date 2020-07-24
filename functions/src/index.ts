@@ -12,7 +12,7 @@ export const addTopLevelCategory = functions.https.onCall((data: CreateCategoryD
   }
 
   return admin.firestore().collection('top-level-categories').doc().set({
-    text: data.name,
+    name: data.name,
     subcategories: []
   });
 });
@@ -26,7 +26,7 @@ export const updateTopLevelCategory = functions.https.onCall((data: UpdateCatego
   }
 
   return admin.firestore().collection('top-level-categories').doc(data.id).update({
-    text: data.name
+    name: data.name
   });
 });
 

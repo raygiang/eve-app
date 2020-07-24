@@ -12,7 +12,8 @@ export type ShouldFlipFunction = (index: number) => (prevDecisionData: number, c
 
 export interface CategoryCardProps {
   index: number,
+  categoryId: string,
   category: Category,
   categoryClicked: CategoryClickFunction,
-  shouldFlip: ShouldFlipFunction
+  shouldFlip: ShouldFlipFunction,
 }

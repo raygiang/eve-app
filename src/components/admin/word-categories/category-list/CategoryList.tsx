@@ -7,6 +7,7 @@ import './CategoryList.scss';
 
 const CategoryList = ({ categories } : { categories: TopLevelCategories }) : JSX.Element => {
   const [focusedIndex, setFocusedIndex] = useState<null | number>(null);
+  console.log(categories);
 
   const categoryClicked = (index: number) : void => {
     setFocusedIndex(index !== focusedIndex ? index : null);
@@ -17,25 +18,30 @@ const CategoryList = ({ categories } : { categories: TopLevelCategories }) : JSX
 
   const renderCategories = () : JSX.Element[] => {
     const categoryIds = Object.keys(categories);
-    return categoryIds.map((id: string, index: number) : JSX.Element => (
-      <li key={index}>
-        {
-          index !== focusedIndex
-            ? <CategoryCard
-                index={index}
-                category={categories[id]}
-                categoryClicked={categoryClicked}
-                shouldFlip={shouldFlip}
-              />
-            : <CategoryCardExpanded
-                index={index}
-                category={categories[id]}
-                categoryClicked={categoryClicked}
-                shouldFlip={shouldFlip}
-              />
-        }
-      </li>
-    ));
+    return categoryIds.map((id: string, index: number) : JSX.Element => {
+      if(categories[id] === null) return <></>;
+      return (
+        <li key={index}>
+          {
+            index !== focusedIndex
+              ? <CategoryCard
+                  index={index}
+                  categoryId={id}
+                  category={categories[id]}
+                  categoryClicked={categoryClicked}
+                  shouldFlip={shouldFlip}
+                />
+              : <CategoryCardExpanded
+                  index={index}
+                  categoryId={id}
+                  category={categories[id]}
+                  categoryClicked={categoryClicked}
+                  shouldFlip={shouldFlip}
+                />
+          }
+        </li>
+      )
+    });
   }
 
   return (

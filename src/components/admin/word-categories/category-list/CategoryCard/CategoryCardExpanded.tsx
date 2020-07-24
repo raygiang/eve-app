@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CategoryEdit from './edit-form/CategoryEdit';
 import { Flipped } from "react-flip-toolkit";
 import { CategoryCardProps } from '../../models/models';
-import DeleteButton from './delete-button/DeleteButton';
+import DeleteButton from '../../../general/delete-button/DeleteButton';
+import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
 
-const CategoryCardExpanded = ({ index, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
+const CategoryCardExpanded = ({ index, categoryId, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
+  const [deleting, setDeleting] = useState<boolean>(false);
+  const [deleteError, setDeleteError] = useState<string>('');
+  const deleteTopLevelCategory = firebase.functions().httpsCallable('deleteTopLevelCategory');
+
+  if(!category) return <></>;
+
+  const deleteCategory = (): void => {
+    setDeleting(true);
+    deleteTopLevelCategory({ id: categoryId }).then((): void => {
+      setDeleting(false);
+    }).catch((error: {message: string}) => {
+      setDeleteError(error.message);
+      setDeleting(false);
+    });
+  }
+
   return (
     <Flipped
       flipId={`category-${index}`}
@@ -25,11 +42,12 @@ const CategoryCardExpanded = ({ index, category, categoryClicked, shouldFlip } :
               </Flipped>
               <div className="category--expanded__button-container">
                 <Flipped flipId={`delete-${index}`} stagger="card-content" shouldFlip={shouldFlip(index)}>
-                  <DeleteButton />
+                  <DeleteButton disabled={deleting} deleteFunction={deleteCategory} />
                 </Flipped>
               </div>
             </div>
             <CategoryEdit index={index} categoryClicked={categoryClicked} />
+            { deleteError && <p className="category--expanded__delete-error">{ deleteError }</p> }
           </div>
         </Flipped>
       </div>

@@ -15,6 +15,10 @@
     column-gap: 0.5rem;
   }
   
+  &__delete-error {
+    color: $error-color;
+  }
+
   button {
     @include svg-button;
   }
@@ -29,46 +33,13 @@
 }
 
 .category--expanded {
-  &__header, &__edit-form {
+  &__header {
     display: grid;
     grid-template-columns: auto 40px;
     column-gap: 1rem;
   }
 
   &__button-container {
-    grid-template-columns: 1fr;
-  }
-
-  &__edit-form {
-    padding-top: 1.5rem;
-    grid-template-columns: auto 80px;
-    opacity: 0;
-
-    input {
-      @include form-input;
-    }
-  }
-
-  &__form-row {
-    display: grid;
-    grid-template-columns: max-content auto;
-    column-gap: 0.5rem;
-
-    label {
-      margin: auto 0;
-    }
-  }
-
-  &__submit-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  &__save-option {
-    color: $success-color;
-  }
-
-  &__cancel-option {
-    color: $error-color;
+    grid-template-columns: 100%;
   }
 }

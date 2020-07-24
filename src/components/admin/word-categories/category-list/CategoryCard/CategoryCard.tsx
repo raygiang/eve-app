@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Flipped } from "react-flip-toolkit";
 import { CategoryCardProps } from '../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import DeleteButton from './delete-button/DeleteButton';
+import DeleteButton from '../../../general/delete-button/DeleteButton';
+import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
 
-const CategoryCard = ({ index, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
+const CategoryCard = ({ index, categoryId, category, categoryClicked, shouldFlip } : CategoryCardProps) : JSX.Element => {
+  const [deleting, setDeleting] = useState<boolean>(false);
+  const [deleteError, setDeleteError] = useState<string>('');
+  const deleteTopLevelCategory = firebase.functions().httpsCallable('deleteTopLevelCategory');
+
+  if(!category) return <></>;
+
+  const deleteCategory = (): void => {
+    setDeleting(true);
+    deleteTopLevelCategory({ id: categoryId }).then((): void => {
+      setDeleting(false);
+    }).catch((error: {message: string}) => {
+      setDeleteError(error.message);
+      setDeleting(false);
+    });
+  }
+
   return (
     <Flipped
       flipId={`category-${index}`}
@@ -28,9 +45,10 @@ const CategoryCard = ({ index, category, categoryClicked, shouldFlip } : Categor
                 <FontAwesomeIcon icon={faEdit} />
               </button>
               <Flipped flipId={`delete-${index}`} stagger="card-content" shouldFlip={shouldFlip(index)}>
-                <DeleteButton />
+                <DeleteButton disabled={deleting} deleteFunction={deleteCategory} />
               </Flipped>
             </div>
+            { deleteError && <p className="category__delete-error">{ deleteError }</p> }
           </div>
         </Flipped>
       </div>

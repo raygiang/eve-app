@@ -1,4 +1,4 @@
-@import '../../../../../../style/theme.scss';
+@import '../../../../style/theme.scss';
 
 .confirm-popover {
   display: grid;
@@ -7,6 +7,7 @@
 
   &__message {
     color: #000;
+    width: max-content;
   }
 
   &__button-container {
