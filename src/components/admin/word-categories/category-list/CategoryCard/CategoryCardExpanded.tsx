@@ -40,7 +40,7 @@ const CategoryCardExpanded = ({ type, index, categoryId, category, categoryClick
             <div className="category--expanded__header">
               <Flipped flipId={`heading-${index}`} stagger="card-content" shouldFlip={shouldFlip(index)}>
                 <h3 className="category--expanded__name">
-                  <Link to={`/admin-dashboard/subcategories/${categoryId}`}>
+                <Link to={`/admin-dashboard/${type === CategoryTypes.Top ? 'subcategories' : 'groups'}/${categoryId}`}>
                     {category.name}
                   </Link>
                 </h3>

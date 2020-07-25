@@ -24,12 +24,12 @@ const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: Cate
     const newDocument = type === CategoryTypes.Top
       ? {
           name: data.name,
-          subcategories: []
+          createdAt: new Date(),
         }
       : {
           name: data.name,
-          groups: [],
-          parent: parentId
+          parent: parentId,
+          createdAt: new Date(),
         }
 
     categoriesCollection.doc().set(newDocument).then((): void => {
