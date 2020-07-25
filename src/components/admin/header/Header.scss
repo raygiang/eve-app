@@ -3,10 +3,6 @@
 .admin-header {
   border-bottom: 1px solid $secondary-color;
   height: $header-height;
-  
-  a {
-    text-decoration: none;
-  }
 
   &__wrapper {
     display: flex;

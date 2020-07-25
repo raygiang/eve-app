@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import firebase from '../../../../config/firebaseConfig';
 import './LoginForm.scss';
 
-const LoginForm = () : JSX.Element => {
+const LoginForm = (): JSX.Element => {
   const [authError, setAuthError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, errors } = useForm();

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WeeklyStudyGuides = () => {
+const WeeklyStudyGuides = (): JSX.Element => {
   return (
     <div>
       <h1>Weekly Study Guides</h1>

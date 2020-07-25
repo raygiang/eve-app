@@ -8,7 +8,7 @@ import DeleteButton from '../../../general/delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
 
-const CategoryCard = ({ type, index, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage } : CategoryCardProps) : JSX.Element => {
+const CategoryCard = ({ type, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage } : CategoryCardProps): JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
   const collectionName = type === CategoryTypes.Top ? 'top-level-categories' : 'subcategories';
@@ -27,7 +27,7 @@ const CategoryCard = ({ type, index, categoryId, category, categoryClicked, shou
 
   return (
     <Flipped
-      flipId={`category-${index}`}
+      flipId={`category-${categoryId}`}
       stagger="card"
       onStart={(el: HTMLElement) : void => {
         setTimeout((): void => {
@@ -36,9 +36,9 @@ const CategoryCard = ({ type, index, categoryId, category, categoryClicked, shou
       }}
     >
       <div className="category">
-        <Flipped inverseFlipId={`category-${index}`} shouldInvert={shouldFlip(index)}>
+        <Flipped inverseFlipId={`category-${categoryId}`} shouldInvert={shouldFlip(categoryId)}>
           <div className="category__content-container">
-            <Flipped flipId={`heading-${index}`} stagger="card-content" shouldFlip={shouldFlip(index)}>
+            <Flipped flipId={`heading-${categoryId}`} stagger="card-content" shouldFlip={shouldFlip(categoryId)}>
               <h3 className="category__name">
                 <Link to={`/admin-dashboard/${type === CategoryTypes.Top ? 'subcategories' : 'groups'}/${categoryId}`}>
                   {category.name}
@@ -46,10 +46,10 @@ const CategoryCard = ({ type, index, categoryId, category, categoryClicked, shou
               </h3>
             </Flipped>
             <div className="category__button-container">
-              <button onClick={():any => categoryClicked(index)}>
+              <button onClick={():any => categoryClicked(categoryId)} title="Edit">
                 <FontAwesomeIcon icon={faEdit} />
               </button>
-              <Flipped flipId={`delete-${index}`} stagger="card-content" shouldFlip={shouldFlip(index)}>
+              <Flipped flipId={`delete-${categoryId}`} stagger="card-content" shouldFlip={shouldFlip(categoryId)}>
                 <DeleteButton disabled={deleting} deleteFunction={deleteCategory} />
               </Flipped>
             </div>

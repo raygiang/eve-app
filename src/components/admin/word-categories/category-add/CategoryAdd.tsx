@@ -11,7 +11,7 @@ interface CategoryAddProps {
   parentId?: string,
 }
 
-const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: CategoryAddProps) : JSX.Element => {
+const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: CategoryAddProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
   const { register, handleSubmit, errors, reset } = useForm();

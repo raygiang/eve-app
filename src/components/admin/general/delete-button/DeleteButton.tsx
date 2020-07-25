@@ -13,7 +13,7 @@ export interface DeleteProps {
   deleteFunction: DeleteFunction,
 }
 
-const DeleteButton = ({ disabled, deleteFunction }: DeleteProps) : JSX.Element => {
+const DeleteButton = ({ disabled, deleteFunction }: DeleteProps): JSX.Element => {
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   
   const confirmClick = () : void => {
@@ -43,7 +43,7 @@ const DeleteButton = ({ disabled, deleteFunction }: DeleteProps) : JSX.Element =
         trigger="click"
         theme="light-border"
       >
-        <button ref={setButtonRef} disabled={disabled}>
+        <button ref={setButtonRef} title="Delete" disabled={disabled}>
           <FontAwesomeIcon icon={faTrashAlt} />
         </button>
       </Tippy>

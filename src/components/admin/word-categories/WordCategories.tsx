@@ -8,14 +8,14 @@ import CategoryList from './category-list/CategoryList';
 import Loading from '../../general/loading/Loading';
 import './WordCategories.scss';
 
-const WordCategories = () : JSX.Element => {
+const WordCategories = (): JSX.Element => {
   const [successMessage, setSuccessMessage] = useState<string>('');
 
   useFirestoreConnect([
-    { collection: 'top-level-categories' }
+    { collection: 'top-level-categories', orderBy: ['createdAt', 'asc'] }
   ]);
 
-  const topLevelCategories = useSelector(({ firestore: { data } }: any) => data['top-level-categories'], isEqual);
+  const topLevelCategories = useSelector(({ firestore: { ordered } }: any) => ordered['top-level-categories'], isEqual);
 
   if(!isLoaded(topLevelCategories)) return <Loading />;
 

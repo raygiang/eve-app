@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Home = () => {
+const Home = (): JSX.Element => {
   return (
     <div>
       <h1>ADMIN HOME PAGE</h1>

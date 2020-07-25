@@ -1,50 +1,46 @@
 import React, { useState } from 'react';
 import { Flipper } from "react-flip-toolkit";
-import { CategoryTypes, TopLevelCategories } from '../../models/models';
+import { CategoryTypes, Category } from '../../models/models';
 import CategoryCard from './CategoryCard/CategoryCard';
 import CategoryCardExpanded from './CategoryCard/CategoryCardExpanded';
 import './CategoryList.scss';
 
 interface CategoryListProps {
   type: CategoryTypes,
-  categories: TopLevelCategories,
+  categories: Category[],
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
 }
 
-const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProps) : JSX.Element => {
-  const [focusedIndices, setFocusedIndices] = useState<Map<number, boolean>>(new Map());
+const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProps): JSX.Element => {
+  const [focusedIds, setFocusedIds] = useState<Map<string, boolean>>(new Map());
 
-  const categoryClicked = (index: number) : void => {
-    let copyIndexMap = new Map(focusedIndices);
-    focusedIndices.get(index) ? copyIndexMap.delete(index) : copyIndexMap.set(index, true);
-    setFocusedIndices(copyIndexMap);
+  const categoryClicked = (id: string) : void => {
+    let copyIdsMap = new Map(focusedIds);
+    focusedIds.get(id) ? copyIdsMap.delete(id) : copyIdsMap.set(id, true);
+    setFocusedIds(copyIdsMap);
   }
 
-  const shouldFlip = (index: number) => (prevDecisionData: number, currentDecisionData: number) =>
-    index === prevDecisionData || index === currentDecisionData;
+  const shouldFlip = (id: string) => (prevDecisionData: string, currentDecisionData: string) =>
+    id === prevDecisionData || id === currentDecisionData;
 
-  const renderCategories = () : JSX.Element[] => {
-    const categoryIds = Object.keys(categories);
-    return categoryIds.reduce((result: JSX.Element[], id: string, index: number) => {
-      if(categories[id] !== null) {
+  const renderCategories = (): JSX.Element[] => {
+    return categories.reduce((result: JSX.Element[], category: Category) => {
         result.push(
-          <li key={index}>
+          <li key={category.id}>
             {
-              !focusedIndices.get(index)
+              !focusedIds.get(category.id)
                 ? <CategoryCard
                     type={type}
-                    index={index}
-                    categoryId={id}
-                    category={categories[id]}
+                    categoryId={category.id}
+                    category={category}
                     categoryClicked={categoryClicked}
                     shouldFlip={shouldFlip}
                     setSuccessMessage={setSuccessMessage}
                   />
                 : <CategoryCardExpanded
                     type={type}
-                    index={index}
-                    categoryId={id}
-                    category={categories[id]}
+                    categoryId={category.id}
+                    category={category}
                     categoryClicked={categoryClicked}
                     shouldFlip={shouldFlip}
                     setSuccessMessage={setSuccessMessage}
@@ -52,20 +48,19 @@ const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProp
             }
           </li>
         )
-      }
       return result;
     }, []);
   }
 
   return (
     <Flipper
-      flipKey={focusedIndices.keys()}
+      flipKey={focusedIds.keys()}
       className="categories"
       spring="gentle"
-      decisionData={focusedIndices.keys()}
+      decisionData={focusedIds.keys()}
       staggerConfig={{
         card: {
-          reverse: focusedIndices.size > 0,
+          reverse: focusedIds.size > 0,
           speed: 0.5
         }
       }}

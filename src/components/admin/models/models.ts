@@ -7,20 +7,16 @@ export enum CategoryTypes {
 /* Types and Interfaces */
 
 export interface Category {
+  id: string,
   name: string,
-  subcategories: string[]
+  createdAt: any
 }
 
-export interface TopLevelCategories {
-  [id: string]: Category
-}
-
-export type CategoryClickFunction = (index: number) => void;
-export type ShouldFlipFunction = (index: number) => (prevDecisionData: number, currentDecisionData: number) => boolean;
+export type CategoryClickFunction = (id: string) => void;
+export type ShouldFlipFunction = (id: string) => (prevDecisionData: string, currentDecisionData: string) => boolean;
 
 export interface CategoryCardProps {
   type: CategoryTypes,
-  index: number,
   categoryId: string,
   category: Category,
   categoryClicked: CategoryClickFunction,

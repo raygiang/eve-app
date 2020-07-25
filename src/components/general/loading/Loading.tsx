@@ -1,7 +1,7 @@
 import React from 'react';
 import './Loading.scss';
 
-const Loading = () : JSX.Element => {
+const Loading = (): JSX.Element => {
   return (
     <section className="loading-page">
       <div className="loading-page__wrapper page-wrapper">

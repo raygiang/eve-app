@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm/LoginForm';
 import './Login.scss';
 
-const Login = () : JSX.Element => {
+const Login = (): JSX.Element => {
   const auth = useSelector((state: RootState) => state.firebase.auth, shallowEqual);
 
   if(!auth.isLoaded) {

@@ -5,7 +5,7 @@ import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import firebase from '../../../config/firebaseConfig';
 import './Header.scss';
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const logOut = () : void => {
     firebase.auth().signOut();
   }

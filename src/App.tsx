@@ -5,7 +5,7 @@ import Admin from './components/admin/Admin';
 import Login from './components/admin/login/Login';
 import PageNotFound from './components/general/404/PageNotFound';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <BrowserRouter>
       <Switch>

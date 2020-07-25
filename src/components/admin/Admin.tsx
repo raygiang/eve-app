@@ -10,11 +10,12 @@ import EditHome from './edit-home/EditHome';
 import WordCategories from './word-categories/WordCategories';
 import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
 import Subcategories from './subcategories/Subcategories';
+import Groups from './groups/Groups';
 import PageNotFound from '../general/404/PageNotFound';
 import Loading from '../general/loading/Loading';
 import './Admin.scss'
 
-const Admin = () : JSX.Element => {
+const Admin = (): JSX.Element => {
   const auth = useSelector((state: RootState) => state.firebase.auth, isEqual);
   
   if(!auth.isLoaded) {
@@ -38,6 +39,7 @@ const Admin = () : JSX.Element => {
         <Route exact path="/admin-dashboard/edit-home" component={EditHome} />
         <Route exact path="/admin-dashboard/word-categories" component={WordCategories} />
         <Route exact path="/admin-dashboard/subcategories/:categoryId" component={Subcategories} />
+        <Route exact path="/admin-dashboard/groups/:subcategoryId" component={Groups} />
         <Route exact path="/admin-dashboard/weekly-study-guides" component={WeeklyStudyGuides} />
         <Route path="/admin-dashboard" component={PageNotFound} />
       </Switch>

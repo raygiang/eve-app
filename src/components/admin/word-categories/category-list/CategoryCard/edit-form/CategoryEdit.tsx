@@ -8,14 +8,13 @@ import './CategoryEdit.scss';
 
 interface CategoryEditProps {
   type: CategoryTypes,
-  index: number,
   categoryId: string,
   categoryName: string,
   categoryClicked: CategoryClickFunction,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
 }
 
-const CategoryEdit = ({ type, index, categoryId, categoryName, categoryClicked, setSuccessMessage } : CategoryEditProps) : JSX.Element => {
+const CategoryEdit = ({ type, categoryId, categoryName, categoryClicked, setSuccessMessage } : CategoryEditProps): JSX.Element => {
   const [updateError, setUpdateError] = useState('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [cancelRef, setCancelRef] = useState<HTMLButtonElement | null>(null);
@@ -69,7 +68,7 @@ const CategoryEdit = ({ type, index, categoryId, categoryName, categoryClicked, 
           className="category-edit__cancel-option"
           title="Cancel"
           disabled={submitting}
-          onClick={() => categoryClicked(index)}
+          onClick={() => categoryClicked(categoryId)}
           ref={setCancelRef}
         >
           <FontAwesomeIcon icon={faTimes} />
