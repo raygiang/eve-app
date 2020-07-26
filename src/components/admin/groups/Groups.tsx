@@ -5,6 +5,7 @@ import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import Loading from '../../general/loading/Loading';
 import './Groups.scss';
+import GroupAdd from './group-add/GroupAdd';
 
 interface PropsParams {
   subcategoryId: string,
@@ -60,9 +61,13 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
           <h1 className="groups-admin__heading">
             Groups in <span className="highlight">{parentCategory[subcategoryId].name}</span>
           </h1>
-          <Link to="/admin-dashboard/word-categories">Back to Top Level Categories</Link>
+          <Link to={`/admin-dashboard/subcategories/${parentCategory[subcategoryId].parent}`}>
+            Back to {parentCategory[subcategoryId].name}
+          </Link>
         </div>
         <p className="groups-admin__description">This is the interface for editing groups inside of a subcategory.</p>
+        <GroupAdd setSuccessMessage={setSuccessMessage} subcategoryId={subcategoryId} />
+        { successMessage && <p className="groups-admin__success-message success">{ successMessage }</p> }
       </div>
     </section>
   )
