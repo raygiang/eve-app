@@ -16,6 +16,7 @@ const GroupAdd = ({ setSuccessMessage, subcategoryId }: GroupAddProps): JSX.Elem
     setSubmitting(true);
 
     const newDocument = {
+      words: {},
       createdAt: new Date(),
     }
 

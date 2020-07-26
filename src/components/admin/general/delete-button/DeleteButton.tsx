@@ -43,7 +43,7 @@ const DeleteButton = ({ disabled, deleteFunction }: DeleteProps): JSX.Element =>
         trigger="click"
         theme="light-border"
       >
-        <button ref={setButtonRef} title="Delete" disabled={disabled}>
+        <button className="delete-button" ref={setButtonRef} title="Delete" disabled={disabled}>
           <FontAwesomeIcon icon={faTrashAlt} />
         </button>
       </Tippy>

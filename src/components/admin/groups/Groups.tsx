@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import Loading from '../../general/loading/Loading';
-import './Groups.scss';
 import GroupAdd from './group-add/GroupAdd';
+import GroupList from './group-list/GroupList';
+import './Groups.scss';
 
 interface PropsParams {
   subcategoryId: string,
@@ -68,6 +69,7 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
         <p className="groups-admin__description">This is the interface for editing groups inside of a subcategory.</p>
         <GroupAdd setSuccessMessage={setSuccessMessage} subcategoryId={subcategoryId} />
         { successMessage && <p className="groups-admin__success-message success">{ successMessage }</p> }
+        <GroupList groups={groups} subcategoryId={subcategoryId} setSuccessMessage={setSuccessMessage} />
       </div>
     </section>
   )

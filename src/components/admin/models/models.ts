@@ -6,6 +6,11 @@ export enum CategoryTypes {
 
 /* Types and Interfaces */
 
+export interface CreatedAt {
+  seconds: number,
+  nanoseconds: number,
+}
+
 export interface Category {
   id: string,
   name: string,
@@ -22,4 +27,19 @@ export interface CategoryCardProps {
   categoryClicked: CategoryClickFunction,
   shouldFlip: ShouldFlipFunction,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+}
+
+export interface Word {
+  customDefinition: string,
+  dictionaryUrl: string,
+}
+
+export interface WordList {
+  [word: string]: Word
+}
+
+export interface Group {
+  id: string,
+  words: WordList,
+  createdAt: CreatedAt
 }
