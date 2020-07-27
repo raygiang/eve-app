@@ -69,7 +69,7 @@ const Subcategories = ({ match } : SubcategoryProps): JSX.Element => {
         />
         <CategoryList
           type={CategoryTypes.Sub}
-          categories={subcategories ? subcategories : []}
+          categories={subcategories || []}
           setSuccessMessage={setSuccessMessage}
         />
       </div>

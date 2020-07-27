@@ -9,7 +9,13 @@ export enum CategoryTypes {
 export interface Category {
   id: string,
   name: string,
-  createdAt: any
+  createdAt: any,
+}
+
+export interface CategoryDocument {
+  name: string,
+  createdAt: any,
+  parent?: string,
 }
 
 export type CategoryClickFunction = (id: string) => void;

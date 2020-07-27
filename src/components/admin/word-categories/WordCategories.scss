@@ -1,3 +1,5 @@
+@import '../../../style/theme.scss';
+
 .categories-admin {
   &__wrapper {
     padding: 2rem 1rem;
@@ -6,6 +8,6 @@
   }
 
   &__heading {
-    font-size: 28px;
+    font-size: $large-font;
   }
 }
