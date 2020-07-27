@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import Loading from '../../general/loading/Loading';
+import ListContainer from './list-container/ListContainer';
 import './WordList.scss';
 
 interface PropsParams {
@@ -52,7 +53,6 @@ const WordList = ({ match }: WordListProps): JSX.Element => {
     )
   }
 
-
   return (
     <section className="word-list-admin">
       <div className="word-list-admin__wrapper page-wrapper">
@@ -66,6 +66,7 @@ const WordList = ({ match }: WordListProps): JSX.Element => {
         </div>
         <p className="word-list-admin__description">This is the interface for editing the word list inside of a group.</p>
         { successMessage && <p className="word-list-admin__success-message success">{ successMessage }</p> }
+        <ListContainer words={group.words} />
         {/* <GroupAdd setSuccessMessage={setSuccessMessage} subcategoryId={subcategoryId} /> */}
         {/* <GroupList groups={groups} subcategoryId={subcategoryId} setSuccessMessage={setSuccessMessage} /> */}
       </div>

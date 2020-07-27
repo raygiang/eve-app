@@ -14,7 +14,7 @@ export interface CreatedAt {
 export interface Category {
   id: string,
   name: string,
-  createdAt: any
+  createdAt: CreatedAt
 }
 
 export type CategoryClickFunction = (id: string) => void;
