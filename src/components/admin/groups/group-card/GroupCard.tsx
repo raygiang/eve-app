@@ -48,7 +48,7 @@ const GroupCard = ({ number, group, subcategoryId, setSuccessMessage }: GroupCar
               <Link to={`/admin-dashboard/word-list/${subcategoryId}/${group.id}`} className="group-card__edit-button">
                 View/Edit Group
               </Link>
-              <DeleteButton disabled={deleting} deleteFunction={deleteGroup} />
+              <DeleteButton disabled={deleting} deleteFunction={deleteGroup} text="Delete" />
             </div>
             { deleteError && <p className="group-card__error error">{ deleteError }</p> }
           </div>

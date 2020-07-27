@@ -19,7 +19,7 @@ export interface Category {
 
 export interface CategoryDocument {
   name: string,
-  createdAt: CreatedAt,
+  createdAt: Date,
   parent?: string,
 }
 

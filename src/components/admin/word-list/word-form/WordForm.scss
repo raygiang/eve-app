@@ -1,0 +1,58 @@
+@import '../../../../style/theme.scss';
+
+.word-form {
+  background-color: $background-color;
+  border-radius: 10px;
+  padding: 1rem;
+
+  &__form {
+    display: grid;
+    row-gap: 1rem;
+  }
+
+  &__field-row {
+    display: flex;
+
+    label {
+      margin-right: 0.5rem;
+    }
+    
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+  }
+
+  &__field {
+    @include form-input;
+    width: 70%;
+    min-width: 200px;
+  }
+
+  &__close-container {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      @include svg-button;
+    }
+  }
+
+  &__submit-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__save-button {
+    margin-right: 1rem;
+  }
+
+  &__save-button, .delete-button {
+    @include primary-button;
+  }
+
+  .delete-button {
+    background-color: $error-color;
+    border-color: $error-color;
+  }
+}

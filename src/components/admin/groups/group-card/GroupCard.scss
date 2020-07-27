@@ -18,13 +18,10 @@
     row-gap: 0.5rem;
   }
 
-  button:hover {
-    cursor: pointer;
-  }
-
   &__edit-button, .delete-button {
     @include primary-button;
     text-align: center;
+    font-size: 16px;
   }
   
   .delete-button {

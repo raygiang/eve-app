@@ -34,9 +34,10 @@ const WordList = ({ match }: WordListProps): JSX.Element => {
   ]);
 
   const parentCategory = useSelector(({ firestore: { data } }: any) => data['subcategories'], isEqual);
-  const group = useSelector(({ firestore: { data } }: any) => data['groups'], isEqual);
-
+  let group = useSelector(({ firestore: { data } }: any) => data['groups'], isEqual);
+  
   if(!isLoaded(parentCategory) || !isLoaded(group)) return <Loading />;
+  if(group[groupId]) group = group[groupId];
   
   if(!parentCategory || !group) {
     return (
@@ -66,9 +67,10 @@ const WordList = ({ match }: WordListProps): JSX.Element => {
         </div>
         <p className="word-list-admin__description">This is the interface for editing the word list inside of a group.</p>
         { successMessage && <p className="word-list-admin__success-message success">{ successMessage }</p> }
-        <ListContainer words={group.words} />
-        {/* <GroupAdd setSuccessMessage={setSuccessMessage} subcategoryId={subcategoryId} /> */}
-        {/* <GroupList groups={groups} subcategoryId={subcategoryId} setSuccessMessage={setSuccessMessage} /> */}
+        <ListContainer
+          words={group.words}
+          setSuccessMessage={setSuccessMessage}
+        />
       </div>
     </section>
   )

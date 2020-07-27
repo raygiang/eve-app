@@ -26,7 +26,7 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
   const subcategoryId = match.params.subcategoryId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId },
+    { collection: 'subcategories', doc: subcategoryId, storeAs: 'subcategories' },
     { collection: 'subcategories', doc: subcategoryId, storeAs: 'groups',
       subcollections: [{
         collection: 'groups',
@@ -40,7 +40,7 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
 
   if(!isLoaded(parentCategory) || !isLoaded(groups)) return <Loading />;
 
-  if(!parentCategory[subcategoryId]) {
+  if(!parentCategory) {
     return (
       <section className="subcategories-admin">
         <div className="subcategories-admin__wrapper page-wrapper">
@@ -60,10 +60,10 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
       <div className="groups-admin__wrapper page-wrapper">
         <div className="groups-admin__header">
           <h1 className="groups-admin__heading">
-            Groups in <span className="highlight">{parentCategory[subcategoryId].name}</span>
+            Groups in <span className="highlight">{parentCategory.name}</span>
           </h1>
-          <Link to={`/admin-dashboard/subcategories/${parentCategory[subcategoryId].parent}`}>
-            Back to {parentCategory[subcategoryId].name}
+          <Link to={`/admin-dashboard/subcategories/${parentCategory.parent}`}>
+            Back to {parentCategory.name}
           </Link>
         </div>
         <p className="groups-admin__description">This is the interface for editing groups inside of a subcategory.</p>
