@@ -1,31 +1,89 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Flipped } from 'react-flip-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { WordList } from '../../models/models';
-import './WordForm.scss';
 import DeleteButton from '../../general/delete-button/DeleteButton';
+import firebase from '../../../../config/firebaseConfig';
+import './WordForm.scss';
 
 interface WordFormProps {
   word: string,
   setFocusedId: React.Dispatch<React.SetStateAction<string | null>>,
   wordList: WordList,
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+  subcategoryId: string,
+  groupId: string,
 }
 
-const WordForm = ({ word, setFocusedId, wordList }: WordFormProps): JSX.Element => {
+const WordForm = ({ word, setFocusedId, wordList, setSuccessMessage, subcategoryId, groupId }: WordFormProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
-  // const [submitError, setSubmitError] = useState<string>('');
-  const { register, handleSubmit, errors, reset } = useForm();
+  const [submitError, setSubmitError] = useState<string>('');
+  const { register, handleSubmit, errors } = useForm();
+  const groupCollection = firebase.firestore().collection('subcategories').doc(subcategoryId).collection('groups').doc(groupId);
+
+  const updateGroupCollection = (data: any, newWord: string, wordListCopy: WordList, successMessage: string): void => {
+    wordListCopy[newWord] = {
+      customDefinition: data['custom-definition'],
+      dictionaryUrl: data['dictionary-url'],
+    };
+    groupCollection.update({ words: wordListCopy }).then((): void => {
+      setSuccessMessage(successMessage);
+      setSubmitting(false);
+      setFocusedId(null);
+    }).catch((error: { message: string }): void => {
+      setSuccessMessage('');
+      setSubmitError(error.message);
+      setSubmitting(false);
+    });
+  }
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
-    console.log(data);
-    setSubmitting(false);
+    const wordListCopy = { ...wordList }
+    const newWord = data.word.toLowerCase().trim();
+
+    // Updating an existing word
+    if(word === newWord) {
+      updateGroupCollection(data, newWord, wordListCopy, `Updated word: ${newWord}`);
+    }
+    else {
+      // If new word already exists
+      if(wordListCopy[newWord]) {
+        setSuccessMessage('');
+        setSubmitError('That word already exists in this list.');
+        setSubmitting(false);
+        return;
+      }
+
+      // Replacing an existing word
+      if(word && word !== newWord) {
+        delete wordListCopy[word];
+        updateGroupCollection(data, newWord, wordListCopy, `${word} removed, ${newWord} added`);
+      }
+      // Adding a completely new word
+      else {
+        updateGroupCollection(data, newWord, wordListCopy, `Added new word: ${newWord}`);
+      }
+    }
   }
 
   const deleteWord = () => {
-
+    if(word) {
+      setSubmitting(true);
+      const wordListCopy = { ...wordList }
+      delete wordListCopy[word];
+      groupCollection.update({ words: wordListCopy }).then((): void => {
+        setSuccessMessage(`Word deleted: ${word}`);
+        setSubmitting(false);
+        setFocusedId(null);
+      }).catch((error: { message: string }): void => {
+        setSuccessMessage('');
+        setSubmitError(error.message);
+        setSubmitting(false);
+      });
+    }
   }
 
   return (
@@ -72,11 +130,12 @@ const WordForm = ({ word, setFocusedId, wordList }: WordFormProps): JSX.Element 
               />
             </div>
             <div className="word-form__submit-row">
-              <button className="word-form__save-button" type="submit">
+              <button disabled={submitting} className="word-form__save-button" type="submit">
                 { word ? 'Save' : 'Add' }
               </button>
               { word && <DeleteButton disabled={submitting} deleteFunction={deleteWord} text="Delete" /> }
             </div>
+            { submitError && <p className="category-edit__error error">{ submitError }</p> }
           </form>
         </Flipped>
       </div>

@@ -8,11 +8,13 @@ import './ListContainer.scss';
 interface ListContainerProps {
   words: WordList,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+  subcategoryId: string,
+  groupId: string,
 }
 
-const ListContainer = ({ words, setSuccessMessage }: ListContainerProps): JSX.Element => {
+const ListContainer = ({ words, setSuccessMessage, subcategoryId, groupId }: ListContainerProps): JSX.Element => {
   const [focusedId, setFocusedId] = useState<string | null>(null);
-  const wordList = [...Object.keys(words), ''];
+  const wordList = [...Object.keys(words).sort(), ''];
 
   const renderWordList = (): JSX.Element[] => {
     return wordList.reduce((result: JSX.Element[], word: string, index: number) => {
@@ -37,7 +39,17 @@ const ListContainer = ({ words, setSuccessMessage }: ListContainerProps): JSX.El
       spring="verygentle"
     >
       <h2>Word List</h2>
-      { focusedId !== null && <WordForm word={focusedId} setFocusedId={setFocusedId} wordList={words} /> }
+      {
+        focusedId !== null && 
+          <WordForm
+            word={focusedId}
+            setFocusedId={setFocusedId}
+            wordList={words}
+            setSuccessMessage={setSuccessMessage}
+            subcategoryId={subcategoryId}
+            groupId={groupId}
+          />
+      }
       <ul className="list-container__list">
         { renderWordList() }
       </ul>

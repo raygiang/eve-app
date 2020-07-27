@@ -63,7 +63,7 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
             Groups in <span className="highlight">{parentCategory.name}</span>
           </h1>
           <Link to={`/admin-dashboard/subcategories/${parentCategory.parent}`}>
-            Back to {parentCategory.name}
+            Back to Subcategories Page
           </Link>
         </div>
         <p className="groups-admin__description">This is the interface for editing groups inside of a subcategory.</p>

@@ -10,6 +10,24 @@
     row-gap: 1rem;
   }
 
+  &__word-list {
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+
+    li {
+      margin-right: 1rem;
+      margin-top: 0.5rem;
+      border: 1px solid #AAA;
+      border-radius: 5px;
+      padding: 0.25rem 0.5rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
   &__button-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(auto, 155px));

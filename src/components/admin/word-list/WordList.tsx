@@ -70,6 +70,8 @@ const WordList = ({ match }: WordListProps): JSX.Element => {
         <ListContainer
           words={group.words}
           setSuccessMessage={setSuccessMessage}
+          subcategoryId={subcategoryId}
+          groupId={groupId}
         />
       </div>
     </section>

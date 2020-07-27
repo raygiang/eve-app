@@ -11,10 +11,7 @@ interface WordButtonProps {
 
 const WordButton = ({ word, setFocusedId }: WordButtonProps): JSX.Element => {
   return (
-    <Flipped
-      flipId={`word-${word}`}
-      // stagger="card"
-    >
+    <Flipped flipId={`word-${word}`}>
       <div className="button-container">
         <Flipped inverseFlipId={`word-${word}`}>
           <button
