@@ -48,7 +48,7 @@ const CategoryEdit = ({ type, categoryId, categoryName, categoryClicked, setSucc
         <input
           id="name"
           name="name"
-          className={errors.name ? 'category-edit__field error' : 'category-edit__field'}
+          className={`category-edit__field ${errors.name ? 'error' : ''}`}
           type="text"
           defaultValue={categoryName}
           ref={register({ required: 'Please enter a new name.' })}

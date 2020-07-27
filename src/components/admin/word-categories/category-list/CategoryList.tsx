@@ -15,7 +15,7 @@ const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProp
   const [focusedIds, setFocusedIds] = useState<Map<string, boolean>>(new Map());
 
   const categoryClicked = (id: string) : void => {
-    let copyIdsMap = new Map(focusedIds);
+    const copyIdsMap = new Map(focusedIds);
     focusedIds.get(id) ? copyIdsMap.delete(id) : copyIdsMap.set(id, true);
     setFocusedIds(copyIdsMap);
   }

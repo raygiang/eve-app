@@ -31,7 +31,7 @@ const WordCategories = (): JSX.Element => {
         />
         <CategoryList
           type={CategoryTypes.Top}
-          categories={topLevelCategories ? topLevelCategories : []}
+          categories={topLevelCategories || []}
           setSuccessMessage={setSuccessMessage}
         />
       </div>

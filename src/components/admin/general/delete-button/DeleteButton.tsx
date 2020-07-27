@@ -18,7 +18,7 @@ const DeleteButton = ({ disabled, deleteFunction }: DeleteProps): JSX.Element =>
   
   const confirmClick = () : void => {
     buttonRef?.click();
-    deleteFunction()
+    deleteFunction();
   }
 
   const cancelClick = () : void => {

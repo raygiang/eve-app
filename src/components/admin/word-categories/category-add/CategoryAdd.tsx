@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CategoryTypes } from '../../models/models';
+import { CategoryTypes, CategoryDocument } from '../../models/models';
 import firebase from '../../../../config/firebaseConfig';
 import './CategoryAdd.scss';
 
@@ -21,16 +21,12 @@ const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: Cate
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
 
-    const newDocument = type === CategoryTypes.Top
-      ? {
-          name: data.name,
-          createdAt: new Date(),
-        }
-      : {
-          name: data.name,
-          parent: parentId,
-          createdAt: new Date(),
-        }
+    const newDocument: CategoryDocument = {
+      name: data.name,
+      createdAt: new Date(),
+    };
+
+    if(type === CategoryTypes.Top) newDocument.parent = parentId;
 
     categoriesCollection.doc().set(newDocument).then((): void => {
       setSubmitting(false);
@@ -53,7 +49,7 @@ const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: Cate
           <input
             id="name"
             name="name"
-            className={errors.name ? 'category-add__field error' : 'category-add__field'}
+            className={`category-add__field ${errors.name ? 'error' : ''}`}
             type="text"
             ref={register({ required: 'Please enter a name.' })}
           />

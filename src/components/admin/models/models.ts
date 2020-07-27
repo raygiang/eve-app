@@ -14,7 +14,13 @@ export interface CreatedAt {
 export interface Category {
   id: string,
   name: string,
-  createdAt: CreatedAt
+  createdAt: CreatedAt,
+}
+
+export interface CategoryDocument {
+  name: string,
+  createdAt: CreatedAt,
+  parent?: string,
 }
 
 export type CategoryClickFunction = (id: string) => void;
