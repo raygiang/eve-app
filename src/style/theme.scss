@@ -1,13 +1,32 @@
+// Colours
 $primary-color: #5995ED;
 $secondary-color: #044389;
 $accent-color: #FFAD05;
-$background-color: #f5f8fc;
+$background-color: #BFD6F8;
 $text-color: #525766;
 $link-color: #F9F086;
-$error-color: red;
-$header-height: 56px;
+$success-color: #006100;
+$error-color: #BD0000;
+
+$header-height: 65px;
 $footer-height: 38px;
+
 $heading-font: 'Rubik', 'sans-serif';
+
+// Font Sizes
+$large-font: 28px;
+
+// Screen Sizes
+$sm: 480px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1366px;
+
+@mixin breakpoint($size) {
+  @media screen and (max-width: $size) {
+    @content
+  }
+}
 
 @mixin image-container {
   display: flex;
@@ -39,7 +58,6 @@ $heading-font: 'Rubik', 'sans-serif';
 
 @mixin primary-button {
   padding: 0.25rem 1rem;
-  text-decoration: none;
   transition: all 0.3s ease-in-out;
   border: 2px solid $secondary-color;
   border-radius: 5px;
@@ -68,12 +86,43 @@ $heading-font: 'Rubik', 'sans-serif';
 @mixin primary-link {
   position: relative;
   color: #FFF;
-  text-decoration: none;
   border-bottom: 3px solid $primary-color;
   transition: 0.3s all ease;
 
   &:hover {
     border-color: transparent;
+  }
+}
+
+@mixin form-input {
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #AAA;
+
+  &.error {
+    border-color: $error-color;
+  }
+}
+
+@mixin svg-button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  svg {
+    font-size: 20px;
+  }
+
+  &:hover {
+    svg {
+      color: $primary-color;
+    }
+  }
+
+  &:disabled {
+    svg {
+      color: #CCC;
+    }
   }
 }
 

@@ -5,9 +5,12 @@ import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm/LoginForm';
 import './Login.scss';
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const auth = useSelector((state: RootState) => state.firebase.auth, shallowEqual);
 
+  if(!auth.isLoaded) {
+    return <></>;
+  }
   if(auth.uid) {
     return <Redirect to='/admin-dashboard' />
   }

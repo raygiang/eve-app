@@ -1,0 +1,19 @@
+@import '../../../../style/theme.scss';
+
+.categories {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  &__heading {
+    padding-bottom: 1rem;
+  }
+
+  &__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 1rem;
+  }
+}

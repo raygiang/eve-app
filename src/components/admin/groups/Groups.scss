@@ -1,0 +1,23 @@
+@import '../../../style/theme.scss';
+
+.groups-admin {
+  &__wrapper {
+    padding: 2rem 1rem;
+    display: grid;
+    row-gap: 1.5rem;
+  }
+
+  &__heading {
+    font-size: $large-font;
+  }
+
+  &__success-message {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .highlight {
+    color: $accent-color;
+  }
+}

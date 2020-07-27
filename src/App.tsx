@@ -1,30 +1,21 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from './store/reducers/rootReducer';
-import Header from './components/header/Header';
-import Home from './components/home/Home';
+import Main from './components/main/Main';
 import Admin from './components/admin/Admin';
 import Login from './components/admin/login/Login';
+import PageNotFound from './components/general/404/PageNotFound';
 
-const App = () => {
-  const auth = useSelector((state: RootState) => state.firebase.auth, shallowEqual);
-
-  if(auth.isLoaded) {
-    return (
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/admin-dashboard" component={Admin} />
-          <Route path="/admin-login" component={Login} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-  else {
-    return <></>
-  }
+const App = (): JSX.Element => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Main} />
+        <Route path="/admin-dashboard" component={Admin} />
+        <Route exact path="/admin-login" component={Login} />
+        <Route path="/" component={PageNotFound} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
