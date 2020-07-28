@@ -28,30 +28,26 @@
     min-width: 200px;
   }
 
-  &__close-container {
+  &__close-container, &__submit-row {
     display: flex;
     justify-content: flex-end;
+  }
 
+  &__close-container {
     button {
       @include svg-button;
     }
-  }
-
-  &__submit-row {
-    display: flex;
-    justify-content: flex-end;
   }
 
   &__save-button {
     margin-right: 1rem;
   }
 
-  &__save-button, .delete-button {
+  &__save-button {
     @include primary-button;
   }
 
   .delete-button {
-    background-color: $error-color;
-    border-color: $error-color;
+    @include secondary-button;
   }
 }

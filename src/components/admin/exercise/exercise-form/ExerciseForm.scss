@@ -3,9 +3,7 @@
 .exercise-form {
   display: grid;
   row-gap: 1rem;
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+  @include center-container(700px);
 
   &__form-row {
     display: grid;

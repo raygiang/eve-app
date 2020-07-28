@@ -3,23 +3,14 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
+import { MatchProps } from '../models/models';
 import Loading from '../../general/loading/Loading';
 import WordList from './list-container/WordList';
 import ExerciseList from './exercise-list/ExerciseList';
 import './Group.scss';
 
-interface ParamsProps {
-  subcategoryId: string,
-  groupId: string,
-}
-
 interface GroupProps {
-  match: {
-    isExact: boolean,
-    params: ParamsProps,
-    path: string,
-    url: string,
-  }
+  match: MatchProps,
 }
 
 const Group = ({ match }: GroupProps): JSX.Element => {

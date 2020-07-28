@@ -3,23 +3,14 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { CategoryTypes } from '../models/models';
+import { CategoryTypes, MatchProps } from '../models/models';
 import Loading from '../../general/loading/Loading';
 import CategoryAdd from '../word-categories/category-add/CategoryAdd';
 import CategoryList from '../word-categories/category-list/CategoryList';
 import './Subcategories.scss';
 
-interface ParamsProps {
-  categoryId: string,
-}
-
 interface SubcategoryProps {
-  match: {
-    isExact: boolean,
-    params: ParamsProps,
-    path: string,
-    url: string,
-  }
+  match: MatchProps,
 }
 
 const Subcategories = ({ match } : SubcategoryProps): JSX.Element => {

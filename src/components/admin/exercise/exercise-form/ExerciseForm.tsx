@@ -44,9 +44,7 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
     const newExercises = pickBy(data, (value: string) => {
-      if(value.trim().length) {
-        return true;
-      }
+      return value.trim().length;
     });
     exerciseCollection.update({ questions: newExercises }).then((): void => {
       setSuccessMessage('Exercise has been saved.');

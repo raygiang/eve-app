@@ -24,14 +24,16 @@ exports.onGroupUpdate = functions.firestore.document('subcategories/{subcategory
   const deletedWords = difference(oldWords, newWords);
   const updatePromises: Promise<FirebaseFirestore.WriteResult>[] = [];
 
-  const exercises = await admin.firestore().collection('subcategories').doc(subcategoryId).collection('groups').doc(groupId).collection('exercises').get();
-  exercises.forEach(documentSnapshot => {
-    const exerciseQuestions = documentSnapshot.data().questions;
-    deletedWords.forEach((word: string) => {
-      delete exerciseQuestions[word];
-    })
-    updatePromises.push(documentSnapshot.ref.update({ questions: exerciseQuestions }));
-  });
+  if(deletedWords.length) {
+    const exercises = await admin.firestore().collection('subcategories').doc(subcategoryId).collection('groups').doc(groupId).collection('exercises').get();
+    exercises.forEach(documentSnapshot => {
+      const exerciseQuestions = documentSnapshot.data().questions;
+      deletedWords.forEach((word: string) => {
+        delete exerciseQuestions[word];
+      })
+      updatePromises.push(documentSnapshot.ref.update({ questions: exerciseQuestions }));
+    });
+  }
 
   return Promise.all(updatePromises);
 });

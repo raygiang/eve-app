@@ -18,14 +18,11 @@
     row-gap: 0.5rem;
   }
 
-  &__edit-button, .delete-button {
+  &__edit-button {
     @include primary-button;
-    text-align: center;
-    font-size: 16px;
   }
   
   .delete-button {
-    background-color: $error-color;
-    border-color: $error-color;
+    @include secondary-button;
   }
 }

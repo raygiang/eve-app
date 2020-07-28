@@ -6,6 +6,20 @@ export enum CategoryTypes {
 
 /* Types and Interfaces */
 
+export interface ParamsProps {
+  categoryId: string,
+  subcategoryId: string,
+  groupId: string,
+  exerciseId: string,
+}
+
+export interface MatchProps {
+  isExact: boolean,
+  params: ParamsProps,
+  path: string,
+  url: string,
+}
+
 export interface CreatedAt {
   seconds: number,
   nanoseconds: number,
