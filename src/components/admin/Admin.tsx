@@ -31,7 +31,6 @@ const Admin = (): JSX.Element => {
   else if(!auth.uid) {
     return <Redirect to='/admin-login' />
   }
-  console.log("LOAD ADMIN");
 
   return (
     <section className="admin-dashboard">

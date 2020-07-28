@@ -24,8 +24,6 @@ exports.onGroupUpdate = functions.firestore.document('subcategories/{subcategory
   const deletedWords = difference(oldWords, newWords);
   const updatePromises: Promise<FirebaseFirestore.WriteResult>[] = [];
 
-  console.log(deletedWords);
-
   const exercises = await admin.firestore().collection('subcategories').doc(subcategoryId).collection('groups').doc(groupId).collection('exercises').get();
   exercises.forEach(documentSnapshot => {
     const exerciseQuestions = documentSnapshot.data().questions;
