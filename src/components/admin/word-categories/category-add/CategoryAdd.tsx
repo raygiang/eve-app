@@ -26,7 +26,7 @@ const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: Cate
       createdAt: new Date(),
     };
 
-    if(type === CategoryTypes.Top) newDocument.parent = parentId;
+    if(type !== CategoryTypes.Top) newDocument.parent = parentId;
 
     categoriesCollection.doc().set(newDocument).then((): void => {
       setSubmitting(false);

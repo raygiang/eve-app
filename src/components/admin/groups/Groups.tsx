@@ -3,21 +3,14 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
+import { MatchProps } from '../models/models';
 import Loading from '../../general/loading/Loading';
-import './Groups.scss';
 import GroupAdd from './group-add/GroupAdd';
-
-interface PropsParams {
-  subcategoryId: string,
-}
+import GroupList from './group-list/GroupList';
+import './Groups.scss';
 
 interface GroupProps {
-  match: {
-    isExact: boolean,
-    params: PropsParams,
-    path: string,
-    url: string,
-  }
+  match: MatchProps,
 }
 
 const Groups = ({ match }: GroupProps): JSX.Element => {
@@ -25,7 +18,7 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
   const subcategoryId = match.params.subcategoryId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId },
+    { collection: 'subcategories', doc: subcategoryId, storeAs: 'subcategories' },
     { collection: 'subcategories', doc: subcategoryId, storeAs: 'groups',
       subcollections: [{
         collection: 'groups',
@@ -39,7 +32,7 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
 
   if(!isLoaded(parentCategory) || !isLoaded(groups)) return <Loading />;
 
-  if(!parentCategory[subcategoryId]) {
+  if(!parentCategory) {
     return (
       <section className="subcategories-admin">
         <div className="subcategories-admin__wrapper page-wrapper">
@@ -59,15 +52,16 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
       <div className="groups-admin__wrapper page-wrapper">
         <div className="groups-admin__header">
           <h1 className="groups-admin__heading">
-            Groups in <span className="highlight">{parentCategory[subcategoryId].name}</span>
+            Groups in <span className="highlight">{parentCategory.name}</span>
           </h1>
-          <Link to={`/admin-dashboard/subcategories/${parentCategory[subcategoryId].parent}`}>
-            Back to {parentCategory[subcategoryId].name}
+          <Link to={`/admin-dashboard/subcategories/${parentCategory.parent}`}>
+            Back to Subcategories Page
           </Link>
         </div>
         <p className="groups-admin__description">This is the interface for editing groups inside of a subcategory.</p>
         <GroupAdd setSuccessMessage={setSuccessMessage} subcategoryId={subcategoryId} />
         { successMessage && <p className="groups-admin__success-message success">{ successMessage }</p> }
+        <GroupList groups={groups} subcategoryId={subcategoryId} setSuccessMessage={setSuccessMessage} />
       </div>
     </section>
   )

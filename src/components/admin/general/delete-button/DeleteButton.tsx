@@ -11,9 +11,10 @@ export type DeleteFunction = () => void;
 export interface DeleteProps {
   disabled: boolean,
   deleteFunction: DeleteFunction,
+  text?: string
 }
 
-const DeleteButton = ({ disabled, deleteFunction }: DeleteProps): JSX.Element => {
+const DeleteButton = ({ disabled, deleteFunction, text }: DeleteProps): JSX.Element => {
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   
   const confirmClick = () : void => {
@@ -29,8 +30,8 @@ const DeleteButton = ({ disabled, deleteFunction }: DeleteProps): JSX.Element =>
     <div className="confirm-popover">
       <div className="confirm-popover__message">Are you sure?</div>
       <div className="confirm-popover__button-container">
-        <button className="confirm-popover__yes-button" onClick={confirmClick}>Yes</button>
-        <button className="confirm-popover__no-button" onClick={cancelClick}>No</button>
+        <button type="button" className="confirm-popover__yes-button" onClick={confirmClick}>Yes</button>
+        <button type="button" className="confirm-popover__no-button" onClick={cancelClick}>No</button>
       </div>
     </div>
   ;
@@ -43,8 +44,8 @@ const DeleteButton = ({ disabled, deleteFunction }: DeleteProps): JSX.Element =>
         trigger="click"
         theme="light-border"
       >
-        <button ref={setButtonRef} title="Delete" disabled={disabled}>
-          <FontAwesomeIcon icon={faTrashAlt} />
+        <button type="button" className="delete-button" ref={setButtonRef} title="Delete" disabled={disabled}>
+          { text || <FontAwesomeIcon icon={faTrashAlt} /> }
         </button>
       </Tippy>
     </div>

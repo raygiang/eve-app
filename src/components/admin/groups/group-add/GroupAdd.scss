@@ -4,16 +4,12 @@
   display: grid;
   grid-template-columns: auto 80px;
   column-gap: 1rem;
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-  box-shadow: 0 0 5px -2px $secondary-color;
-  border-radius: 10px;
-  padding: 1rem;
+  @include center-container(700px);
+  @include card-styling;
 
   &__heading {
     margin: auto 0;
-    font-size: 20px;
+    font-size: $medium-font;
   }
 
   &__add-button {

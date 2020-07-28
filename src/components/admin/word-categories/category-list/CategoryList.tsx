@@ -24,39 +24,36 @@ const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProp
     id === prevDecisionData || id === currentDecisionData;
 
   const renderCategories = (): JSX.Element[] => {
-    return categories.reduce((result: JSX.Element[], category: Category) => {
-        result.push(
-          <li key={category.id}>
-            {
-              !focusedIds.get(category.id)
-                ? <CategoryCard
-                    type={type}
-                    categoryId={category.id}
-                    category={category}
-                    categoryClicked={categoryClicked}
-                    shouldFlip={shouldFlip}
-                    setSuccessMessage={setSuccessMessage}
-                  />
-                : <CategoryCardExpanded
-                    type={type}
-                    categoryId={category.id}
-                    category={category}
-                    categoryClicked={categoryClicked}
-                    shouldFlip={shouldFlip}
-                    setSuccessMessage={setSuccessMessage}
-                  />
-            }
-          </li>
-        )
-      return result;
-    }, []);
+    return categories.map((category: Category) => (
+      <li key={category.id}>
+        {
+          !focusedIds.get(category.id)
+            ? <CategoryCard
+                type={type}
+                categoryId={category.id}
+                category={category}
+                categoryClicked={categoryClicked}
+                shouldFlip={shouldFlip}
+                setSuccessMessage={setSuccessMessage}
+              />
+            : <CategoryCardExpanded
+                type={type}
+                categoryId={category.id}
+                category={category}
+                categoryClicked={categoryClicked}
+                shouldFlip={shouldFlip}
+                setSuccessMessage={setSuccessMessage}
+              />
+        }
+      </li>
+    ));
   }
 
   return (
     <Flipper
       flipKey={focusedIds.keys()}
       className="categories"
-      spring="gentle"
+      spring="verygentle"
       decisionData={focusedIds.keys()}
       staggerConfig={{
         card: {

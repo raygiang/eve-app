@@ -4,7 +4,7 @@ import 'firebase/functions';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyByEJaFMygTDpGBzhvT4In9oa1orFZ8alY",
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: "english-vocabulary-exercises.firebaseapp.com",
   databaseURL: "https://english-vocabulary-exercises.firebaseio.com",
   projectId: "english-vocabulary-exercises",

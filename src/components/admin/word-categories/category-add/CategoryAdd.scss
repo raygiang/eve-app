@@ -1,9 +1,7 @@
 @import '../../../../style/theme.scss';
 
 .category-add {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+  @include center-container(700px);
   padding: 0 1rem;
   display: grid;
   row-gap: 1rem;

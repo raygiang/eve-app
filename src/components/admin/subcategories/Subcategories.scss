@@ -2,9 +2,7 @@
 
 .subcategories-admin {
   &__wrapper {
-    padding: 2rem 1rem;
-    display: grid;
-    row-gap: 1.5rem;
+    @include admin-wrapper;
   }
 
   &__heading {

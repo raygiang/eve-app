@@ -1,9 +1,7 @@
 @import '../../../../../style/theme.scss';
 
 .category, .category--expanded {
-  padding: 1rem;
-  box-shadow: 0 0 5px -2px $secondary-color;
-  border-radius: 10px;
+  @include card-styling;
 
   &__name {
     margin: auto 0;
