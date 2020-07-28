@@ -1,10 +1,24 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Header from './header/Header';
+import Home from './home/Home';
+import PageNotFound from '../general/404/PageNotFound';
+import WordCategories from './word-categories/WordCategories';
+import Subcategories from './subcategories/Subcategories';
+import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
 
 const Main = (): JSX.Element => {
   return (
-    <div>
-      <h1>This will be a homepage</h1>
-    </div>
+    <main>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/word-categories" component={WordCategories} />
+        <Route exact path="/subcategories/:categoryId" component={Subcategories} />
+        <Route exact path="/weekly-study-guides" component={WeeklyStudyGuides} />
+        <Route path="/" component={PageNotFound} />
+      </Switch>
+    </main>
   )
 }
 

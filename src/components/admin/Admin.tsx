@@ -33,7 +33,7 @@ const Admin = (): JSX.Element => {
   }
 
   return (
-    <section className="admin-dashboard">
+    <main className="admin-dashboard">
       <Header />
       <Switch>
         <Route exact path="/admin-dashboard" component={Home} />
@@ -46,7 +46,7 @@ const Admin = (): JSX.Element => {
         <Route exact path="/admin-dashboard/weekly-study-guides" component={WeeklyStudyGuides} />
         <Route path="/admin-dashboard" component={PageNotFound} />
       </Switch>
-    </section>
+    </main>
   )
 }
 

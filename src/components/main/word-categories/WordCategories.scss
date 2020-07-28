@@ -1,0 +1,19 @@
+@import '../../../style/theme.scss';
+
+.word-categories {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: $large-font;
+  }
+  
+  &__category-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    @include center-container(800px);
+  }
+}
