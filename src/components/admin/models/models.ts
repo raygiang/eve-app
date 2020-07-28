@@ -41,11 +41,21 @@ export interface Word {
 }
 
 export interface WordList {
-  [word: string]: Word
+  [word: string]: Word,
+}
+
+export interface QuestionList {
+  [word: string]: string,
+}
+
+export interface Exercise {
+  id?: string,
+  questions: QuestionList,
+  createdAt: CreatedAt,
 }
 
 export interface Group {
-  id: string,
+  id?: string,
   words: WordList,
-  createdAt: CreatedAt
+  createdAt: CreatedAt,
 }

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Flipper } from "react-flip-toolkit";
-import { WordList } from '../../models/models';
+import { WordList as WordListInterface } from '../../models/models';
 import WordButton from '../word-button/WordButton';
 import WordForm from '../word-form/WordForm';
-import './ListContainer.scss';
+import './WordList.scss';
 
-interface ListContainerProps {
-  words: WordList,
+interface WordListProps {
+  words: WordListInterface,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
   subcategoryId: string,
   groupId: string,
 }
 
-const ListContainer = ({ words, setSuccessMessage, subcategoryId, groupId }: ListContainerProps): JSX.Element => {
+const WordList = ({ words, setSuccessMessage, subcategoryId, groupId }: WordListProps): JSX.Element => {
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const wordList = [...Object.keys(words).sort(), ''];
 
@@ -35,10 +35,10 @@ const ListContainer = ({ words, setSuccessMessage, subcategoryId, groupId }: Lis
   return (
     <Flipper
       flipKey={focusedId}
-      className="list-container"
+      className="word-list"
       spring="verygentle"
     >
-      <h2>Word List</h2>
+      <h2 className="word-list__heading">Word List</h2>
       {
         focusedId !== null && 
           <WordForm
@@ -50,11 +50,11 @@ const ListContainer = ({ words, setSuccessMessage, subcategoryId, groupId }: Lis
             groupId={groupId}
           />
       }
-      <ul className="list-container__list">
+      <ul className="word-list__list">
         { renderWordList() }
       </ul>
     </Flipper>
   )
 }
 
-export default ListContainer;
+export default WordList;

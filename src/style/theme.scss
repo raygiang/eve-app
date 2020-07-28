@@ -66,6 +66,7 @@ $xl: 1366px;
   display: inline-block;
   cursor: pointer;
   -webkit-appearance: none;
+  font-size: 16px;
 
   &:disabled {
     color: #999;
@@ -92,6 +93,18 @@ $xl: 1366px;
   &:hover {
     border-color: transparent;
   }
+}
+
+@mixin card-styling {
+  box-shadow: 0 0 5px -2px $secondary-color;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+@mixin admin-wrapper {
+  padding: 2rem 5rem;
+  display: grid;
+  row-gap: 1.5rem;
 }
 
 @mixin form-input {

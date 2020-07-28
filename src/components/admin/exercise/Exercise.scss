@@ -1,14 +1,12 @@
 @import '../../../style/theme.scss';
 
-.word-list-admin {
+.exercise-admin {
   &__wrapper {
-    padding: 2rem 1rem;
-    display: grid;
-    row-gap: 1.5rem;
+    @include admin-wrapper;
   }
 
   &__heading {
-    font-size: 28px;
+    font-size: $large-font;
   }
 
   &__success-message {

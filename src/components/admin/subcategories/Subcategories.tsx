@@ -9,14 +9,14 @@ import CategoryAdd from '../word-categories/category-add/CategoryAdd';
 import CategoryList from '../word-categories/category-list/CategoryList';
 import './Subcategories.scss';
 
-interface PropsParams {
+interface ParamsProps {
   categoryId: string,
 }
 
 interface SubcategoryProps {
   match: {
     isExact: boolean,
-    params: PropsParams,
+    params: ParamsProps,
     path: string,
     url: string,
   }

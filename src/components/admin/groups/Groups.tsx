@@ -8,14 +8,14 @@ import GroupAdd from './group-add/GroupAdd';
 import GroupList from './group-list/GroupList';
 import './Groups.scss';
 
-interface PropsParams {
+interface ParamsProps {
   subcategoryId: string,
 }
 
 interface GroupProps {
   match: {
     isExact: boolean,
-    params: PropsParams,
+    params: ParamsProps,
     path: string,
     url: string,
   }

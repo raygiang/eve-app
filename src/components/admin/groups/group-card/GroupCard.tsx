@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flipped } from "react-flip-toolkit";
-import { Group, Word } from '../../models/models';
+import { Group } from '../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../general/delete-button/DeleteButton';
 import firebase from '../../../../config/firebaseConfig';
@@ -15,7 +15,6 @@ interface GroupCardProps {
 
 const GroupCard = ({ number, group, subcategoryId, setSuccessMessage }: GroupCardProps): JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
-  const [deleteError, setDeleteError] = useState<string>('');
   const groupsCollection = firebase.firestore().collection('subcategories').doc(subcategoryId).collection('groups');
 
   const deleteGroup = (): void => {
@@ -23,9 +22,7 @@ const GroupCard = ({ number, group, subcategoryId, setSuccessMessage }: GroupCar
     groupsCollection.doc(group.id).delete().then((): void => {
       setSuccessMessage(`Group ${number} has been deleted, other groups have been renamed accordingly.`);
     }).catch((error: {message: string}) => {
-      setSuccessMessage('');
-      setDeleteError(error.message);
-      setDeleting(false);
+      setSuccessMessage(error.message);
     });
   }
 
@@ -53,12 +50,11 @@ const GroupCard = ({ number, group, subcategoryId, setSuccessMessage }: GroupCar
                 : <p>No words have been added to this group yet.</p>
             }
             <div className="group-card__button-container">
-              <Link to={`/admin-dashboard/word-list/${subcategoryId}/${group.id}`} className="group-card__edit-button">
+              <Link to={`/admin-dashboard/group/${subcategoryId}/${group.id}`} className="group-card__edit-button">
                 View/Edit Group
               </Link>
               <DeleteButton disabled={deleting} deleteFunction={deleteGroup} text="Delete" />
             </div>
-            { deleteError && <p className="group-card__error error">{ deleteError }</p> }
           </div>
         </Flipped>
       </div>

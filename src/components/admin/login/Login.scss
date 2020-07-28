@@ -1,8 +1,8 @@
+@import '../../../style/theme.scss';
+
 .login-page {
   &__wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1rem;
+    @include admin-wrapper;
   }
 
   &__heading {
