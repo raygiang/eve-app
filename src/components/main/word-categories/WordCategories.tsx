@@ -31,13 +31,13 @@ const WordCategories = (): JSX.Element => {
         <p className="word-categories__description">
           Please select a category.
         </p>
-        <ul className="word-categories__category-list">
-          {
-            topLevelCategories.length
-              ? renderCategories()
-              : <p>There are no Categories to Display.</p>
-          }
-        </ul>
+        {
+          topLevelCategories.length
+            ? <ul className="word-categories__category-list">
+                { renderCategories() }
+              </ul>
+            : <p>There are no Categories to Display.</p>
+        }
       </div>
     </section>
   )

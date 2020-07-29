@@ -15,14 +15,14 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
   const categoryId = match.params.categoryId;
 
   useFirestoreConnect([
-    { collection: 'top-level-categories', doc: categoryId },
-    { collection: 'subcategories', orderBy: ['createdAt', 'asc'], where: ['parent', '==', categoryId] }
+    { collection: 'top-level-categories', doc: categoryId, storeAs: categoryId },
+    { collection: 'subcategories', orderBy: ['createdAt', 'asc'], where: ['parent', '==', categoryId], storeAs: `subcategories-${categoryId}` }
   ]);
 
-  const topLevelCategories = useSelector(({ firestore: { data } }: any) => data['top-level-categories'], isEqual);
-  const subcategories = useSelector(({ firestore: { ordered } }: any) => ordered['subcategories'], isEqual);
+  const topLevelCategory = useSelector(({ firestore: { data } }: any) => data[categoryId], isEqual);
+  const subcategories = useSelector(({ firestore: { ordered } }: any) => ordered[`subcategories-${categoryId}`], isEqual);
 
-  if(!isLoaded(topLevelCategories) || !isLoaded(subcategories)) return <Loading />;
+  if(!isLoaded(topLevelCategory) || !isLoaded(subcategories)) return <Loading />;
 
   const renderSubcategories = () => {
     return subcategories.map((subcategory: Category): JSX.Element => (
@@ -34,22 +34,22 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
 
   return (
     <section className="subcategories">
-    <div className="subcategories__wrapper page-wrapper">
-      <h1 className="subcategories__heading">
-        Subcategories of {topLevelCategories[categoryId].name}
-      </h1>
-      <p className="subcategories__description">
-        Please select a subcategory to view.
-      </p>
-      <ul className="subcategories__list">
+      <div className="subcategories__wrapper page-wrapper">
+        <h1 className="subcategories__heading">
+          Subcategories of {topLevelCategory.name}
+        </h1>
+        <p className="subcategories__description">
+          Please select a subcategory to view.
+        </p>
         {
           subcategories.length
-            ? renderSubcategories()
+            ? <ul className="subcategories__list">
+                { renderSubcategories() }
+              </ul>
             : <p>There are no Categories to Display.</p>
         }
-      </ul>
-    </div>
-  </section>
+      </div>
+    </section>
   )
 }
 

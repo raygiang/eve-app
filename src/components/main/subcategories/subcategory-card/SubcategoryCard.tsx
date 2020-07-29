@@ -9,7 +9,7 @@ interface SubcategoryCardProps {
 
 const SubcategoryCard = ({ subcategory }: SubcategoryCardProps) => {
   return (
-    <Link to={`/groups/${subcategory.parent}/${subcategory.id}`} className="subcategory-card">
+    <Link to={`/groups/${subcategory.id}`} className="subcategory-card">
       <h2 className="subcategory-card__heading">
         {subcategory.name}
       </h2>

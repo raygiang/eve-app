@@ -2,7 +2,7 @@
 $primary-color: #5995ED;
 $secondary-color: #044389;
 $accent-color: #FFAD05;
-$background-color: #BFD6F8;
+$background-color: #E3EDFC;
 $text-color: #525766;
 $link-color: #F9F086;
 $success-color: #006100;
@@ -119,6 +119,13 @@ $small-radius: 5px;
   box-shadow: 0 0 5px -2px $secondary-color;
   border-radius: $medium-radius;
   padding: 1rem;
+  color: #000;
+}
+
+@mixin small-card {
+  border: 1px solid #AAA;
+  border-radius: $small-radius;
+  padding: 0.25rem 0.5rem;
 }
 
 @mixin admin-wrapper {

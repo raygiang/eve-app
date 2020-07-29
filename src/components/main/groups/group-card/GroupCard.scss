@@ -1,0 +1,34 @@
+@import '../../../../style/theme.scss';
+
+.group-card-main {
+  @include card-styling;
+  display: grid;
+  row-gap: 1rem;
+  padding: 1rem;
+  transition: all 0.5s ease;
+  height: 100%;
+
+  &__heading {
+    font-size: $small-font;
+    color: $secondary-color;
+  }
+
+  &__word-list {
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__word {
+    @include small-card;
+    margin: 0.25rem 1rem 0.25rem 0;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &:hover {
+    background-color: $background-color;
+  }
+}

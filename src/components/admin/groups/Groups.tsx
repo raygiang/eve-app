@@ -18,8 +18,8 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
   const subcategoryId = match.params.subcategoryId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId, storeAs: 'subcategories' },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: 'groups',
+    { collection: 'subcategories', doc: subcategoryId, storeAs: subcategoryId },
+    { collection: 'subcategories', doc: subcategoryId, storeAs: `groups-${subcategoryId}`,
       subcollections: [{
         collection: 'groups',
         orderBy: ['createdAt', 'asc']
@@ -27,8 +27,8 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
     }
   ]);
 
-  const parentCategory = useSelector(({ firestore: { data } }: any) => data['subcategories'], isEqual);
-  const groups = useSelector(({ firestore: { ordered } }: any) => ordered['groups'], isEqual);
+  const parentCategory = useSelector(({ firestore: { data } }: any) => data[subcategoryId], isEqual);
+  const groups = useSelector(({ firestore: { ordered } }: any) => ordered[`groups-${subcategoryId}`], isEqual);
 
   if(!isLoaded(parentCategory) || !isLoaded(groups)) return <Loading />;
 

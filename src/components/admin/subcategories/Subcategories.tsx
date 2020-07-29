@@ -18,16 +18,16 @@ const Subcategories = ({ match } : SubcategoryProps): JSX.Element => {
   const categoryId = match.params.categoryId;
 
   useFirestoreConnect([
-    { collection: 'top-level-categories', doc: categoryId },
-    { collection: 'subcategories', orderBy: ['createdAt', 'asc'], where: ['parent', '==', categoryId] }
+    { collection: 'top-level-categories', doc: categoryId, storeAs: categoryId },
+    { collection: 'subcategories', orderBy: ['createdAt', 'asc'], where: ['parent', '==', categoryId], storeAs: `subcategories-${categoryId}` }
   ]);
 
-  const parentCategory = useSelector(({ firestore: { data } }: any) => data['top-level-categories'], isEqual);
-  const subcategories = useSelector(({ firestore: { ordered } }: any) => ordered['subcategories'], isEqual);
+  const parentCategory = useSelector(({ firestore: { data } }: any) => data[categoryId], isEqual);
+  const subcategories = useSelector(({ firestore: { ordered } }: any) => ordered[`subcategories-${categoryId}`], isEqual);
 
   if(!isLoaded(parentCategory) || !isLoaded(subcategories)) return <Loading />;
 
-  if(!parentCategory[categoryId]) {
+  if(!parentCategory) {
     return (
       <section className="subcategories-admin">
         <div className="subcategories-admin__wrapper page-wrapper">
@@ -47,7 +47,7 @@ const Subcategories = ({ match } : SubcategoryProps): JSX.Element => {
       <div className="subcategories-admin__wrapper page-wrapper">
         <div className="subcategories-admin__header">
           <h1 className="subcategories-admin__heading">
-            Subcategories of <span className="highlight">{parentCategory[categoryId].name}</span>
+            Subcategories of <span className="highlight">{parentCategory.name}</span>
           </h1>
           <Link to="/admin-dashboard/word-categories">Back to Top Level Categories</Link>
         </div>

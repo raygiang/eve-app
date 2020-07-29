@@ -5,6 +5,7 @@ import Home from './home/Home';
 import PageNotFound from '../general/404/PageNotFound';
 import WordCategories from './word-categories/WordCategories';
 import Subcategories from './subcategories/Subcategories';
+import Groups from './groups/Groups';
 import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
 
 const Main = (): JSX.Element => {
@@ -15,6 +16,7 @@ const Main = (): JSX.Element => {
         <Route exact path="/" component={Home} />
         <Route exact path="/word-categories" component={WordCategories} />
         <Route exact path="/subcategories/:categoryId" component={Subcategories} />
+        <Route exact path="/groups/:subcategoryId/" component={Groups} />
         <Route exact path="/weekly-study-guides" component={WeeklyStudyGuides} />
         <Route path="/" component={PageNotFound} />
       </Switch>
