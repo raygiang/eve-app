@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { MatchProps, Group } from '../../admin/models/models';
 import { useSelector } from 'react-redux';
@@ -37,12 +38,34 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
     ));
   }
 
+  if(!subcategory) {
+    return (
+      <section className="groups">
+        <div className="groups__wrapper page-wrapper">
+        <div className="groups__header">
+            <h1 className="groups__heading">
+              Subcategory not Found
+            </h1>
+            <Link to={'/word-categories'}>
+              Back to Word Categories
+            </Link>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="groups">
       <div className="groups__wrapper page-wrapper">
-        <h1 className="groups__heading">
-          Groups in {subcategory.name}
-        </h1>
+        <div className="groups__header">
+          <h1 className="groups__heading">
+            Groups in {subcategory.name}
+          </h1>
+          <Link to={`/subcategories/${subcategory.parent}`}>
+            Back to Subcategories
+          </Link>
+        </div>
         <p className="groups__description">
           Please select a group to view its words and exercises.
         </p>

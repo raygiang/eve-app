@@ -1,0 +1,16 @@
+@import '../../../../style/theme.scss';
+
+.focused-word {
+  @include card-styling;
+
+  &__spinner {
+    @include spinner(8px, $primary-color, 1s);
+    height: 100px;
+    width: 100px;
+    margin: 2rem auto;
+  }
+
+  &__owlbot-pronunciation {
+    font-style: italic;
+  }
+}

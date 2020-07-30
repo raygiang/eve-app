@@ -2,8 +2,8 @@
 
 .group-card-main {
   @include card-styling;
-  display: grid;
-  row-gap: 1rem;
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   transition: all 0.5s ease;
   height: 100%;
@@ -11,6 +11,7 @@
   &__heading {
     font-size: $small-font;
     color: $secondary-color;
+    padding-bottom: 1rem;
   }
 
   &__word-list {

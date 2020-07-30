@@ -10,10 +10,7 @@
   }
   
   &__category-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
     @include center-container(800px);
+    @include grid-list(1fr 1fr);
   }
 }

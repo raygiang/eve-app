@@ -128,6 +128,13 @@ $small-radius: 5px;
   padding: 0.25rem 0.5rem;
 }
 
+@mixin grid-list($template-columns) {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: $template-columns;
+}
+
 @mixin admin-wrapper {
   padding: 2rem 5rem;
   display: grid;

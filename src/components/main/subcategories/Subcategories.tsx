@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { MatchProps, Category } from '../../admin/models/models';
 import { useSelector } from 'react-redux';
@@ -32,12 +33,34 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
     ));
   }
 
+  if(!topLevelCategory) {
+    return (
+      <section className="subcategories">
+        <div className="subcategories__wrapper page-wrapper">
+          <div className="subcategories__header">
+            <h1 className="subcategories__heading">
+              Category not Found
+            </h1>
+            <Link to={'/word-categories'}>
+              Back to Word Categories
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="subcategories">
       <div className="subcategories__wrapper page-wrapper">
-        <h1 className="subcategories__heading">
-          Subcategories of {topLevelCategory.name}
-        </h1>
+        <div className="subcategories__header">
+          <h1 className="subcategories__heading">
+            Subcategories of {topLevelCategory.name}
+          </h1>
+          <Link to={'/word-categories'}>
+            Back to Word Categories
+          </Link>
+        </div>
         <p className="subcategories__description">
           Please select a subcategory to view.
         </p>

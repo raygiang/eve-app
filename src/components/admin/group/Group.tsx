@@ -19,24 +19,24 @@ const Group = ({ match }: GroupProps): JSX.Element => {
   const groupId = match.params.groupId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId, storeAs: 'subcategories' },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: 'groups',
-      subcollections: [{ collection: 'groups', doc: groupId }]
+    { collection: 'subcategories', doc: subcategoryId, storeAs: subcategoryId },
+    { collection: 'subcategories', doc: subcategoryId, storeAs: groupId,
+      subcollections: [{ collection: 'groups', doc: groupId, storeAs: groupId }]
     },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: 'exercises',
+    { collection: 'subcategories', doc: subcategoryId, storeAs: `exercises-${groupId}`,
       subcollections: [{ collection: 'groups', doc: groupId,
         subcollections: [{ collection: 'exercises', orderBy: ['createdAt', 'asc'] }]
       }]
     }
   ]);
 
-  const parentCategory = useSelector(({ firestore: { data } }: any) => data['subcategories'], isEqual);
-  const group = useSelector(({ firestore: { data } }: any) => data['groups'], isEqual);
-  const exercises = useSelector(({ firestore: { ordered } }: any) => ordered['exercises'], isEqual);
-  
-  if(!isLoaded(parentCategory) || !isLoaded(group) || group[groupId] || !isLoaded(exercises)) return <Loading />;
-  
-  if(!parentCategory || !group) {
+  const subcategory = useSelector(({ firestore: { data } }: any) => data[subcategoryId], isEqual);
+  const group = useSelector(({ firestore: { data } }: any) => data[groupId], isEqual);
+  const exercises = useSelector(({ firestore: { ordered } }: any) => ordered[`exercises-${groupId}`], isEqual);
+
+  if(!isLoaded(subcategory) || !isLoaded(group) || !isLoaded(exercises)) return <Loading />;
+
+  if(!subcategory || !group) {
     return (
       <section className="group-admin">
         <div className="group-admin__wrapper page-wrapper">
@@ -59,7 +59,7 @@ const Group = ({ match }: GroupProps): JSX.Element => {
             Editing Group
           </h1>
           <Link to={`/admin-dashboard/groups/${subcategoryId}`}>
-            Back to {parentCategory.name}
+            Back to {subcategory.name}
           </Link>
         </div>
         <p className="group-admin__description">This is the interface for editing a group inside of a subcategory.</p>
