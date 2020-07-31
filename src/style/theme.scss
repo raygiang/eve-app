@@ -100,13 +100,7 @@ $small-radius: 5px;
 
 @mixin primary-link {
   position: relative;
-  color: #FFF;
-  border-bottom: 3px solid $primary-color;
   transition: 0.3s all ease;
-
-  &:hover {
-    border-color: transparent;
-  }
 }
 
 @mixin center-container($max-width) {

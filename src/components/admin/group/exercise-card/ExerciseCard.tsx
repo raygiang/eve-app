@@ -32,7 +32,7 @@ const ExerciseCard = ({ number, exercise, subcategoryId, groupId, setSuccessMess
       <h3 className="exercise-card__heading">Exercise { number }</h3>
       <div className="exercise-card__button-container">
         <Link to={`/admin-dashboard/exercise/${subcategoryId}/${groupId}/${exercise.id}`} className="exercise-card__edit-button">
-          View/Edit Group
+          View/Edit
         </Link>
         <DeleteButton disabled={deleting} deleteFunction={deleteGroup} text="Delete" />
       </div>

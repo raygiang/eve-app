@@ -18,20 +18,20 @@ const Exercise = ({ match }: ExerciseProps): JSX.Element => {
   const exerciseId = match.params.exerciseId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId, storeAs: 'groups',
+    { collection: 'subcategories', doc: subcategoryId, storeAs: groupId,
       subcollections: [{ collection: 'groups', doc: groupId }]
     },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: 'exercises',
+    { collection: 'subcategories', doc: subcategoryId, storeAs: exerciseId,
       subcollections: [{ collection: 'groups', doc: groupId,
         subcollections: [{ collection: 'exercises', doc: exerciseId }]
       }]
     }
   ]);
 
-  const group = useSelector(({ firestore: { data } }: any) => data['groups'], isEqual);
-  const exercise = useSelector(({ firestore: { data } }: any) => data['exercises'], isEqual);
+  const group = useSelector(({ firestore: { data } }: any) => data[groupId], isEqual);
+  const exercise = useSelector(({ firestore: { data } }: any) => data[exerciseId], isEqual);
   
-  if(!isLoaded(group) || group[groupId] || !isLoaded(exercise) || exercise[exerciseId]) return <Loading />;
+  if(!isLoaded(group) || !isLoaded(exercise)) return <Loading />;
 
   if(!group || !exercise) {
     return (

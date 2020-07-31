@@ -21,7 +21,7 @@ const Group = ({ match }: GroupProps): JSX.Element => {
   useFirestoreConnect([
     { collection: 'subcategories', doc: subcategoryId, storeAs: subcategoryId },
     { collection: 'subcategories', doc: subcategoryId, storeAs: groupId,
-      subcollections: [{ collection: 'groups', doc: groupId, storeAs: groupId }]
+      subcollections: [{ collection: 'groups', doc: groupId }]
     },
     { collection: 'subcategories', doc: subcategoryId, storeAs: `exercises-${groupId}`,
       subcollections: [{ collection: 'groups', doc: groupId,

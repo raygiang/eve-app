@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import Loading from '../../general/loading/Loading';
 import WordList from './word-list/WordList';
+import ExerciseList from './exercise-list/ExerciseList';
 import './Group.scss';
 
 interface GroupProps {
@@ -19,7 +20,7 @@ const Group = ({ match }: GroupProps): JSX.Element => {
   useFirestoreConnect([
     { collection: 'subcategories', doc: subcategoryId, storeAs: subcategoryId },
     { collection: 'subcategories', doc: subcategoryId, storeAs: groupId,
-      subcollections: [{ collection: 'groups', doc: groupId, storeAs: groupId }]
+      subcollections: [{ collection: 'groups', doc: groupId }]
     },
     { collection: 'subcategories', doc: subcategoryId, storeAs: `exercises-${groupId}`,
       subcollections: [{ collection: 'groups', doc: groupId,
@@ -60,8 +61,8 @@ const Group = ({ match }: GroupProps): JSX.Element => {
           <h1 className="group__heading">
             Group in {subcategory.name}
           </h1>
-          <Link to={'/word-categories'}>
-            Back to Word Categories
+          <Link to={`/groups/${subcategoryId}`}>
+            Back to {subcategory.name}
           </Link>
         </div>
         <p className="group__description">
@@ -70,7 +71,18 @@ const Group = ({ match }: GroupProps): JSX.Element => {
         {
           wordList.length
             ? <WordList wordInfo={group.words} wordList={wordList} />
-            : <p>There are no groups to Display.</p>
+            : <>
+                <h2>Word List</h2>
+                <p>There are no words to display in this group.</p>
+              </>
+        }
+        {
+          exercises.length
+            ? <ExerciseList exercises={exercises} subcategoryId={subcategoryId} groupId={groupId} />
+            : <>
+                <h2>Exercises</h2>
+                <p>There are no exercises to display in this group.</p>
+              </>
         }
       </div>
     </section>
