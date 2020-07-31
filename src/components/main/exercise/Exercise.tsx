@@ -35,7 +35,7 @@ const Exercise = ({ match }: ExerciseProps): JSX.Element => {
       <div className="group__wrapper page-wrapper">
         <div className="group__header">
           <h1 className="group__heading">
-            Viewing Exercise
+            Exercise
           </h1>
           <Link to={`/group/${subcategoryId}/${groupId}`}>
             Back to Group
@@ -44,7 +44,11 @@ const Exercise = ({ match }: ExerciseProps): JSX.Element => {
         <p className="exercise__description">
           Please select the words that best complete the following sentences.
         </p>
-        <ExerciseForm exerciseId={exerciseId} shuffledWords={shuffledWords} questions={exercise.questions} />
+        {
+          shuffledWords.length
+            ? <ExerciseForm exerciseId={exerciseId} shuffledWords={shuffledWords} questions={exercise.questions} />
+            : <p>No questions have been added to this exercise yet.</p>
+        }
       </div>
     </section>
   )

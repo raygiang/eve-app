@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { QuestionList } from '../../../admin/models/models';
+import './ExerciseForm.scss';
 
 interface ExerciseFormProps {
   exerciseId: string,
@@ -10,11 +11,12 @@ interface ExerciseFormProps {
 
 const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [result, setResult] = useState<string>('');
+  const [result, setResult] = useState<number | null>(null);
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     let correctCounter = 0;
 
     shuffledWords.forEach((word: string, index: number) => {
@@ -23,7 +25,7 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
     });
 
     const score = Math.round(correctCounter * 100 / shuffledWords.length);
-    setResult(`Your score: ${score}%`);
+    setResult(score);
   }
 
   const renderOptions = (): JSX.Element[] => (
@@ -32,31 +34,50 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
     ))
   )
 
+  const restartExercise = (): void => {
+    setSubmitting(false);
+    setResult(null);
+    reset();
+  }
+
   return (
     <form key={exerciseId} className="exercise-form-main" onSubmit={handleSubmit(onSubmit)}>
       <h2>Questions:</h2>
-      { result && <div className="exercise-form-main__result">{ result }</div> }
-      {
-        shuffledWords.map((word: string, index: number) => (
-          <div key={index} className="exercise-form-main__form-row">
-            <div className="exercise-form-main__field-container">
-              <label htmlFor={`field-${index}`}>{ questions[word] }</label>
-              <input type="hidden" name={`question-${index}`} value={ questions[word] } ref={register} />
-              <select
-                name={`field-${index}`}
-                id={`field-${index}`}
-                className="exercise-form-main__select-field"
-                defaultValue=""
-                ref={register({ required: 'Please choose a word.' })}
-              >
-                <option value="" disabled>Select a Word</option>
-                { renderOptions() }
-              </select>
-            </div>
-            { errors[`field-${index}`] && <p className="exercise-form-main__error error">{ errors[`field-${index}`].message }</p> }
+      { result && 
+        <div className="exercise-form-main__result-container">
+          <div className="exercise-form-main__result">
+            Your score: <span className={result > 50 ? 'green' : 'red'}>{ result }%</span>
           </div>
-        ))
+          <div className="exercise-form-main__result-button-container">
+            <button className="exercise-form-main__restart-button" onClick={restartExercise}>
+              Restart
+            </button>
+          </div>
+        </div> 
       }
+      <div className="exercise-form-main__form-body">
+        {
+          shuffledWords.map((word: string, index: number) => (
+            <div key={index} className="exercise-form-main__form-row">
+              <div className="exercise-form-main__field-container">
+                <label htmlFor={`field-${index}`}>{ (index + 1) + '. ' + questions[word] }</label>
+                <input type="hidden" name={`question-${index}`} value={ questions[word] } ref={register} />
+                <select
+                  name={`field-${index}`}
+                  id={`field-${index}`}
+                  className="exercise-form-main__select-field"
+                  defaultValue=""
+                  ref={register({ required: 'Please choose a word.' })}
+                >
+                  <option value="" disabled>Select a Word</option>
+                  { renderOptions() }
+                </select>
+              </div>
+              { errors[`field-${index}`] && <p className="exercise-form-main__error error">{ errors[`field-${index}`].message }</p> }
+            </div>
+          ))
+        }
+      </div>
       <div className="exercise-form-main__button-row">
         <button
           type="button"
