@@ -17,7 +17,7 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
   const sortedWords = Object.keys(words).sort();
   const exerciseCollection = firebase.firestore().collection('subcategories').doc(subcategoryId)
     .collection('groups').doc(groupId).collection('exercises').doc(exerciseId);
@@ -46,6 +46,11 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
     const newExercises = pickBy(data, (value: string) => {
       return value.trim().length;
     });
+    Object.keys(newExercises).forEach((word: string) => {
+      if((newExercises[word].toLowerCase().includes(word))) {
+        newExercises[word] = newExercises[word].replace(word, '_________');
+      }
+    });
     exerciseCollection.update({ questions: newExercises }).then((): void => {
       setSuccessMessage('Exercise has been saved.');
       setSubmitError('');
@@ -55,6 +60,7 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
       setSubmitError(error.message);
       setSubmitting(false);
     });
+    reset();
     setSubmitting(false);
   }
 
