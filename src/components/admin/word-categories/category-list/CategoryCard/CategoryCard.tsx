@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flipped } from "react-flip-toolkit";
-import { CategoryTypes, CategoryCardProps } from '../../../models/models';
+import { CategoryTypes, CategoryCardProps } from '../../../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';

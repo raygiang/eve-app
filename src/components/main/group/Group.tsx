@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps } from '../../admin/models/models';
+import { MatchProps } from '../../models/models';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import Loading from '../../general/loading/Loading';

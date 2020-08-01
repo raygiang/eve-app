@@ -1,5 +1,5 @@
 import React from 'react';
-import { Exercise } from '../../../admin/models/models';
+import { Exercise } from '../../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './ExerciseList.scss';

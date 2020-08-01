@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps, Group } from '../../admin/models/models';
+import { MatchProps, Group } from '../../models/models';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import Loading from '../../general/loading/Loading';
@@ -74,7 +74,7 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
             ? <ul className="groups__list">
                 { renderGroups() }
               </ul>
-            : <p>There are no groups to Display.</p>
+            : <p>There are no groups to display.</p>
         }
       </div>
     </section>

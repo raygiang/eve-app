@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Category } from '../../../admin/models/models';
+import { Category } from '../../../models/models';
 import './CategoryCard.scss';
 
 interface CategoryCardProps {

@@ -2,7 +2,7 @@ import React from 'react';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
-import { Category } from '../../admin/models/models';
+import { Category } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import CategoryCard from './category-card/CategoryCard';
 import './WordCategories.scss';
@@ -36,7 +36,7 @@ const WordCategories = (): JSX.Element => {
             ? <ul className="word-categories__category-list">
                 { renderCategories() }
               </ul>
-            : <p>There are no Categories to Display.</p>
+            : <p>There are no categories to display.</p>
         }
       </div>
     </section>

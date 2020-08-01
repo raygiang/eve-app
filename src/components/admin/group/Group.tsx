@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps } from '../models/models';
+import { MatchProps } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import WordList from './list-container/WordList';
 import ExerciseList from './exercise-list/ExerciseList';

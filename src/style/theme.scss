@@ -172,7 +172,7 @@ $small-radius: 5px;
 @mixin background-image {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 
 @mixin spinner($width, $color, $speed) {

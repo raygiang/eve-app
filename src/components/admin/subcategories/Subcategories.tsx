@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { CategoryTypes, MatchProps } from '../models/models';
+import { CategoryTypes, MatchProps } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import CategoryAdd from '../word-categories/category-add/CategoryAdd';
 import CategoryList from '../word-categories/category-list/CategoryList';

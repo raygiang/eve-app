@@ -15,7 +15,6 @@ import Group from './group/Group';
 import Exercise from './exercise/Exercise';
 import PageNotFound from '../general/404/PageNotFound';
 import Loading from '../general/loading/Loading';
-import './Admin.scss'
 
 const Admin = (): JSX.Element => {
   const auth = useSelector((state: RootState) => state.firebase.auth, isEqual);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CategoryTypes, CategoryDocument } from '../../models/models';
+import { CategoryTypes, CategoryDocument } from '../../../models/models';
 import firebase from '../../../../config/firebaseConfig';
 import './CategoryAdd.scss';
 

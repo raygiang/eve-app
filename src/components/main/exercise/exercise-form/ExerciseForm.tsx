@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { QuestionList } from '../../../admin/models/models';
+import { QuestionList } from '../../../models/models';
 import './ExerciseForm.scss';
 
 interface ExerciseFormProps {
@@ -49,7 +49,7 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
             Your score: <span className={result > 50 ? 'green' : 'red'}>{ result }%</span>
           </div>
           <div className="exercise-form-main__result-button-container">
-            <button className="exercise-form-main__restart-button" onClick={restartExercise}>
+            <button type="button" className="exercise-form-main__restart-button" onClick={restartExercise}>
               Restart
             </button>
           </div>

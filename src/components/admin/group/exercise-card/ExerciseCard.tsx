@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Exercise } from '../../models/models';
+import { Exercise } from '../../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../general/delete-button/DeleteButton';
 import firebase from '../../../../config/firebaseConfig';

@@ -12,8 +12,4 @@
   &__success-message {
     @include center-container(700px);
   }
-
-  .highlight {
-    color: $accent-color;
-  }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WordList as WordInfoProps } from '../../../admin/models/models';
+import { WordList as WordInfoProps } from '../../../models/models';
 import './WordList.scss';
 import FocusedWord from '../focused-word/FocusedWord';
 
@@ -31,23 +31,7 @@ const WordList = ({ wordInfo, wordList }: WordListProps): JSX.Element => {
       <ul className="word-list-main__list">
         { renderWordList() }
       </ul>
-      {
-        focusedWord && wordInfo[focusedWord].customDefinition
-          ? <p className="word-list-main__custom-definition">Definition: { wordInfo[focusedWord].customDefinition }</p>
-          : <></>
-      }
-      {
-        focusedWord && wordInfo[focusedWord].dictionaryUrl
-          ? <div className="word-list-main__dictionary-link-container">
-              <a href={wordInfo[focusedWord].dictionaryUrl}>Dictionary Link</a>
-            </div>
-          : <></>
-      }
-      {
-        focusedWord
-          ? <FocusedWord word={focusedWord} wordInfo={wordInfo} />
-          : <></>
-      }
+      { focusedWord && <FocusedWord word={focusedWord} wordInfo={wordInfo} /> }
     </div>
   )
 }

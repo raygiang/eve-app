@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps, Category } from '../../admin/models/models';
+import { MatchProps, Category } from '../../models/models';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import Loading from '../../general/loading/Loading';
@@ -69,7 +69,7 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
             ? <ul className="subcategories__list">
                 { renderSubcategories() }
               </ul>
-            : <p>There are no Categories to Display.</p>
+            : <p>There are no subcategories to display.</p>
         }
       </div>
     </section>

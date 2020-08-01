@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Group } from '../../../admin/models/models';
+import { Group } from '../../../models/models';
 import './GroupCard.scss';
 
 interface GroupCardProps {

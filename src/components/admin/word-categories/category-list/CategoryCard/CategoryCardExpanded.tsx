@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CategoryEdit from './edit-form/CategoryEdit';
 import { Flipped } from "react-flip-toolkit";
-import { CategoryTypes, CategoryCardProps } from '../../../models/models';
+import { CategoryTypes, CategoryCardProps } from '../../../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../../general/delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
