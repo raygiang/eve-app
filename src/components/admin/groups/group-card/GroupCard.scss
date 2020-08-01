@@ -14,11 +14,9 @@
     flex-flow: row wrap;
 
     li {
+      @include small-card;
       margin: 0.25rem 1rem 0.25rem 0;
-      border: 1px solid #AAA;
-      border-radius: $small-radius;
-      padding: 0.25rem 0.5rem;
-
+      
       &:last-child {
         margin-right: 0;
       }

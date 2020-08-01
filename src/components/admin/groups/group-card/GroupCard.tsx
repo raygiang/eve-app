@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flipped } from "react-flip-toolkit";
-import { Group } from '../../models/models';
+import { Group } from '../../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../general/delete-button/DeleteButton';
 import firebase from '../../../../config/firebaseConfig';

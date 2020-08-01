@@ -1,0 +1,63 @@
+@import '../../../../style/theme.scss';
+
+.exercise-form-main {
+  @include center-container(800px);
+  display: grid;
+  gap: 1rem;
+
+  &__result-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__result {
+    margin: auto 0;
+    font-size: $medium-font;
+  }
+
+  &__restart-button {
+    @include primary-button;
+  }
+
+  &__form-body {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  &__form-row {
+    @include card-styling;
+  }
+
+  &__field-container {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 1rem;
+  }
+
+  &__select-field {
+    padding: 0.25rem 0.5rem;
+    height: max-content;
+  }
+
+  &__button-row {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      @include primary-button;
+      margin-right: 1rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .red {
+    color: $error-color;
+  }
+
+  .green {
+    color: $success-color;
+  }
+}

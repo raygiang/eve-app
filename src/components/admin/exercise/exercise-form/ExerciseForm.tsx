@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WordList, Exercise } from '../../models/models';
+import { WordList, Exercise } from '../../../models/models';
 import { useForm } from 'react-hook-form';
 import { pickBy } from 'lodash';
 import firebase from '../../../../config/firebaseConfig';

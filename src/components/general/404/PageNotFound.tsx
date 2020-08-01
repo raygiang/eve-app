@@ -1,10 +1,13 @@
 import React from 'react';
+import './PageNotFound.scss';
 
 const PageNotFound = (): JSX.Element => {
   return (
-    <div>
-      <h1>Page not Found</h1>
-    </div>
+    <section className="page-not-found">
+      <div className="page-not-found__wrapper page-wrapper">
+        <h1 className="page-not-found__message">This page does not exist.</h1>
+      </div>
+    </section>
   )
 }
 

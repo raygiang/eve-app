@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flipper } from "react-flip-toolkit";
-import { CategoryTypes, Category } from '../../models/models';
+import { CategoryTypes, Category } from '../../../models/models';
 import CategoryCard from './CategoryCard/CategoryCard';
 import CategoryCardExpanded from './CategoryCard/CategoryCardExpanded';
 import './CategoryList.scss';

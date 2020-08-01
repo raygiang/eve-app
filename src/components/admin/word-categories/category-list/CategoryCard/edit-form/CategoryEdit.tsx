@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { CategoryTypes, CategoryClickFunction } from '../../../../models/models';
+import { CategoryTypes, CategoryClickFunction } from '../../../../../models/models';
 import firebase from '../../../../../../config/firebaseConfig';
 import './CategoryEdit.scss';
 

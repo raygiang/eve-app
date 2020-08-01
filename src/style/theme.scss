@@ -2,7 +2,7 @@
 $primary-color: #5995ED;
 $secondary-color: #044389;
 $accent-color: #FFAD05;
-$background-color: #BFD6F8;
+$background-color: #E3EDFC;
 $text-color: #525766;
 $link-color: #F9F086;
 $success-color: #006100;
@@ -17,6 +17,7 @@ $body-font: 'Karla', 'sans-serif';
 // Font Sizes
 $large-font: 28px;
 $medium-font: 20px;
+$small-font: 16px;
 
 // Screen Sizes
 $sm: 480px;
@@ -99,13 +100,7 @@ $small-radius: 5px;
 
 @mixin primary-link {
   position: relative;
-  color: #FFF;
-  border-bottom: 3px solid $primary-color;
   transition: 0.3s all ease;
-
-  &:hover {
-    border-color: transparent;
-  }
 }
 
 @mixin center-container($max-width) {
@@ -118,6 +113,20 @@ $small-radius: 5px;
   box-shadow: 0 0 5px -2px $secondary-color;
   border-radius: $medium-radius;
   padding: 1rem;
+  color: #000;
+}
+
+@mixin small-card {
+  border: 1px solid #AAA;
+  border-radius: $small-radius;
+  padding: 0.25rem 0.5rem;
+}
+
+@mixin grid-list($template-columns) {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: $template-columns;
 }
 
 @mixin admin-wrapper {
@@ -163,7 +172,7 @@ $small-radius: 5px;
 @mixin background-image {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 
 @mixin spinner($width, $color, $speed) {

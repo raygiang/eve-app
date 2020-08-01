@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flipper } from "react-flip-toolkit";
-import { WordList as WordListInterface } from '../../models/models';
+import { WordList as WordListInterface } from '../../../models/models';
 import WordButton from '../word-button/WordButton';
 import WordForm from '../word-form/WordForm';
 import './WordList.scss';

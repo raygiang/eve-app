@@ -29,6 +29,7 @@ export interface Category {
   id: string,
   name: string,
   createdAt: CreatedAt,
+  parent?: string,
 }
 
 export interface CategoryDocument {

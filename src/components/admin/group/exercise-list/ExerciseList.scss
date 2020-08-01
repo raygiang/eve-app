@@ -6,8 +6,6 @@
   row-gap: 1rem;
 
   &__list {
-    list-style: none;
-    display: grid;
-    row-gap: 1rem;
+    @include grid-list(100%);
   }
 }

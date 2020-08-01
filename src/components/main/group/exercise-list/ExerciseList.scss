@@ -1,0 +1,25 @@
+@import '../../../../style/theme.scss';
+
+.exercise-list-main {
+  display: grid;
+  gap: 1rem;
+
+  &__list {
+    @include grid-list(1fr 1fr 1fr 1fr 1fr);
+  }
+
+  &__link {
+    @include primary-link;
+
+    svg {
+      margin-left: 0.25rem;
+    }
+
+    &:hover {
+      svg {
+        transition: 0.5s all ease;
+        margin-left: 0.75rem;
+      }
+    }
+  }
+}

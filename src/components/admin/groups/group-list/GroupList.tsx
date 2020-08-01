@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flipper } from "react-flip-toolkit";
-import { Group } from '../../models/models';
+import { Group } from '../../../models/models';
 import GroupCard from '../group-card/GroupCard';
 import './GroupList.scss';
 

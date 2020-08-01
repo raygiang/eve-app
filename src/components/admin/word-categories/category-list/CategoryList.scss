@@ -9,9 +9,6 @@
   }
 
   &__list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: 100%;
-    row-gap: 1rem;
+    @include grid-list(100%);
   }
 }

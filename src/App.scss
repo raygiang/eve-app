@@ -1,4 +1,4 @@
-@import '../../style/theme.scss';
+@import './style/theme.scss';
 
 .popover-button-container {
   position: relative;
@@ -15,4 +15,8 @@
 
 .error {
   color: $error-color;
+}
+
+.highlight {
+  color: $accent-color;
 }

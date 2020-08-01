@@ -13,7 +13,7 @@
 
   &__heading {
     font-family: $heading-font;
-    font-size: 22px;
+    font-size: $medium-font;
     margin: auto 0;
   }
 
@@ -21,10 +21,7 @@
     display: flex;
 
     ul {
-      list-style: none;
-      display: grid;
-      grid-template-columns: auto auto auto auto;
-      column-gap: 1rem;
+      @include grid-list(auto auto auto auto);
       margin: auto 0;
     }
 

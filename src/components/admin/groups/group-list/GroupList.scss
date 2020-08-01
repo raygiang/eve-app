@@ -6,13 +6,7 @@
   display: grid;
   row-gap: 1rem;
 
-  &__heading {
-    // font-size: 20px;
-  }
-
   &__list {
-    list-style: none;
-    display: grid;
-    row-gap: 1rem;
+    @include grid-list(100%);
   }
 }

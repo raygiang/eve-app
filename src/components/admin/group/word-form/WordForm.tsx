@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Flipped } from 'react-flip-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { WordList } from '../../models/models';
+import { WordList } from '../../../models/models';
 import DeleteButton from '../../general/delete-button/DeleteButton';
 import firebase from '../../../../config/firebaseConfig';
 import './WordForm.scss';

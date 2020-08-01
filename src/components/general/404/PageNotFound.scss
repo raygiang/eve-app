@@ -1,0 +1,17 @@
+@import '../../../style/theme.scss';
+
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - #{$header-height} - #{$footer-height});
+
+  &__wrapper {
+    padding: 2rem 1rem;
+  }
+
+  &__message {
+    text-align: center;
+    padding: 1rem 0;
+  }
+}
