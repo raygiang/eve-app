@@ -1,0 +1,24 @@
+@import '../../../../style/theme.scss';
+
+.word-list-main {
+  display: grid;
+  row-gap: 1rem;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__word {
+    margin: 0.25rem 1rem 0.25rem 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__word-card {
+    @include primary-button;
+  }
+}

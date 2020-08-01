@@ -1,28 +1,20 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { useSelector, shallowEqual } from 'react-redux';
-import Header from './components/header/Header';
-import Home from './components/home/Home';
+import Main from './components/main/Main';
 import Admin from './components/admin/Admin';
-import { RootState } from './store/reducers/rootReducer';
+import Login from './components/admin/login/Login';
+import './App.scss';
 
-const App = () => {
-  const auth = useSelector((state: RootState) => state.firebase.auth, shallowEqual);
-  
-  if(auth.isLoaded) {
-    return (
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/admin-dashboard" component={Admin} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-  else {
-    return <></>
-  }
+const App = (): JSX.Element => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/admin-login" component={Login} />
+        <Route path="/admin-dashboard" component={Admin} />
+        <Route path="/" component={Main} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;

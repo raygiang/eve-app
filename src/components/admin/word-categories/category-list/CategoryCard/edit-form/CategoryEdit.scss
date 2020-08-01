@@ -1,0 +1,52 @@
+@import '../../../../../../style/theme.scss';
+
+.category-edit {
+  padding-top: 1.5rem;
+  display: grid;
+  grid-template-columns: auto 80px;
+  column-gap: 1rem;
+  opacity: 0;
+
+  &__field {
+    @include form-input;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: max-content auto;
+    column-gap: 0.5rem;
+
+    label {
+      margin: auto 0;
+    }
+  }
+
+  &__submit-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &__save-option {
+    color: $success-color;
+  }
+
+  &__cancel-option {
+    color: $error-color;
+  }
+}
+
+.expanded {
+  .category-edit {
+    animation: fadeIn 0.1s forwards;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../../style/theme.scss';
+
+.group-admin {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: $large-font;
+  }
+
+  &__success-message {
+    @include center-container(700px);
+  }
+}

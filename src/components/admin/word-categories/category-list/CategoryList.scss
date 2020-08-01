@@ -1,0 +1,14 @@
+@import '../../../../style/theme.scss';
+
+.categories {
+  @include center-container(700px);
+  padding: 0 1rem;
+
+  &__heading {
+    padding-bottom: 1rem;
+  }
+
+  &__list {
+    @include grid-list(100%);
+  }
+}

@@ -1,0 +1,11 @@
+@import '../../../../style/theme.scss';
+
+.exercise-list {
+  @include center-container(700px);
+  display: grid;
+  row-gap: 1rem;
+
+  &__list {
+    @include grid-list(100%);
+  }
+}

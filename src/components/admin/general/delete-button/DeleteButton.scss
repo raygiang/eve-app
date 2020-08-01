@@ -1,0 +1,37 @@
+@import '../../../../style/theme.scss';
+
+.confirm-popover {
+  display: grid;
+  row-gap: 0.3rem;
+  padding: 0.5rem;
+
+  &__message {
+    color: #000;
+    width: max-content;
+  }
+
+  &__button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+  }
+
+  &__yes-button, &__no-button {
+    color: #FFF;
+    padding: 0.25rem 0.5rem;
+    border: 0;
+    border-radius: $small-radius;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__yes-button {
+    background-color: $success-color !important;
+  }
+
+  &__no-button {
+    background-color: $error-color !important;
+  }
+}

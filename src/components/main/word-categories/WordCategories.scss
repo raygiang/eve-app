@@ -1,0 +1,16 @@
+@import '../../../style/theme.scss';
+
+.word-categories {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: $large-font;
+  }
+  
+  &__category-list {
+    @include center-container(800px);
+    @include grid-list(1fr 1fr);
+  }
+}

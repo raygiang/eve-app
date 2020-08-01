@@ -1,0 +1,53 @@
+@import '../../../../style/theme.scss';
+
+.word-form {
+  @include card-styling;
+  background-color: $background-color;
+
+  &__form {
+    display: grid;
+    row-gap: 1rem;
+  }
+
+  &__field-row {
+    display: flex;
+
+    label {
+      margin: auto 0.5rem auto 0;
+    }
+    
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+  }
+
+  &__field {
+    @include form-input;
+    width: 70%;
+    min-width: 200px;
+  }
+
+  &__close-container, &__submit-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__close-container {
+    button {
+      @include svg-button;
+    }
+  }
+
+  &__save-button {
+    margin-right: 1rem;
+  }
+
+  &__save-button {
+    @include primary-button;
+  }
+
+  .delete-button {
+    @include secondary-button;
+  }
+}
