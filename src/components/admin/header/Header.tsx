@@ -22,7 +22,7 @@ const Header = (): JSX.Element => {
           <ul>
             <li><Link to="/admin-dashboard/edit-home">Edit Home</Link></li>
             <li><Link to="/admin-dashboard/word-categories">Edit Word Categories</Link></li>
-            <li><Link to="/admin-dashboard/weekly-study-guides">Edit Weekly Exercises</Link></li>
+            <li><Link to="/admin-dashboard/weekly-study-guides">Edit Weekly Study Guides</Link></li>
             <li>
               <button onClick={logOut} title="Log Out">
                 <FontAwesomeIcon icon={faDoorOpen} />

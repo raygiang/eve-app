@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { CategoryTypes } from '../../models/models';
-import CategoryAdd from './category-add/CategoryAdd';
-import CategoryList from './category-list/CategoryList';
+import CategoryAdd from '../general/category-add/CategoryAdd';
+import CategoryList from '../general/category-list/CategoryList';
 import Loading from '../../general/loading/Loading';
 import './WordCategories.scss';
 

@@ -5,8 +5,8 @@ import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { CategoryTypes, MatchProps } from '../../models/models';
 import Loading from '../../general/loading/Loading';
-import CategoryAdd from '../word-categories/category-add/CategoryAdd';
-import CategoryList from '../word-categories/category-list/CategoryList';
+import CategoryAdd from '../general/category-add/CategoryAdd';
+import CategoryList from '../general/category-list/CategoryList';
 import './Subcategories.scss';
 
 interface SubcategoryProps {
@@ -19,7 +19,7 @@ const Subcategories = ({ match } : SubcategoryProps): JSX.Element => {
 
   useFirestoreConnect([
     { collection: 'top-level-categories', doc: categoryId, storeAs: categoryId },
-    { collection: 'subcategories', orderBy: ['createdAt', 'asc'], where: ['parent', '==', categoryId], storeAs: `subcategories-${categoryId}` }
+    { collection: 'subcategories', orderBy: ['name', 'asc'], where: ['parent', '==', categoryId], storeAs: `subcategories-${categoryId}` }
   ]);
 
   const parentCategory = useSelector(({ firestore: { data } }: any) => data[categoryId], isEqual);

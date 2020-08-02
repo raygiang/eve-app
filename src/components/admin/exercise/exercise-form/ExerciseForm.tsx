@@ -34,7 +34,7 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
           name={word}
           className={`exercise-form__field ${errors[word] ? 'error' : ''}`}
           type="text"
-          ref={register()}
+          ref={register}
           defaultValue={exercise.questions[word] || ''}
         />
       </div>

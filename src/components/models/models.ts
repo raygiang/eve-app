@@ -2,6 +2,7 @@
 export enum CategoryTypes {
   Top = 'Category',
   Sub = 'Subcategory',
+  Lang = 'Language',
 }
 
 /* Types and Interfaces */
@@ -11,6 +12,7 @@ export interface ParamsProps {
   subcategoryId: string,
   groupId: string,
   exerciseId: string,
+  languageId: string,
 }
 
 export interface MatchProps {
@@ -36,6 +38,9 @@ export interface CategoryDocument {
   name: string,
   createdAt: Date,
   parent?: string,
+  bannerHeading?: string,
+  bannerText?: string,
+  mainContent?: string,
 }
 
 export type CategoryClickFunction = (id: string) => void;
@@ -72,5 +77,14 @@ export interface Exercise {
 export interface Group {
   id?: string,
   words: WordList,
+  createdAt: CreatedAt,
+}
+
+export interface HomeLanguage {
+  id?: string,
+  name: string,
+  bannerHeading: string,
+  bannerText: string,
+  mainContent: string,
   createdAt: CreatedAt,
 }
