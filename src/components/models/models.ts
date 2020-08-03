@@ -22,15 +22,10 @@ export interface MatchProps {
   url: string,
 }
 
-export interface CreatedAt {
-  seconds: number,
-  nanoseconds: number,
-}
-
 export interface Category {
   id: string,
   name: string,
-  createdAt: CreatedAt,
+  createdAt: firebase.firestore.Timestamp,
   parent?: string,
 }
 
@@ -71,13 +66,13 @@ export interface QuestionList {
 export interface Exercise {
   id?: string,
   questions: QuestionList,
-  createdAt: CreatedAt,
+  createdAt: firebase.firestore.Timestamp,
 }
 
 export interface Group {
   id?: string,
   words: WordList,
-  createdAt: CreatedAt,
+  createdAt: firebase.firestore.Timestamp,
 }
 
 export interface HomeLanguage {
@@ -86,5 +81,20 @@ export interface HomeLanguage {
   bannerHeading: string,
   bannerText: string,
   mainContent: string,
-  createdAt: CreatedAt,
+  createdAt: firebase.firestore.Timestamp,
+}
+
+export interface StudyGuide {
+  id?: string,
+  startDate: firebase.firestore.Timestamp,
+  endDate: firebase.firestore.Timestamp,
+  guideContent: string,
+  createdAt: firebase.firestore.Timestamp,
+}
+
+export interface StudyGuideDocument {
+  startDate: firebase.firestore.Timestamp,
+  endDate: firebase.firestore.Timestamp,
+  guideContent: string,
+  createdAt?: Date,
 }

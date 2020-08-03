@@ -1,0 +1,15 @@
+@import '../../../style/theme.scss';
+
+.study-guides-admin {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: $large-font;
+  }
+  
+  &__add-link {
+    @include primary-button;
+  }
+}
