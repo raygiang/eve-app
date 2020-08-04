@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
+import { FilterDates } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import GuideList from './guide-list/GuideList';
+import MonthPicker from '../../general/MonthPicker/MonthPicker';
 import './WeeklyStudyGuides.scss';
 
 const WeeklyStudyGuides = (): JSX.Element => {
+  const today = new Date();
+  const [refDates, setRefDates] = useState<FilterDates>({ startDate: today, endDate: today });
+
   useFirestoreConnect([
     {
       collection: 'weekly-study-guides',
-      // startAt: new Date(),
-      // endBefore: new Date(),
+      startAt: refDates.startDate,
+      endAt: refDates.endDate,
       orderBy: ['startDate', 'asc'],
       storeAs: 'weekly-study-guides' },
   ]);
@@ -20,6 +25,10 @@ const WeeklyStudyGuides = (): JSX.Element => {
   const studyGuides = useSelector(({ firestore: { ordered } }: any) => ordered['weekly-study-guides'], isEqual);
 
   if(!isLoaded(studyGuides)) return <Loading />;
+
+  const filterResults = (refDates: FilterDates): void => {
+    setRefDates(refDates);
+  }
 
   return (
     <section className="study-guides-admin">
@@ -33,6 +42,7 @@ const WeeklyStudyGuides = (): JSX.Element => {
             Add New Study Guide
           </Link>
         </div>
+        <MonthPicker filterFunction={filterResults} />
         <GuideList studyGuides={studyGuides} />
       </div>
     </section>

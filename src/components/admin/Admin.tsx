@@ -15,6 +15,7 @@ import Group from './group/Group';
 import Exercise from './exercise/Exercise';
 import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
 import AddGuide from './add-guide/AddGuide';
+import EditGuide from './edit-guide/EditGuide';
 import PageNotFound from '../general/404/PageNotFound';
 import Loading from '../general/loading/Loading';
 
@@ -47,6 +48,7 @@ const Admin = (): JSX.Element => {
         <Route exact path="/admin-dashboard/exercise/:subcategoryId/:groupId/:exerciseId" component={Exercise} />
         <Route exact path="/admin-dashboard/weekly-study-guides" component={WeeklyStudyGuides} />
         <Route exact path="/admin-dashboard/add-study-guide" component={AddGuide} />
+        <Route exact path="/admin-dashboard/edit-study-guide/:guideId" component={EditGuide} />
         <Route path="/admin-dashboard" component={PageNotFound} />
       </Switch>
     </main>

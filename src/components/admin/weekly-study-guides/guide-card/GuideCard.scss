@@ -1,10 +1,11 @@
 @import '../../../../style/theme.scss';
 
-.exercise-card {
+.guide-card {
   @include card-styling;
   @include grid-list(4fr 1fr 1fr);
-
+  
   &__heading {
+    font-size: $small-font;
     margin: auto 0;
   }
 

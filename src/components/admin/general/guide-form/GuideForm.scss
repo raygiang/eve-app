@@ -30,6 +30,15 @@
       border-radius: 0 !important;
     }
   }
+
+  &__submit-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__submit-button {
+    @include primary-button;
+  }
 }
 
 

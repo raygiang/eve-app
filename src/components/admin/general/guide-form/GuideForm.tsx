@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
-import { StudyGuideDocument } from '../../../models/models';
+import { DefaultStudyGuide, StudyGuideDocument, StudyGuide } from '../../../models/models';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import firebase from '../../../../config/firebaseConfig';
-import SunEditor from 'suneditor-react';
-import plugins from 'suneditor/src/plugins'
 import 'react-day-picker/lib/style.css';
-import 'suneditor/dist/css/suneditor.min.css';
 import './GuideForm.scss';
+import CustomSuneditor from '../custom-suneditor/CustomSuneditor';
 
 interface GuideFormProps {
   guideId?: string,
-  guide?: any,
+  guide?: StudyGuide,
 }
 
 const GuideForm = ({ guideId, guide }: GuideFormProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [submitError, setSubmitError] = useState<string>('');
-  const [guideContent, setGuideContent] = useState<string>('');
-  const [datesSelected, setDatesSelected] = useState<any>({ from: null, to: null, enteredTo: null});
+  const [generalVocabContent, setGeneralVocabContent] = useState<string>(guide?.generalVocabContent || DefaultStudyGuide.GeneralVocab);
+  const [academicVocabContent, setAcademicVocabContent] = useState<string>(guide?.academicVocabContent || DefaultStudyGuide.AcademicVocab);
+  const [readingContent, setReadingContent] = useState<string>(guide?.readingContent || DefaultStudyGuide.Reading);
+  const [listeningContent, setListeningContent] = useState<string>(guide?.listeningContent || DefaultStudyGuide.Listening);
+  const [pronunciationContent, setPronunciationContent] = useState<string>(guide?.pronunciationContent || DefaultStudyGuide.Pronunciation);
+  const [grammarContent, setGrammarContent] = useState<string>(guide?.grammarContent || DefaultStudyGuide.Grammar);
+  const [speakingContent, setSpeakingContent] = useState<string>(guide?.speakingContent || DefaultStudyGuide.Speaking);
+  const [testPrepContent, setTestPrepContent] = useState<string>(guide?.testPrepContent || DefaultStudyGuide.TestPrep);
+  const [datesSelected, setDatesSelected] = useState<any>({
+    from: guide?.startDate.toDate(),
+    to: guide?.endDate.toDate(),
+    enteredTo: guide?.endDate.toDate(),
+  });
   const modifiers = { start: datesSelected.from, end: datesSelected.enteredTo };
   const disabledDays = { before: datesSelected.from };
   const selectedDays = [datesSelected.from, { from: datesSelected.from, to: datesSelected.enteredTo }];
@@ -93,7 +102,14 @@ const GuideForm = ({ guideId, guide }: GuideFormProps): JSX.Element => {
       const studyGuideFields: StudyGuideDocument = {
         startDate: datesSelected.from,
         endDate: datesSelected.to,
-        guideContent: guideContent,
+        generalVocabContent,
+        academicVocabContent,
+        readingContent,
+        listeningContent,
+        pronunciationContent,
+        grammarContent,
+        speakingContent,
+        testPrepContent,
       }
       let docRef;
 
@@ -108,15 +124,28 @@ const GuideForm = ({ guideId, guide }: GuideFormProps): JSX.Element => {
       docRef.set(studyGuideFields).then((): void => {
         setSuccessMessage('Weekly study guide has been saved.');
         setSubmitError('');
-        setGuideContent('');
-        resetDayPicker();
         setSubmitting(false);
+        if(!guide) {
+          resetDayPicker();
+          resetContents();
+        }
       }).catch((error: { message: string }): void => {
         setSuccessMessage('');
         setSubmitError(error.message);
         setSubmitting(false);
       });
     }
+  }
+
+  const resetContents = (): void => {
+    setGeneralVocabContent(DefaultStudyGuide.GeneralVocab);
+    setAcademicVocabContent(DefaultStudyGuide.AcademicVocab);
+    setReadingContent(DefaultStudyGuide.Reading);
+    setListeningContent(DefaultStudyGuide.Listening);
+    setPronunciationContent(DefaultStudyGuide.Pronunciation);
+    setGrammarContent(DefaultStudyGuide.Grammar);
+    setSpeakingContent(DefaultStudyGuide.Speaking);
+    setTestPrepContent(DefaultStudyGuide.TestPrep);
   }
 
   return (
@@ -137,24 +166,36 @@ const GuideForm = ({ guideId, guide }: GuideFormProps): JSX.Element => {
         />
       </div>
       <div className="add-guide-form__field-row">
-        <h3 className="add-guide-form__subheading">Guide Content: </h3>
-        <SunEditor
-          setContents={guideContent}
-          setOptions={{
-            height: 300,
-            plugins: plugins,
-            buttonList: [
-              ['undo', 'redo'],
-              ['fontSize'],
-              ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-              ['outdent', 'indent'],
-              ['align', 'horizontalRule', 'list'],
-              ['table', 'link', 'image', 'video', 'audio'],
-              ['fullScreen'],
-            ],
-          }}
-          onBlur={(e: FocusEvent, contents: string) => setGuideContent(contents)}
-        />
+        <h3 className="add-guide-form__subheading">General Vocabulary Content: </h3>
+        <CustomSuneditor content={generalVocabContent} setContent={setGeneralVocabContent} height={200} />
+      </div>
+      <div className="add-guide-form__field-row">
+        <h3 className="add-guide-form__subheading">Academic Vocabulary Content: </h3>
+        <CustomSuneditor content={academicVocabContent} setContent={setAcademicVocabContent} height={200} />
+      </div>
+      <div className="add-guide-form__field-row">
+        <h3 className="add-guide-form__subheading">Reading Content: </h3>
+        <CustomSuneditor content={readingContent} setContent={setReadingContent} height={200} />
+      </div>
+      <div className="add-guide-form__field-row">
+        <h3 className="add-guide-form__subheading">Listening Content: </h3>
+        <CustomSuneditor content={listeningContent} setContent={setListeningContent} height={200} />
+      </div>
+      <div className="add-guide-form__field-row">
+        <h3 className="add-guide-form__subheading">Pronunciation Content: </h3>
+        <CustomSuneditor content={pronunciationContent} setContent={setPronunciationContent} height={200} />
+      </div>
+      <div className="add-guide-form__field-row">
+        <h3 className="add-guide-form__subheading">Grammar Content: </h3>
+        <CustomSuneditor content={grammarContent} setContent={setGrammarContent} height={200} />
+      </div>
+      <div className="add-guide-form__field-row">
+        <h3 className="add-guide-form__subheading">Speaking Content: </h3>
+        <CustomSuneditor content={speakingContent} setContent={setSpeakingContent} height={200} />
+      </div>
+      <div className="add-guide-form__field-row">
+        <h3 className="add-guide-form__subheading">Test Preparation Content: </h3>
+        <CustomSuneditor content={testPrepContent} setContent={setTestPrepContent} height={200} />
       </div>
       { submitError && <p className="add-guide-form__error error">{ submitError }</p> }
       { successMessage && <p className="add-guide-form__success-message success">{ successMessage }</p> }

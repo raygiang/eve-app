@@ -23,7 +23,7 @@ const Language = ({ match } : LanguageProps): JSX.Element => {
 
   if(!isLoaded(languageData)) return <Loading />;
 
-  if(!languageId) {
+  if(!languageData) {
     return (
       <section className="language-admin">
         <div className="language-admin__wrapper page-wrapper">
