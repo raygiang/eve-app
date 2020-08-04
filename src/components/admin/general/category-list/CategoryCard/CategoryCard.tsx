@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flipped } from "react-flip-toolkit";
-import { CategoryTypes, CategoryCardProps } from '../../../../models/models';
+import { CollectionNames, CategoryTypes, CategoryCardProps } from '../../../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -12,10 +12,10 @@ const CategoryCard = ({ type, categoryId, category, categoryClicked, shouldFlip,
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
   const collectionName = type === CategoryTypes.Top
-    ? 'top-level-categories'
+    ? CollectionNames.Categories
     : type === CategoryTypes.Sub
-      ? 'subcategories'
-      : 'home-languages';
+      ? CollectionNames.Subcategories
+      : CollectionNames.HomeLanguages;
   const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const deleteCategory = (): void => {
@@ -44,7 +44,7 @@ const CategoryCard = ({ type, categoryId, category, categoryClicked, shouldFlip,
           <div className="category__content-container">
             <Flipped flipId={`heading-${categoryId}`} stagger="card-content" shouldFlip={shouldFlip(categoryId)}>
               <h3 className="category__name">
-                <Link to={`/admin-dashboard/${type === CategoryTypes.Top ? 'subcategories' : type === CategoryTypes.Sub ? 'groups' : 'language'}/${categoryId}`}>
+                <Link to={`/admin-dashboard/${type === CategoryTypes.Top ? CollectionNames.Subcategories : type === CategoryTypes.Sub ? CollectionNames.Groups : 'language'}/${categoryId}`}>
                   {category.name}
                 </Link>
               </h3>

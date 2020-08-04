@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps } from '../../models/models';
+import { MatchProps, CollectionNames } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import WordList from './list-container/WordList';
 import ExerciseList from './exercise-list/ExerciseList';
@@ -19,13 +19,13 @@ const Group = ({ match }: GroupProps): JSX.Element => {
   const groupId = match.params.groupId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId, storeAs: subcategoryId },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: groupId,
-      subcollections: [{ collection: 'groups', doc: groupId }]
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: subcategoryId },
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: groupId,
+      subcollections: [{ collection: CollectionNames.Groups, doc: groupId }]
     },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: `exercises-${groupId}`,
-      subcollections: [{ collection: 'groups', doc: groupId,
-        subcollections: [{ collection: 'exercises', orderBy: ['createdAt', 'asc'] }]
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: `exercises-${groupId}`,
+      subcollections: [{ collection: CollectionNames.Groups, doc: groupId,
+        subcollections: [{ collection: CollectionNames.Exercises, orderBy: ['createdAt', 'asc'] }]
       }]
     }
   ]);

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Flipped } from 'react-flip-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { WordList } from '../../../models/models';
+import { CollectionNames, WordList } from '../../../models/models';
 import DeleteButton from '../../general/delete-button/DeleteButton';
 import firebase from '../../../../config/firebaseConfig';
 import './WordForm.scss';
@@ -21,7 +21,7 @@ const WordForm = ({ word, setFocusedId, wordList, setSuccessMessage, subcategory
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
   const { register, handleSubmit, errors } = useForm();
-  const groupCollection = firebase.firestore().collection('subcategories').doc(subcategoryId).collection('groups').doc(groupId);
+  const groupCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId).collection(CollectionNames.Groups).doc(groupId);
 
   const updateGroupCollection = (data: any, newWord: string, wordListCopy: WordList, successMessage: string): void => {
     wordListCopy[newWord] = {

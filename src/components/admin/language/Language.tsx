@@ -1,5 +1,5 @@
 import React from 'react';
-import { MatchProps } from '../../models/models';
+import { MatchProps, CollectionNames } from '../../models/models';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
@@ -16,7 +16,7 @@ const Language = ({ match } : LanguageProps): JSX.Element => {
   const languageId = match.params.languageId;
 
   useFirestoreConnect([
-    { collection: 'home-languages', doc: languageId, storeAs: languageId },
+    { collection: CollectionNames.HomeLanguages, doc: languageId, storeAs: languageId },
   ]);
 
   const languageData = useSelector(({ firestore: { data } }: any) => data[languageId], isEqual);

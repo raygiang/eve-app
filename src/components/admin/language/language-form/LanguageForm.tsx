@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { HomeLanguage } from '../../../models/models';
+import { CollectionNames, HomeLanguage } from '../../../models/models';
 import firebase from '../../../../config/firebaseConfig';
 import SunEditor from 'suneditor-react';
 import plugins from 'suneditor/src/plugins'
@@ -18,7 +18,7 @@ const LanguageForm = ({ languageId, language }: LanguageFormProps): JSX.Element 
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
   const { register, handleSubmit } = useForm();
-  const languageCollection = firebase.firestore().collection('home-languages').doc(languageId);
+  const languageCollection = firebase.firestore().collection(CollectionNames.HomeLanguages).doc(languageId);
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);

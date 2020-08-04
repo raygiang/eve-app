@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MatchProps } from '../../models/models';
+import { MatchProps, CollectionNames } from '../../models/models';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
@@ -16,7 +16,7 @@ const EditGuide = ({ match }: EditGuideProps): JSX.Element => {
   const guideId = match.params.guideId;
 
   useFirestoreConnect([
-    { collection: 'weekly-study-guides', doc: guideId, storeAs: guideId },
+    { collection: CollectionNames.StudyGuides, doc: guideId, storeAs: guideId },
   ]);
 
   const guide = useSelector(({ firestore: { data } }: any) => data[guideId], isEqual);

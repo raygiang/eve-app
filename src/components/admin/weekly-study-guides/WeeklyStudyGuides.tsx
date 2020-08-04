@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { FilterDates } from '../../models/models';
+import { CollectionNames, FilterDates } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import GuideList from './guide-list/GuideList';
 import MonthPicker from '../../general/MonthPicker/MonthPicker';
@@ -15,14 +15,14 @@ const WeeklyStudyGuides = (): JSX.Element => {
 
   useFirestoreConnect([
     {
-      collection: 'weekly-study-guides',
+      collection: CollectionNames.StudyGuides,
       startAt: refDates.startDate,
       endAt: refDates.endDate,
       orderBy: ['startDate', 'asc'],
-      storeAs: 'weekly-study-guides' },
+      storeAs: CollectionNames.StudyGuides },
   ]);
 
-  const studyGuides = useSelector(({ firestore: { ordered } }: any) => ordered['weekly-study-guides'], isEqual);
+  const studyGuides = useSelector(({ firestore: { ordered } }: any) => ordered[CollectionNames.StudyGuides], isEqual);
 
   if(!isLoaded(studyGuides)) return <Loading />;
 

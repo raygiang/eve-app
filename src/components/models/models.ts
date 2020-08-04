@@ -5,6 +5,15 @@ export enum CategoryTypes {
   Lang = 'Language',
 }
 
+export enum CollectionNames {
+  Categories = 'top-level-categories',
+  Subcategories = 'subcategories',
+  Groups = 'groups',
+  Exercises = 'exercises',
+  HomeLanguages = 'home-languages',
+  StudyGuides = 'weekly-study-guides',
+}
+
 export enum DefaultStudyGuide {
   GeneralVocab = '<table class="se-table-layout-auto"><tbody><tr><th><div><br></div></th><th><div>Exercises</div></th></tr><tr><td><div><strong>englishvocabularyexercises.com</strong></div></td><td><div><br></div><br></td></tr><tr><td><div><strong>Picture Dictionary</strong></div></td><td><div><br></div></td></tr><tr><td><div><strong>Phrasal Verbs</strong></div></td><td><div><div><br></div><br></div></td></tr><tr><td><div><strong>Idioms</strong>​</div></td><td><div><br></div></td></tr></tbody></table><p><br></p>',
   AcademicVocab = '<table><tbody><tr><th><div><br></div></th><th><div>Exercises</div></th></tr><tr><td><div><strong>englishvocabularyexercises.com</strong></div></td><td><div><br></div><br></td></tr></tbody></table><p><br></p><p><br></p>',

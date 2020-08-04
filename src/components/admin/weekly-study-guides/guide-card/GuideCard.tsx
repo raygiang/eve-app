@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StudyGuide } from '../../../models/models';
+import { CollectionNames, StudyGuide } from '../../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../general/delete-button/DeleteButton';
 import firebase from '../../../../config/firebaseConfig';
@@ -16,7 +16,7 @@ const GuideCard = ({ guide, setSuccessMessage }: GuideCardProps): JSX.Element =>
   const [errorMessage, setErrorMessage] = useState<string>('');
   const formattedStartDate = moment(guide.startDate.toDate()).format('MMMM Do, YYYY');
   const formattedEndDate = moment(guide.endDate.toDate()).format('MMMM Do, YYYY');
-  const studyGuideDocument = firebase.firestore().collection('weekly-study-guides').doc(guide.id);
+  const studyGuideDocument = firebase.firestore().collection(CollectionNames.StudyGuides).doc(guide.id);
 
   const deleteStudyGuide = (): void => {
     setDeleting(true);

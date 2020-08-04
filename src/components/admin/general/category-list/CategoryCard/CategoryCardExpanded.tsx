@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CategoryEdit from './edit-form/CategoryEdit';
 import { Flipped } from "react-flip-toolkit";
-import { CategoryTypes, CategoryCardProps } from '../../../../models/models';
+import { CollectionNames, CategoryTypes, CategoryCardProps } from '../../../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
@@ -11,10 +11,10 @@ const CategoryCardExpanded = ({ type, categoryId, category, categoryClicked, sho
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
   const collectionName = type === CategoryTypes.Top
-    ? 'top-level-categories'
+    ? CollectionNames.Categories
     : type === CategoryTypes.Sub
-      ? 'subcategories'
-      : 'home-languages';
+      ? CollectionNames.Subcategories
+      : CollectionNames.HomeLanguages;
   const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const deleteCategory = (): void => {
@@ -45,7 +45,7 @@ const CategoryCardExpanded = ({ type, categoryId, category, categoryClicked, sho
             <div className="category--expanded__header">
               <Flipped flipId={`heading-${categoryId}`} stagger="card-content" shouldFlip={shouldFlip(categoryId)}>
                 <h3 className="category--expanded__name">
-                  <Link to={`/admin-dashboard/${type === CategoryTypes.Top ? 'subcategories' : type === CategoryTypes.Sub ? 'groups' : 'language'}/${categoryId}`}>
+                  <Link to={`/admin-dashboard/${type === CategoryTypes.Top ? CollectionNames.Subcategories : type === CategoryTypes.Sub ? CollectionNames.Groups : 'language'}/${categoryId}`}>
                     {category.name}
                   </Link>
                 </h3>

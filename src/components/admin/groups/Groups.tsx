@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps } from '../../models/models';
+import { CollectionNames, MatchProps } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import GroupAdd from './group-add/GroupAdd';
 import GroupList from './group-list/GroupList';
@@ -18,10 +18,10 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
   const subcategoryId = match.params.subcategoryId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId, storeAs: subcategoryId },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: `groups-${subcategoryId}`,
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: subcategoryId },
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: `groups-${subcategoryId}`,
       subcollections: [{
-        collection: 'groups',
+        collection: CollectionNames.Groups,
         orderBy: ['createdAt', 'asc']
       }]
     }

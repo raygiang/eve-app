@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps, Category } from '../../models/models';
+import { CollectionNames, MatchProps, Category } from '../../models/models';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import Loading from '../../general/loading/Loading';
@@ -16,8 +16,8 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
   const categoryId = match.params.categoryId;
 
   useFirestoreConnect([
-    { collection: 'top-level-categories', doc: categoryId, storeAs: categoryId },
-    { collection: 'subcategories', orderBy: ['createdAt', 'asc'], where: ['parent', '==', categoryId], storeAs: `subcategories-${categoryId}` }
+    { collection: CollectionNames.Categories, doc: categoryId, storeAs: categoryId },
+    { collection: CollectionNames.Subcategories, orderBy: ['createdAt', 'asc'], where: ['parent', '==', categoryId], storeAs: `subcategories-${categoryId}` }
   ]);
 
   const topLevelCategory = useSelector(({ firestore: { data } }: any) => data[categoryId], isEqual);

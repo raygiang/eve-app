@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { CategoryTypes } from '../../models/models';
+import { CategoryTypes, CollectionNames } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import CategoryAdd from '../general/category-add/CategoryAdd';
 import CategoryList from '../general/category-list/CategoryList';
@@ -12,10 +12,10 @@ const EditHome = (): JSX.Element => {
   const [successMessage, setSuccessMessage] = useState<string>('');
 
   useFirestoreConnect([
-    { collection: 'home-languages', orderBy: ['createdAt', 'asc'] }
+    { collection: CollectionNames.HomeLanguages, orderBy: ['createdAt', 'asc'] }
   ]);
 
-  const homeLanguages = useSelector(({ firestore: { ordered } }: any) => ordered['home-languages'], isEqual);
+  const homeLanguages = useSelector(({ firestore: { ordered } }: any) => ordered[CollectionNames.HomeLanguages], isEqual);
 
   if(!isLoaded(homeLanguages)) return <Loading />;
 

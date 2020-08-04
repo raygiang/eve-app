@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DefaultStudyGuide, StudyGuideDocument, StudyGuide } from '../../../models/models';
+import { CollectionNames, DefaultStudyGuide, StudyGuideDocument, StudyGuide } from '../../../models/models';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import firebase from '../../../../config/firebaseConfig';
 import 'react-day-picker/lib/style.css';
@@ -33,7 +33,7 @@ const GuideForm = ({ guideId, guide }: GuideFormProps): JSX.Element => {
   const selectedDays = [datesSelected.from, { from: datesSelected.from, to: datesSelected.enteredTo }];
   const previousMonth = new Date();
   previousMonth.setDate(0);
-  const studyGuideCollection = firebase.firestore().collection('weekly-study-guides');
+  const studyGuideCollection = firebase.firestore().collection(CollectionNames.StudyGuides);
 
   const isSelectingFirstDay = (day: Date) => {
     const isBeforeFirstDay = datesSelected.from && DateUtils.isDayBefore(day, datesSelected.from);
