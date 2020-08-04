@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CollectionNames } from '../../../models/models';
 import firebase from '../../../../config/firebaseConfig';
 
 interface ExerciseAddProps {
@@ -10,8 +11,8 @@ interface ExerciseAddProps {
 const ExerciseAdd = ({ setSuccessMessage, subcategoryId, groupId }: ExerciseAddProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
-  const exercisesCollection = firebase.firestore().collection('subcategories').doc(subcategoryId)
-    .collection('groups').doc(groupId).collection('exercises');
+  const exercisesCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId)
+    .collection(CollectionNames.Groups).doc(groupId).collection(CollectionNames.Exercises);
 
   const addExercise = (): void => {
     setSubmitting(true);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CategoryTypes, CategoryDocument } from '../../../models/models';
+import { CollectionNames, CategoryTypes, CategoryDocument } from '../../../models/models';
 import firebase from '../../../../config/firebaseConfig';
 import './CategoryAdd.scss';
 
@@ -15,7 +15,11 @@ const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: Cate
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
   const { register, handleSubmit, errors, reset } = useForm();
-  const collectionName = type === CategoryTypes.Top ? 'top-level-categories' : 'subcategories';
+  const collectionName = type === CategoryTypes.Top
+    ? CollectionNames.Categories
+    : type === CategoryTypes.Sub
+      ? CollectionNames.Subcategories
+      : CollectionNames.HomeLanguages;
   const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const onSubmit = (data: any) : void => {
@@ -26,7 +30,12 @@ const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: Cate
       createdAt: new Date(),
     };
 
-    if(type !== CategoryTypes.Top) newDocument.parent = parentId;
+    if(type === CategoryTypes.Sub) newDocument.parent = parentId;
+    else if(type === CategoryTypes.Lang) {
+      newDocument.bannerHeading = '';
+      newDocument.bannerText = '';
+      newDocument.mainContent = '';
+    }
 
     categoriesCollection.doc().set(newDocument).then((): void => {
       setSubmitting(false);

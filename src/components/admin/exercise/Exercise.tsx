@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps } from '../../models/models';
+import { MatchProps, CollectionNames } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import ExerciseForm from './exercise-form/ExerciseForm';
 import './Exercise.scss';
@@ -18,12 +18,12 @@ const Exercise = ({ match }: ExerciseProps): JSX.Element => {
   const exerciseId = match.params.exerciseId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId, storeAs: groupId,
-      subcollections: [{ collection: 'groups', doc: groupId }]
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: groupId,
+      subcollections: [{ collection: CollectionNames.Groups, doc: groupId }]
     },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: exerciseId,
-      subcollections: [{ collection: 'groups', doc: groupId,
-        subcollections: [{ collection: 'exercises', doc: exerciseId }]
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: exerciseId,
+      subcollections: [{ collection: CollectionNames.Groups, doc: groupId,
+        subcollections: [{ collection: CollectionNames.Exercises, doc: exerciseId }]
       }]
     }
   ]);

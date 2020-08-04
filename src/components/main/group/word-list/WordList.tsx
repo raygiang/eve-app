@@ -31,7 +31,7 @@ const WordList = ({ wordInfo, wordList }: WordListProps): JSX.Element => {
       <ul className="word-list-main__list">
         { renderWordList() }
       </ul>
-      { focusedWord && <FocusedWord word={focusedWord} wordInfo={wordInfo} /> }
+      { focusedWord && wordInfo[focusedWord] && <FocusedWord word={focusedWord} wordInfo={wordInfo} /> }
     </div>
   )
 }

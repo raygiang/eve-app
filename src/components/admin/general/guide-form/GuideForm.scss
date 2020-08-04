@@ -1,0 +1,44 @@
+@import '../../../../style/theme.scss';
+
+.add-guide-form {
+  @include center-container(800px);
+  @include grid-list(1fr);
+
+  &__field-row {
+    display: grid;
+  }
+
+  &__subheading {
+    font-size: $small-font;
+    font-weight: normal;
+  }
+
+  &__date-instructions {
+    text-align: center;
+    color: $secondary-color;
+  }
+
+  &__range-picker {
+    margin: 0 auto;
+
+    .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+      background-color: $background-color !important;
+      color: $secondary-color;
+    }
+    
+    .DayPicker-Day {
+      border-radius: 0 !important;
+    }
+  }
+
+  &__submit-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__submit-button {
+    @include primary-button;
+  }
+}
+
+

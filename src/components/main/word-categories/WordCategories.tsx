@@ -2,17 +2,17 @@ import React from 'react';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
-import { Category } from '../../models/models';
+import { CollectionNames, Category } from '../../models/models';
 import Loading from '../../general/loading/Loading';
 import CategoryCard from './category-card/CategoryCard';
 import './WordCategories.scss';
 
 const WordCategories = (): JSX.Element => {
   useFirestoreConnect([
-    { collection: 'top-level-categories', orderBy: ['createdAt', 'asc'] },
+    { collection: CollectionNames.Categories, orderBy: ['createdAt', 'asc'] },
   ]);
 
-  const topLevelCategories = useSelector(({ firestore: { ordered } }: any) => ordered['top-level-categories'], isEqual);
+  const topLevelCategories = useSelector(({ firestore: { ordered } }: any) => ordered[CollectionNames.Categories], isEqual);
 
   if(!isLoaded(topLevelCategories)) return <Loading />;
   

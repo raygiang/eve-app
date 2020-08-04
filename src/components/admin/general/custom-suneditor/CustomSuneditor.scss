@@ -1,0 +1,5 @@
+@import '../../../../style/theme.scss';
+
+.edit-form {
+  @include center-container(800px);
+}

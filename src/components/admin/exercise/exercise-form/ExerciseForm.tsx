@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WordList, Exercise } from '../../../models/models';
+import { CollectionNames, WordList, Exercise } from '../../../models/models';
 import { useForm } from 'react-hook-form';
 import { pickBy } from 'lodash';
 import firebase from '../../../../config/firebaseConfig';
@@ -19,8 +19,8 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
   const [submitError, setSubmitError] = useState<string>('');
   const { register, handleSubmit, errors, reset } = useForm();
   const sortedWords = Object.keys(words).sort();
-  const exerciseCollection = firebase.firestore().collection('subcategories').doc(subcategoryId)
-    .collection('groups').doc(groupId).collection('exercises').doc(exerciseId);
+  const exerciseCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId)
+    .collection(CollectionNames.Groups).doc(groupId).collection(CollectionNames.Exercises).doc(exerciseId);
 
   const renderFormRows = (): JSX.Element[] => {
     return sortedWords.map((word: string): JSX.Element => (
@@ -34,7 +34,7 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
           name={word}
           className={`exercise-form__field ${errors[word] ? 'error' : ''}`}
           type="text"
-          ref={register()}
+          ref={register}
           defaultValue={exercise.questions[word] || ''}
         />
       </div>

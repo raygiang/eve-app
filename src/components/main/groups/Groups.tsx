@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
-import { MatchProps, Group } from '../../models/models';
+import { CollectionNames, MatchProps, Group } from '../../models/models';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import Loading from '../../general/loading/Loading';
@@ -16,10 +16,10 @@ const Subcategories = ({ match }: SubcategoriesProps): JSX.Element => {
   const subcategoryId = match.params.subcategoryId;
 
   useFirestoreConnect([
-    { collection: 'subcategories', doc: subcategoryId, storeAs: subcategoryId },
-    { collection: 'subcategories', doc: subcategoryId, storeAs: `groups-${subcategoryId}`,
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: subcategoryId },
+    { collection: CollectionNames.Subcategories, doc: subcategoryId, storeAs: `groups-${subcategoryId}`,
       subcollections: [{
-        collection: 'groups',
+        collection: CollectionNames.Groups,
         orderBy: ['createdAt', 'asc']
       }]
     }

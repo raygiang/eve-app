@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { CategoryTypes, CategoryClickFunction } from '../../../../../models/models';
+import { CollectionNames, CategoryTypes, CategoryClickFunction } from '../../../../../models/models';
 import firebase from '../../../../../../config/firebaseConfig';
 import './CategoryEdit.scss';
 
@@ -19,13 +19,17 @@ const CategoryEdit = ({ type, categoryId, categoryName, categoryClicked, setSucc
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [cancelRef, setCancelRef] = useState<HTMLButtonElement | null>(null);
   const { register, handleSubmit, errors } = useForm();
-  const collectionName = type === CategoryTypes.Top ? 'top-level-categories' : 'subcategories';
+  const collectionName = type === CategoryTypes.Top
+    ? CollectionNames.Categories
+    : type === CategoryTypes.Sub
+      ? CollectionNames.Subcategories
+      : CollectionNames.HomeLanguages;
   const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const onSubmit = (data: any) : void => {
     if(categoryName !== data.name) {
       setSubmitting(true);
-      categoriesCollection.doc(categoryId).update({ id: categoryId, name: data.name }).then((): void => {
+      categoriesCollection.doc(categoryId).update({ name: data.name }).then((): void => {
         setSuccessMessage(`Renamed to ${data.name}`);
         setSubmitting(false);
         cancelRef?.click();

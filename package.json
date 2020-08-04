@@ -18,12 +18,15 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "firebase": "^7.16.1",
+    "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "owlbot-js": "^2.0.0",
     "react": "^16.13.1",
+    "react-day-picker": "^7.4.8",
     "react-dom": "^16.13.1",
     "react-flip-toolkit": "^7.0.12",
     "react-hook-form": "^6.0.8",
+    "react-month-picker": "^2.2.0",
     "react-redux": "^7.2.0",
     "react-redux-firebase": "^3.6.0",
     "react-router-dom": "^5.2.0",
@@ -31,6 +34,7 @@
     "redux": "^4.0.5",
     "redux-firestore": "^0.13.0",
     "redux-thunk": "^2.3.0",
+    "suneditor-react": "^2.13.1",
     "typescript": "^3.7.5"
   },
   "scripts": {
