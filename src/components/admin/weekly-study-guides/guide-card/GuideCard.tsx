@@ -14,8 +14,8 @@ interface GuideCardProps {
 const GuideCard = ({ guide, setSuccessMessage }: GuideCardProps): JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const formattedStartDate = moment(guide.startDate.toDate().toLocaleDateString()).format('MMMM Do, YYYY');
-  const formattedEndDate = moment(guide.endDate.toDate().toLocaleDateString()).format('MMMM Do, YYYY');
+  const formattedStartDate = moment(guide.startDate.toDate()).format('MMMM Do, YYYY');
+  const formattedEndDate = moment(guide.endDate.toDate()).format('MMMM Do, YYYY');
   const studyGuideDocument = firebase.firestore().collection('weekly-study-guides').doc(guide.id);
 
   const deleteStudyGuide = (): void => {
