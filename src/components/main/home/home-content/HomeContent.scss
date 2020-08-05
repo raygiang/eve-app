@@ -13,7 +13,8 @@
 
   &__banner-wrapper {
     padding: 5rem 2rem;
-    @include grid-list(1fr 2fr);
+    @include grid-list(3fr 7fr);
+    min-height: 450px;
   }
 
   &__banner-image-container {
@@ -22,8 +23,9 @@
 
   &__banner-content {
     padding: 0 1rem;
-    @include grid-list(1fr);
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__language-buttons {
@@ -32,6 +34,7 @@
 
   &__language-button {
     @include primary-button;
+    // height: max-content;
 
     &.active {
       background-color: $primary-color;

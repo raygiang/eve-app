@@ -21,7 +21,7 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
 
     shuffledWords.forEach((word: string, index: number) => {
       const submittedAnswer = data[`field-${index}`];
-      if(questions[submittedAnswer] === data[`question-${index}`]) correctCounter++;
+      if(questions[submittedAnswer] === questions[word]) correctCounter++;
     });
 
     const score = Math.round(correctCounter * 100 / shuffledWords.length);
@@ -43,7 +43,7 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
   return (
     <form key={exerciseId} className="exercise-form-main" onSubmit={handleSubmit(onSubmit)}>
       <h2>Questions:</h2>
-      { result && 
+      { result !== null && 
         <div className="exercise-form-main__result-container">
           <div className="exercise-form-main__result">
             Your score: <span className={result > 50 ? 'green' : 'red'}>{ result }%</span>
@@ -61,7 +61,6 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
             <div key={index} className="exercise-form-main__form-row">
               <div className="exercise-form-main__field-container">
                 <label htmlFor={`field-${index}`}>{ (index + 1) + '. ' + questions[word] }</label>
-                <input type="hidden" name={`question-${index}`} value={ questions[word] } ref={register} />
                 <select
                   name={`field-${index}`}
                   id={`field-${index}`}

@@ -1,0 +1,26 @@
+@import '../../../style/theme.scss';
+
+.study-guide {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: $large-font;
+  }
+
+  &__section-content {
+    table {
+      border-collapse: collapse;
+
+      th, td {
+        border: 1px solid #000;
+        padding: 0.5rem 1rem;
+      }
+
+      th {
+        background: $background-color;
+      }
+    }
+  }
+}

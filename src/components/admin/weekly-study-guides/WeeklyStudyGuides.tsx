@@ -35,7 +35,7 @@ const WeeklyStudyGuides = (): JSX.Element => {
       <div className="study-guides-admin__wrapper page-wrapper">
         <h1 className="study-guides-admin__heading">Weekly Study Guides</h1>
         <p className="study-guides-admin__description">
-          This is the interface for editing groups inside of a subcategory.
+          Please select a month to view weekly study guides that start in that month.
         </p>
         <div className="study-guides-admin__add-container">
           <Link to="/admin-dashboard/add-study-guide" className="study-guides-admin__add-link">
