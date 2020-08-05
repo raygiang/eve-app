@@ -1,0 +1,53 @@
+@import '../../../../style/theme.scss';
+
+.home-content-container {
+  @include grid-list(1fr);
+
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__banner {
+    background-color: $link-color;
+  }
+
+  &__banner-wrapper {
+    padding: 5rem 2rem;
+    @include grid-list(1fr 2fr);
+  }
+
+  &__banner-image-container {
+    @include background-image;
+  }
+
+  &__banner-content {
+    padding: 0 1rem;
+    @include grid-list(1fr);
+    gap: 2rem;
+  }
+
+  &__language-buttons {
+    @include grid-list(repeat(6, 1fr));
+  }
+
+  &__language-button {
+    @include primary-button;
+
+    &.active {
+      background-color: $primary-color;
+    }
+  }
+
+  &__main-content {
+    @include grid-list(1fr);
+
+    ul {
+      padding: 0 2rem;
+    }
+  }
+
+  figure {
+    display: flex;
+    justify-content: center;
+  }
+}
