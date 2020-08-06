@@ -43,10 +43,10 @@ const WeeklyStudyGuide = ({ match }: WeeklyStudyGuideProps): JSX.Element => {
   const formattedEndDate = moment(guide.endDate.toDate()).format('MMMM Do, YYYY');
 
   const renderStudyGuideSections = (): JSX.Element[] => {
-    return studyGuideSections.reduce((result: JSX.Element[], section: StudyGuideSection): JSX.Element[] => {
+    return studyGuideSections.reduce((result: JSX.Element[], section: StudyGuideSection, index: number): JSX.Element[] => {
       if(guide[section.id]) {
         result.push(
-          <div className="study-guide__section">
+          <div key={index} className="study-guide__section">
             <h3 className="study-guide__section-heading">{ section.name }</h3>
             <div className="study-guide__section-main">
               <div className="study-guide__section-image" style={{ backgroundImage: `url(/images/${section.picture}.svg)` }} />

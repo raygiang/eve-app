@@ -11,10 +11,9 @@
     margin: auto;
     text-align: center;
     font-size: $small-font;
-    color: $secondary-color;
   }
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $background-color;
   }
 }

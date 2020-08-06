@@ -5,8 +5,7 @@ body {
 }
 
 a {
-  color: $link-color;
-  font-weight: bold
+  @include primary-link;
 }
 
 .popover-button-container {

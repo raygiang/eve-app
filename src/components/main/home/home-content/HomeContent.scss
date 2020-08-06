@@ -3,6 +3,7 @@
 .home-content-container {
   &__wrapper {
     @include admin-wrapper;
+    padding-top: 3.5rem;
   }
 
   &__banner {
@@ -11,7 +12,9 @@
     border-bottom: 3px solid $accent-color;
     position: relative;
     overflow: hidden;
-    height: calc(100vh - #{$header-height});
+    min-height: calc(100vh - #{$header-height});
+    padding-bottom: 150px;
+    display: flex;
   }
 
   &__background-image {
@@ -29,11 +32,11 @@
   &__banner-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 1rem 12rem 0 12rem;
+    padding: 2rem 12rem 0 12rem;
     justify-content: center;
-    min-height: 450px;
+    height: 100%;
     text-align: center;
-    height: calc(100% - 300px);
+    margin: auto 0;
 
     > * {
       z-index: 1;
@@ -74,6 +77,15 @@
     li {
       @include colored-bullets;
     }
+
+    .se-component {
+      width: auto;
+
+      img {
+        width: 100% !important;
+        height: auto;
+      }
+    }
   }
 
   figure {
@@ -88,5 +100,34 @@
     height: 3px;
     border: 0;
     background-color: $accent-color;
+  }
+
+  @include breakpoint($lg) {
+    &__banner-wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 6rem 0 6rem;
+    }
+
+    &__language-buttons {
+      @include grid-list(repeat(3, 1fr));
+    }
+  }
+
+  @include breakpoint($md) {
+    &__banner-wrapper {
+      padding: 2rem 3rem 0 3rem;
+    }
+
+    &__background-image {
+      background-size: cover;
+      background-position: bottom;
+    }
+  }
+
+  @include breakpoint($sm) {
+    &__banner-wrapper {
+      padding: 2rem 1rem 0 1rem;
+    }
   }
 }

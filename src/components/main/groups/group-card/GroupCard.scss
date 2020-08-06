@@ -29,7 +29,7 @@
     }
   }
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $background-color;
   }
 }

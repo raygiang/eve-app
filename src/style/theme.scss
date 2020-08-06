@@ -1,10 +1,12 @@
 // Colours
 $primary-color: #2b825d;
-$secondary-color: #14453D;
+$secondary-color: #1A5640;
 $accent-color: #58b580;
 $background-color: #f6f9f7;
 $text-color: #484848;
 $link-color: #2b825d;
+$hover-color: #2B76A1;
+$highlight-color: #FFFFA8;
 $header-color: #2b825d;
 $success-color: #006100;
 $error-color: #BD0000;
@@ -89,7 +91,7 @@ $small-radius: 6px;
     }
   }
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $secondary-color;
   }
 }
@@ -103,6 +105,21 @@ $small-radius: 6px;
 @mixin primary-link {
   position: relative;
   transition: 0.3s all ease;
+  color: $link-color;
+  font-weight: bold;
+
+  &:hover, &:focus {
+    color: $hover-color;
+  }
+}
+
+@mixin secondary-link {
+  @include primary-link;
+  color: #FFF;
+
+  &:hover, &:focus {
+    color: $highlight-color;
+  }
 }
 
 @mixin center-container($max-width) {
@@ -148,6 +165,14 @@ $small-radius: 6px;
   padding: 2rem 5rem;
   display: grid;
   row-gap: 1.5rem;
+
+  @include breakpoint($lg) {
+    padding: 2rem 3rem;
+  }
+
+  @include breakpoint($md) {
+    padding: 2rem 1rem;
+  }
 }
 
 @mixin form-input {
@@ -171,9 +196,9 @@ $small-radius: 6px;
     font-size: 20px;
   }
 
-  &:hover {
+  &:hover, &:focus {
     svg {
-      color: $primary-color;
+      color: $hover-color;
     }
   }
 

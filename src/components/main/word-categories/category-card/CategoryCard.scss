@@ -8,10 +8,9 @@
 
   &__heading {
     text-align: center;
-    color: $secondary-color;
   }
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $background-color;
   }
 }

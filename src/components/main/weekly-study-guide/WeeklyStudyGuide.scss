@@ -38,10 +38,12 @@
   }
 
   &__section-content {
+    overflow-x: auto;
+
     table {
       border-collapse: collapse;
-      table-layout: fixed;
       width: 100%;
+      overflow-x: auto;
 
       th, td {
         border: 1px solid #ccc;
@@ -69,6 +71,22 @@
           border-bottom: 5px solid $primary-color;
         }
       }
+    }
+  }
+
+  @include breakpoint($lg) {
+    &__section-main {
+      @include grid-list(1fr);
+    }
+
+    &__section-image {
+      height: 150px;
+    }
+  }
+
+  @include breakpoint($lg) {
+    &__section {
+      padding: 1rem;
     }
   }
 }
