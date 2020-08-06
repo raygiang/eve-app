@@ -25,17 +25,12 @@ const HomeContent = ({ homeLanguages }: HomeContentProps): JSX.Element => {
   return (
     <div className="home-content-container">
       <div className="home-content-container__banner">
+        <div className="home-content-container__background-image" style={{ backgroundImage: 'url(/images/undraw_empty_street_test.svg)' }} />
         <div className="home-content-container__banner-wrapper page-wrapper">
-          <div
-            className="home-content-container__banner-image-container"
-            style={{ backgroundImage: 'url(/images/undraw_learning.svg)' }}
-          />
-          <div className="home-content-container__banner-content">
-            <h1 className="home-content-container__banner-heading">{ activeLanguage.bannerHeading }</h1>
-            <p className="home-content-container__banner-text">{ activeLanguage.bannerText }</p>
-            <div className="home-content-container__language-buttons">
-              { renderLanguages() }
-            </div>
+          <h1 className="home-content-container__banner-heading">{ activeLanguage.bannerHeading }</h1>
+          <p className="home-content-container__banner-text">{ activeLanguage.bannerText }</p>
+          <div className="home-content-container__language-buttons">
+            { renderLanguages() }
           </div>
         </div>
       </div>

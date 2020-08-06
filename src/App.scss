@@ -1,5 +1,14 @@
 @import './style/theme.scss';
 
+body {
+  color: $text-color;
+}
+
+a {
+  color: $link-color;
+  font-weight: bold
+}
+
 .popover-button-container {
   position: relative;
 
@@ -18,5 +27,5 @@
 }
 
 .highlight {
-  color: $accent-color;
+  color: $primary-color;
 }

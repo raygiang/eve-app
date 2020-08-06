@@ -1,7 +1,7 @@
 @import '../../../style/theme.scss';
 
 .header {
-  border-bottom: 1px solid $secondary-color;
+  background-color: $header-color;
   height: $header-height;
 
   &__wrapper {
@@ -13,7 +13,7 @@
 
   &__heading {
     font-family: $heading-font;
-    font-size: $medium-font;
+    font-size: $small-font;
     margin: auto 0;
   }
 
@@ -24,5 +24,9 @@
       @include grid-list(auto auto auto auto);
       margin: auto 0;
     }
+  }
+
+  a {
+    color: #FFF;
   }
 }

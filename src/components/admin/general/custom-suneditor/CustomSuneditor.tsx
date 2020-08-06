@@ -20,7 +20,7 @@ const CustomSuneditor = ({ content, setContent, height }: CustomSuneditorProps):
         buttonList: [
           ['undo', 'redo'],
           ['fontSize'],
-          ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+          ['underline', 'italic', 'strike', 'subscript', 'superscript'],
           ['outdent', 'indent'],
           ['align', 'horizontalRule', 'list'],
           ['table', 'link', 'image', 'video', 'audio'],

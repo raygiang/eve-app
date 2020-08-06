@@ -1,24 +1,48 @@
 @import '../../../../style/theme.scss';
 
 .home-content-container {
-  @include grid-list(1fr);
-
   &__wrapper {
     @include admin-wrapper;
   }
 
   &__banner {
-    background-color: $link-color;
+    background-image: linear-gradient(to top, #fff6fe, #f7f8ff, #f2fafe, #f3fafa, #f6f9f7);
+    color: $primary-color;
+    border-bottom: 3px solid $accent-color;
+    position: relative;
+    overflow: hidden;
+    height: calc(100vh - #{$header-height});
+  }
+
+  &__background-image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 5px;
+    @include background-image;
+    
+    &:after {
+      @include image-overlay(rgba(255, 255, 255, 0.35));
+    }
   }
 
   &__banner-wrapper {
-    padding: 5rem 2rem;
-    @include grid-list(3fr 7fr);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 12rem 0 12rem;
+    justify-content: center;
     min-height: 450px;
+    text-align: center;
+    height: calc(100% - 300px);
+
+    > * {
+      z-index: 1;
+      margin-bottom: 2.5rem;
+    }
   }
 
-  &__banner-image-container {
-    @include background-image;
+  &__banner-heading {
+    font-size: $xl-font;
   }
 
   &__banner-content {
@@ -34,10 +58,9 @@
 
   &__language-button {
     @include primary-button;
-    // height: max-content;
 
     &.active {
-      background-color: $primary-color;
+      background-color: $secondary-color;
     }
   }
 
@@ -47,10 +70,23 @@
     ul {
       padding: 0 2rem;
     }
+
+    li {
+      @include colored-bullets;
+    }
   }
 
   figure {
     display: flex;
     justify-content: center;
+    margin: 1rem auto !important;
+  }
+
+  hr {
+    margin: 2.5rem auto;
+    width: 50%;
+    height: 3px;
+    border: 0;
+    background-color: $accent-color;
   }
 }

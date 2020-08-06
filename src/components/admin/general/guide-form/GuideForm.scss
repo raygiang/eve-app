@@ -26,6 +26,10 @@
       color: $secondary-color;
     }
     
+    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+      background-color: $primary-color !important;
+    }
+    
     .DayPicker-Day {
       border-radius: 0 !important;
     }

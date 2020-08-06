@@ -1,10 +1,11 @@
 // Colours
-$primary-color: #0EAD69;
+$primary-color: #2b825d;
 $secondary-color: #14453D;
-$accent-color: #FFAD05;
-$background-color: #BEEFE3;
-$text-color: #525766;
-$link-color: #F9F086;
+$accent-color: #58b580;
+$background-color: #f6f9f7;
+$text-color: #484848;
+$link-color: #2b825d;
+$header-color: #2b825d;
 $success-color: #006100;
 $error-color: #BD0000;
 
@@ -12,9 +13,10 @@ $header-height: 65px;
 $footer-height: 38px;
 
 $heading-font: 'Rubik', 'sans-serif';
-$body-font: 'Karla', 'sans-serif';
+$body-font: 'Roboto', 'sans-serif';
 
 // Font Sizes
+$xl-font: 35px;
 $large-font: 28px;
 $medium-font: 20px;
 $small-font: 16px;
@@ -26,8 +28,9 @@ $lg: 1024px;
 $xl: 1366px;
 
 // Border Radius
+$large-radius: 20px;
 $medium-radius: 10px;
-$small-radius: 5px;
+$small-radius: 6px;
 
 @mixin breakpoint($size) {
   @media screen and (max-width: $size) {
@@ -66,9 +69,9 @@ $small-radius: 5px;
 @mixin primary-button {
   padding: 0.25rem 1rem;
   transition: all 0.3s ease-in-out;
-  border: 2px solid $secondary-color;
-  border-radius: $small-radius;
-  background-color: $secondary-color;
+  border: 0;
+  border-radius: $large-radius;
+  background-color: $primary-color;
   color: #FFF;
   display: inline-block;
   cursor: pointer;
@@ -87,8 +90,7 @@ $small-radius: 5px;
   }
 
   &:hover {
-    background-color: transparent;
-    color: #000;
+    background-color: $secondary-color;
   }
 }
 
@@ -113,7 +115,7 @@ $small-radius: 5px;
   box-shadow: 0 0 5px -2px $secondary-color;
   border-radius: $medium-radius;
   padding: 1rem;
-  color: #000;
+  color: $text-color;
 }
 
 @mixin small-card {
@@ -127,6 +129,19 @@ $small-radius: 5px;
   display: grid;
   gap: 1rem;
   grid-template-columns: $template-columns;
+}
+
+@mixin colored-bullets {
+  list-style: none;
+
+  &::before {
+    content: "\2022";
+    color: $primary-color;
+    display: inline-block;
+    width: 1rem;
+    margin-left: -1rem;
+    font-weight: bold;
+  }
 }
 
 @mixin admin-wrapper {

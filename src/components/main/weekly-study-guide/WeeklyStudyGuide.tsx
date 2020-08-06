@@ -43,12 +43,20 @@ const WeeklyStudyGuide = ({ match }: WeeklyStudyGuideProps): JSX.Element => {
   const formattedEndDate = moment(guide.endDate.toDate()).format('MMMM Do, YYYY');
 
   const renderStudyGuideSections = (): JSX.Element[] => {
-    return studyGuideSections.map((section: StudyGuideSection): JSX.Element => (
-      <div className="study-guide__section">
-        <h3 className="study-guide__section-heading">{ section.name }</h3>
-        <p className="study-guide__section-content" dangerouslySetInnerHTML={{ __html: guide[section.id] }} />
-      </div>
-    ));
+    return studyGuideSections.reduce((result: JSX.Element[], section: StudyGuideSection): JSX.Element[] => {
+      if(guide[section.id]) {
+        result.push(
+          <div className="study-guide__section">
+            <h3 className="study-guide__section-heading">{ section.name }</h3>
+            <div className="study-guide__section-main">
+              <div className="study-guide__section-image" style={{ backgroundImage: `url(/images/${section.picture}.svg)` }} />
+              <p className="study-guide__section-content" dangerouslySetInnerHTML={{ __html: guide[section.id] }} />
+            </div>
+          </div>
+        );
+      }
+      return result;
+    }, []);
   }
 
   return (
@@ -56,10 +64,12 @@ const WeeklyStudyGuide = ({ match }: WeeklyStudyGuideProps): JSX.Element => {
       <div className="study-guide__wrapper page-wrapper">
         <div className="study-guide__header">
           <h1 className="study-guide__heading">Weekly Study Guide</h1>
-          <h2 className="study-guide__subheading">{ `${formattedStartDate} to ${formattedEndDate}` }</h2>
+          <h2 className="study-guide__subheading">{ `${formattedStartDate} - ${formattedEndDate}` }</h2>
           <Link to="/weekly-study-guides">Back to Weekly Study Guides</Link>
         </div>
-        { renderStudyGuideSections() }
+        <div className="study-guide__content">
+          { renderStudyGuideSections() }
+        </div>
       </div>
     </section>
   )
