@@ -52,20 +52,20 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
               //Rendering Definition
               definition.definitions.map((definition: Definition, definitionIndex: number) => (
                 <div key={`${definition.definition}-${definitionIndex}`} className="focused-word__definition-wrapper">
-                  <p className="definitions-row__type"><span className="bold">Type</span>: { definition.type }</p>
-                  <p className="definitions-row__definition"><span className="bold">Definition</span>: { definition.definition }</p>
+                  <p className="focused-word__type"><span className="bold">Type</span>: { definition.type }</p>
+                  <p className="focused-word__definition"><span className="bold">Definition</span>: { definition.definition }</p>
                   {
                     definition.example &&
-                    <p className="definitions-row__example"><span className="bold">Example</span>: { definition.example }</p>
+                    <p className="focused-word__example"><span className="bold">Example</span>: { definition.example }</p>
                   }
                   {
                     definition.synonyms &&
                     <>
                       <p><span className="bold">Synonyms</span>: </p>
-                      <div className="definitions-row__synonyms">
+                      <div className="focused-word__synonyms">
                         {
                           definition.synonyms.map((synonym: string) => (
-                            <span key={synonym} className="definitions-row__synonym">
+                            <span key={synonym} className="focused-word__synonym">
                               { synonym }
                             </span>
                           ))
