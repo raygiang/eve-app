@@ -74,6 +74,7 @@ export interface CategoryCardProps {
 export interface Word {
   customDefinition: string,
   dictionaryUrl: string,
+  apiDefinitions?: any,
 }
 
 export interface WordList {
@@ -151,3 +152,38 @@ export interface FilterDates {
 }
 
 export type FilterFunction = (selectedMonth: FilterDates) => void;
+
+export interface Phonetic {
+  text: string,
+  audio?: string,
+}
+
+export interface Meaning {
+  definition: string,
+  example?: string,
+  synonyms?: string[],
+}
+
+export interface Meanings {
+  [type: string]: Meaning[],
+}
+
+export interface ApiWord {
+  word: string,
+  phonetics: Phonetic[],
+  meaning: Meanings,
+}
+
+export interface Definition {
+  type: string,
+  definition: string,
+  example?: string,
+  synonyms?: string[] | null,
+  selected: boolean,
+}
+
+export interface Definitions {
+  word: string,
+  phonetics: Phonetic[],
+  definitions: Definition[],
+}

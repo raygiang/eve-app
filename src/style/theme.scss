@@ -20,6 +20,8 @@ $footer-height: 42px;
 $heading-font: 'Rubik', 'sans-serif';
 $body-font: 'Roboto', 'sans-serif';
 
+$light-border: 1px solid #AAA;
+
 // Font Sizes
 $xl-font: 35px;
 $large-font: 28px;
@@ -154,7 +156,7 @@ $small-radius: 6px;
 }
 
 @mixin small-card {
-  border: 1px solid #AAA;
+  border: $light-border;
   border-radius: $small-radius;
   padding: 0.25rem 0.5rem;
 }
@@ -197,8 +199,8 @@ $small-radius: 6px;
 
 @mixin form-input {
   padding: 0.25rem 0.5rem;
-  border-radius: 5px;
-  border: 1px solid #AAA;
+  border-radius: $small-radius;
+  border: $light-border;
   font-family: $body-font;
   font-size: 14px;
 

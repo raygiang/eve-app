@@ -1,0 +1,64 @@
+@import '../../../../../style/theme.scss';
+
+.definitions-row {
+  fieldset {
+    @include grid-list(1fr);
+    gap: 2rem;
+    border-radius: $small-radius;
+    border: $light-border;
+    padding: 0.5rem 1rem 2rem;
+  }
+
+  legend {
+    padding: 0 0.5rem;
+  }
+
+  audio {
+    border-radius: $medium-radius;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  &__definition-section {
+    @include grid-list(1fr);
+  }
+
+  &__checkbox-row {
+    @include grid-list(1fr 9fr);
+    @include secondary-card;
+
+    input[type="checkbox"] {
+      width: 10px;
+      margin: auto;
+    }
+  }
+
+  &__definition-wrapper {
+    @include grid-list(1fr);
+    gap: 0.3rem;
+  }
+
+  &__synonyms {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__synonym {
+    margin-right: 1rem;
+    border: $light-border;
+    border-radius: $small-radius;
+    padding: 0.25rem 0.5rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  @include breakpoint($sm) {
+    audio {
+      max-width: 200px;
+    }
+  }
+}

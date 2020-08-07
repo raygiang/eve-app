@@ -1,37 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Flipped } from 'react-flip-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { CollectionNames, WordList } from '../../../models/models';
+import { CollectionNames, WordList, Definitions } from '../../../models/models';
+import { formatDictionaryResults } from '../../../../utils/utils';
 import DeleteButton from '../../general/delete-button/DeleteButton';
+import DefinitionBox from './definitions/DefinitionBox';
 import firebase from '../../../../config/firebaseConfig';
 import './WordForm.scss';
 
 interface WordFormProps {
   word: string,
-  setFocusedId: React.Dispatch<React.SetStateAction<string | null>>,
+  setSelectedWord: React.Dispatch<React.SetStateAction<string | null>>,
   wordList: WordList,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
   subcategoryId: string,
   groupId: string,
 }
 
-const WordForm = ({ word, setFocusedId, wordList, setSuccessMessage, subcategoryId, groupId }: WordFormProps): JSX.Element => {
+const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcategoryId, groupId }: WordFormProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
-  const { register, handleSubmit, errors } = useForm();
+  const [definitions, setDefinitions] = useState<Definitions[] | null>(null);
+  const { register, handleSubmit, errors, getValues, reset } = useForm();
   const groupCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId).collection(CollectionNames.Groups).doc(groupId);
 
   const updateGroupCollection = (data: any, newWord: string, wordListCopy: WordList, successMessage: string): void => {
     wordListCopy[newWord] = {
       customDefinition: data['custom-definition'],
       dictionaryUrl: data['dictionary-url'],
+      apiDefinitions: definitions,
     };
     groupCollection.update({ words: wordListCopy }).then((): void => {
       setSuccessMessage(successMessage);
       setSubmitting(false);
-      setFocusedId(null);
+      setSelectedWord(null);
     }).catch((error: { message: string }): void => {
       setSuccessMessage('');
       setSubmitError(error.message);
@@ -39,10 +42,43 @@ const WordForm = ({ word, setFocusedId, wordList, setSuccessMessage, subcategory
     });
   }
 
+  const searchDefinitions = (): void => {
+    const word = getValues('word').replace(' ', '_');
+
+    if(!word) {
+      setSubmitError('Please enter a word first');
+      setSuccessMessage('');
+      return;
+    }
+
+    setSubmitting(true);
+    fetch(`https://api.dictionaryapi.dev/api/v1/entries/en/${word}`).then(response => {
+      response.json().then((data: any) => {
+        setSubmitError('');
+        setSuccessMessage('');
+        if(data.length) {
+          reset({
+            word: getValues('word'),
+            'custom-definition': getValues('custom-definition'),
+            'dictionary-url': getValues('dictionary-url'),
+          });
+          setDefinitions(formatDictionaryResults(data));
+          setSubmitting(false);
+        }
+        else {
+          setDefinitions([]);
+          setSubmitting(false);
+        }
+      });
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
     const wordListCopy = { ...wordList }
-    const newWord = data.word.toLowerCase().trim();
+    const newWord = data.word.trim();
 
     // Updating an existing word
     if(word === newWord) {
@@ -77,7 +113,7 @@ const WordForm = ({ word, setFocusedId, wordList, setSuccessMessage, subcategory
       groupCollection.update({ words: wordListCopy }).then((): void => {
         setSuccessMessage(`Word deleted: ${word}`);
         setSubmitting(false);
-        setFocusedId(null);
+        setSelectedWord(null);
       }).catch((error: { message: string }): void => {
         setSuccessMessage('');
         setSubmitError(error.message);
@@ -86,60 +122,64 @@ const WordForm = ({ word, setFocusedId, wordList, setSuccessMessage, subcategory
     }
   }
 
+  useEffect(() => {
+    if(wordList[word]) {
+      setDefinitions(wordList[word].apiDefinitions || null);
+    }
+  }, [word, wordList]);
+
   return (
-    <Flipped flipId={`word-${word}`}>
-      <div className="word-form">
-        <Flipped inverseFlipId={`word-${word}`}>
-          <form key={word} className="word-form__form" onSubmit={handleSubmit(onSubmit)}>
-            <div className="word-form__close-container">
-              <button type="button" disabled={submitting} onClick={() => {setFocusedId(null)}}>
-                <FontAwesomeIcon icon={faTimes} />
-              </button>
-            </div>
-            <div className="word-form__field-row">
-              <label htmlFor="name">Word: </label>
-              <input
-                id="word"
-                name="word"
-                className={`word-form__field ${errors.word ? 'error' : ''}`}
-                type="text"
-                ref={register({ required: 'Please enter a word.' })}
-                defaultValue={word}
-              />
-            </div>
-            { errors.word && <p className="word-form__error error">{ errors.word.message }</p> }
-            <div className="word-form__field-row">
-              <label htmlFor="custom-definition">Custom Definition: </label>
-              <textarea
-                id="custom-definition"
-                name="custom-definition"
-                className={`word-form__field ${errors['custom-definition'] ? 'error' : ''}`}
-                ref={register()}
-                defaultValue={wordList[word] && wordList[word].customDefinition}
-              />
-            </div>
-            <div className="word-form__field-row">
-              <label htmlFor="dictionary-url">Dictionary URL: </label>
-              <input
-                id="dictionary-url"
-                name="dictionary-url"
-                className={`word-form__field ${errors['dictionary-url'] ? 'error' : ''}`}
-                type="text"
-                ref={register()}
-                defaultValue={wordList[word] && wordList[word].dictionaryUrl}
-              />
-            </div>
-            <div className="word-form__submit-row">
-              <button disabled={submitting} className="word-form__save-button" type="submit">
-                { word ? 'Save' : 'Add' }
-              </button>
-              { word && <DeleteButton disabled={submitting} deleteFunction={deleteWord} text="Delete" /> }
-            </div>
-            { submitError && <p className="category-edit__error error">{ submitError }</p> }
-          </form>
-        </Flipped>
+    <form key={word} className="word-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="word-form__close-container">
+        <button type="button" disabled={!definitions && submitting} onClick={() => {setSelectedWord(null)}}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
       </div>
-    </Flipped>
+      <div className="word-form__field-row">
+        <label htmlFor="name">Word: </label>
+        <input
+          id="word"
+          name="word"
+          className={`word-form__field ${errors.word ? 'error' : ''}`}
+          type="text"
+          ref={register({ required: 'Please enter a word.' })}
+          defaultValue={word}
+        />
+      </div>
+      { errors.word && <p className="word-form__error error">{ errors.word.message }</p> }
+      <div className="word-form__field-row">
+        <label htmlFor="custom-definition">Custom Definition: </label>
+        <textarea
+          id="custom-definition"
+          name="custom-definition"
+          className={`word-form__field ${errors['custom-definition'] ? 'error' : ''}`}
+          ref={register()}
+          defaultValue={wordList[word] && wordList[word].customDefinition}
+        />
+      </div>
+      <div className="word-form__field-row">
+        <label htmlFor="dictionary-url">Dictionary URL: </label>
+        <input
+          id="dictionary-url"
+          name="dictionary-url"
+          className={`word-form__field ${errors['dictionary-url'] ? 'error' : ''}`}
+          type="text"
+          ref={register()}
+          defaultValue={wordList[word] && wordList[word].dictionaryUrl}
+        />
+      </div>
+      { definitions && <DefinitionBox definitions={definitions} setDefinitions={setDefinitions} /> }
+      { submitError && <p className="category-edit__error error">{ submitError }</p> }
+      <div className="word-form__submit-row">
+        <button disabled={submitting} className="word-form__def-button" type="button" onClick={searchDefinitions}>
+          Get Definitions
+        </button>
+        <button disabled={!definitions || submitting} className="word-form__save-button" type="submit">
+          { word ? 'Save' : 'Add' }
+        </button>
+        { word && <DeleteButton disabled={!definitions || submitting} deleteFunction={deleteWord} text="Delete" /> }
+      </div>
+    </form>
   )
 }
 
