@@ -1,57 +1,46 @@
 @import '../../../../style/theme.scss';
 
 .focused-word {
-  &__spinner {
-    @include spinner(8px, $primary-color, 1s);
-    height: 100px;
-    width: 100px;
-    margin: 2rem auto;
+  @include center-container(800px);
+
+  audio {
+    border-radius: $medium-radius;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  &__heading-word {
+    font-size: $xl-font;
   }
 
   &__definition {
-    @include grid-list(100%);
-  }
-
-  &__word {
-    font-size: $medium-font;
-  }
-
-  &__owlbot-info {
-    display: grid;
-    gap: 1rem;
+    @include grid-list(1fr);
   }
   
-  &__owlbot-definition-list {
+  &__definition-section {
+    @include grid-list(1fr);
+  }
+
+  &__definition-list {
     @include grid-list(1fr 1fr);
   }
 
-  &__owlbot-definition-container {
-    @include grid-list(1fr 3fr);
-    @include card-styling;
-  }
+  &__definition-wrapper {
+    @include secondary-card;
+    @include grid-list(1fr);
+    align-content: flex-start;
+    gap: 0.5rem;
 
-  &__owlbot-definition-image-container {
-    height: 100px;
-    border-radius: $medium-radius;
-    @include background-image;
-  }
-
-  &__owlbot-definition-info-container {
-    display: flex;
-    flex-direction: column;
-
-    & > * {
-      margin-bottom: 0.5rem;
+    &:hover, &:focus {
+      background-color: initial;
     }
   }
 
-  &__owlbot-pronunciation {
-    font-style: italic;
-  }
-
   @include breakpoint($md) {
-    &__owlbot-definition-list {
-      grid-template-columns: 1fr;
+    &__definition-list {
+      @include grid-list(1fr);
     }
   }
 }

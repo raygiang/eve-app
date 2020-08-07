@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { WordList } from '../../../models/models';
+import React from 'react';
+import { WordList, Definitions, Phonetic, Definition } from '../../../models/models';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import './FocusedWord.scss';
-import { isArray } from 'lodash';
 
 interface FocusedWordProps {
   word: string,
@@ -16,80 +17,68 @@ interface DefinitionInterface {
   emoji: string,
 }
 
-interface OwlbotMissing {
-  message: string,
-}
-
-interface OwlbotResults {
-  word: string,
-  pronunciation: string,
-  definition: DefinitionInterface,
-}
-
 const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
-  const [owlbotDef, setOwlbotDef] = useState<any>(null);
+  const formattedWord = word.replace(' ', '_');
 
-  // Get word information from Owlbot
-  useEffect((): void => {
-    fetch(`https://owlbot.info/api/v4/dictionary/${word}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Token '+ process.env.REACT_APP_OWLBOT_KEY,
-      }
-    }).then(response => {
-      response.json().then((data: any) => setOwlbotDef(data));
-    }).catch(error => {
-      console.log(error.message);
-    });
-  }, [word]);
-
-  if(!owlbotDef) {
-    return (
-      <div className="focused-word">
-        <div className="focused-word__spinner-container">
-          <div className="focused-word__spinner"></div>
-        </div>
-      </div>
-    );
-  }
-
-  const renderOwlbotDefinition = (): JSX.Element => {
-    if(isArray(owlbotDef)) {
-      return(
-        <>
-          <div className="focused-word__owlbot-info">
-            <p>{owlbotDef[0].message}</p>
-          </div>
-        </>
-      )
+  const renderDefinitions = (): JSX.Element => {
+    const definitions = wordInfo[word].apiDefinitions;
+    if(!definitions || !definitions.length) {
+      return <p>No definitions found.</p>
     }
     else {
-      return (
-        <div className="focused-word__owlbot-info">
-          <p className="focused-word__owlbot-pronunciation">Pronunciation: {owlbotDef.pronunciation || 'N/A'}</p>
-          <h3>Definitions:</h3>
-          <div className="focused-word__owlbot-definition-list">
+      return definitions.map((definition: Definitions, index: number) => (
+        <div key={`${definition.word}-${index}`} className="focused-word__definition-section">
+          <h3 className="focused-word__heading-word">
+            Word: { definition.word }
+          </h3>
+          {
+            // Rendering Phonetic Information
+            definition.phonetics.map((phonetic: Phonetic, phoneticIndex: number) => (
+              <div key={`${phonetic.text}-${phoneticIndex}`} className="focused-word__phonetic">
+                <p className="focused-word__pronunciation">
+                  Pronunciation: { phonetic.text }
+                </p>
+                {
+                  phonetic.audio &&
+                    <audio controls>
+                      <source src={phonetic.audio} />
+                    </audio>
+                }
+              </div>
+            ))
+          }
+          <div className="focused-word__definition-list">
             {
-              owlbotDef.definitions.map((definition: DefinitionInterface, index: number):JSX.Element => (
-                <div key={index} className="focused-word__owlbot-definition-container">
-                  <div
-                    className="focused-word__owlbot-definition-image-container"
-                    style={{
-                      backgroundImage: `url(${definition.image_url || '/images/undraw_photo.svg'})`
-                    }}
-                  />
-                  <div className="focused-word__owlbot-definition-info-container">
-                    <h4 className="focused-word__owlbot-definition-heading">Definition {index + 1}</h4>
-                    <p className="focused-word__owlbot-definition-type">Type: {definition.type || 'N/A'}</p>
-                    <p className="focused-word__owlbot-definition">Definition: {definition.definition || 'N/A'}</p>
-                    <p className="focused-word__owlbot-definition-example">Example: {definition.example || 'N/A'}</p>
-                  </div>
+              //Rendering Definition
+              definition.definitions.map((definition: Definition, definitionIndex: number) => (
+                <div key={`${definition.definition}-${definitionIndex}`} className="focused-word__definition-wrapper">
+                  <p className="definitions-row__type"><span className="bold">Type</span>: { definition.type }</p>
+                  <p className="definitions-row__definition"><span className="bold">Definition</span>: { definition.definition }</p>
+                  {
+                    definition.example &&
+                    <p className="definitions-row__example"><span className="bold">Example</span>: { definition.example }</p>
+                  }
+                  {
+                    definition.synonyms &&
+                    <>
+                      <p><span className="bold">Synonyms</span>: </p>
+                      <div className="definitions-row__synonyms">
+                        {
+                          definition.synonyms.map((synonym: string) => (
+                            <span key={synonym} className="definitions-row__synonym">
+                              { synonym }
+                            </span>
+                          ))
+                        }
+                      </div>
+                    </>
+                  }
                 </div>
               ))
             }
           </div>
         </div>
-      )
+      ))
     }
   };
 
@@ -97,17 +86,24 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
     <div className="focused-word">
       <div className="focused-word__definition">
         <h3 className="focused-word__word">
-          Word: <span className="highlight">{ word }</span>
+          Word: { word }
         </h3>
-        { wordInfo[word].customDefinition && <p className="word-list-main__custom-definition">Definition: { wordInfo[word].customDefinition }</p> }
+        <div className="focused-word__dictionary-link-container">
+          <a rel="noopener noreferrer" target="_blank" href={`https://www.merriam-webster.com/dictionary/${formattedWord}`}>
+            Merriam Webster Dictionary <FontAwesomeIcon icon={faExternalLinkAlt} />
+          </a>
+        </div>
+        { wordInfo[word].customDefinition && <p className="focused-word__custom-definition">Definition: { wordInfo[word].customDefinition }</p> }
         {
           wordInfo[word].dictionaryUrl
-            && <div className="word-list-main__dictionary-link-container">
-                <a href={wordInfo[word].dictionaryUrl}>Dictionary Link</a>
+            && <div className="focused-word__custom-dictionary-link-container">
+                <a rel="noopener noreferrer" target="_blank" href={wordInfo[word].dictionaryUrl}>
+                  Dictionary Link
+                </a>
               </div>
         }
-        <h3 className="focused-word__heading">Owlbot Information:</h3>
-        { renderOwlbotDefinition() }
+        <h3 className="focused-word__heading">Auto Generated Definitions:</h3>
+        { renderDefinitions() }
       </div>
     </div>
   )
