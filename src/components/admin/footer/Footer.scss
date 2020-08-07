@@ -1,0 +1,33 @@
+@import '../../../style/theme.scss';
+
+.admin-footer {
+  background-color: $footer-color;
+  border-top: 2px solid $footer-border;
+  padding: 0.5rem 1rem;
+  height: $footer-height;
+
+  &__wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__link-container {
+    @include grid-list(auto);
+  }
+
+  @include breakpoint($sm) {
+    height: auto;
+    
+    &__link-container {
+      grid-template-columns: 1fr;
+    }
+
+    &__link-container {
+      width: 100%;
+    }
+
+    &__link {
+      text-align: center;
+    }
+  }
+}

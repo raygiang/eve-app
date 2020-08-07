@@ -19,7 +19,6 @@
 
   &__nav {
     display: flex;
-    transition: 0.3s all ease;
   }
 
   &__nav-list {
@@ -37,7 +36,7 @@
       @include secondary-link;
     }
 
-    &:hover, &:focus svg {
+    &:hover svg, &:focus svg {
       color: $highlight-color;
     }
   }
@@ -77,6 +76,7 @@
       height: 100vh;
       padding: 1rem;
       width: 250px;
+      transition: 0.3s all ease;
 
       .header__nav-list {
         display: none;

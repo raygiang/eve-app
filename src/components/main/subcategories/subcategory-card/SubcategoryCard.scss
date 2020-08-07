@@ -2,7 +2,7 @@
 
 .subcategory-card {
   display: flex;
-  @include card-styling;
+  @include secondary-card;
   padding: 1rem;
   transition: all 0.5s ease;
   height: 100%;
@@ -11,9 +11,5 @@
     margin: auto;
     text-align: center;
     font-size: $small-font;
-  }
-
-  &:hover, &:focus {
-    background-color: $background-color;
   }
 }

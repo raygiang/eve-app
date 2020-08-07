@@ -48,4 +48,10 @@
   &__owlbot-pronunciation {
     font-style: italic;
   }
+
+  @include breakpoint($md) {
+    &__owlbot-definition-list {
+      grid-template-columns: 1fr;
+    }
+  }
 }

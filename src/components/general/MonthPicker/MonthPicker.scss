@@ -15,4 +15,12 @@
   &__select-button {
     @include primary-button;
   }
+
+  @include breakpoint($md) {
+    @include grid-list(2fr 1fr);
+  }
+
+  @include breakpoint($md) {
+    @include grid-list(1fr);
+  }
 }

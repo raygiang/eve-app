@@ -2,11 +2,8 @@
 
 .login-form {
   @include card-styling;
-  $root: &;
-  margin: 0 auto;
+  @include center-container(500px);
   padding: 2rem;
-  width: 70%;
-  max-width: 600px;
 
   &__row {
     display: flex;
@@ -25,7 +22,7 @@
 
   &__submit {
     @include primary-button;
-    width: 200px;
+    width: 150px;
   }
 
   &__spinner {

@@ -1,5 +1,15 @@
 @import '../../../../style/theme.scss';
 
-.edit-form {
+.sun-editor {
   @include center-container(800px);
+
+  @include breakpoint($sm) {
+    overflow: hidden;
+  }
+
+  table {
+    th, td {
+      word-break: break-all;
+    }
+  }
 }

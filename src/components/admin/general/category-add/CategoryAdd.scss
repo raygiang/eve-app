@@ -7,9 +7,7 @@
   row-gap: 1rem;
 
   &__form-content {
-    display: grid;
-    grid-template-columns: 1fr 80px;
-    column-gap: 1rem;
+    @include grid-list(1fr 80px);
   }
 
   &__field-row {
@@ -29,5 +27,11 @@
   &__submit {
     @include primary-button;
     width: 100%;
+  }
+
+  @include breakpoint($sm) {
+    &__form-content {
+      grid-template-columns: 1fr;
+    }
   }
 }

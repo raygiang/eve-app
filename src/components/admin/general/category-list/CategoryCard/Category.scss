@@ -18,12 +18,10 @@
   }
 }
 
-.category {
-  &__content-container {
-    display: grid;
-    grid-template-columns: auto 80px;
-    column-gap: 1rem;
-  }
+.category__content-container {
+  display: grid;
+  grid-template-columns: auto 80px;
+  column-gap: 1rem;
 }
 
 .category--expanded {
@@ -35,5 +33,24 @@
 
   &__button-container {
     grid-template-columns: 100%;
+  }
+}
+
+@include breakpoint($sm) {
+  .category {
+    &__name {
+      text-align: center;
+    }
+  }
+
+  .category__content-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .category--expanded {
+    &__header {
+      grid-template-columns: 2fr 1fr;
+    }
   }
 }

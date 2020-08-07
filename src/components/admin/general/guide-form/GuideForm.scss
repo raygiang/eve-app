@@ -22,8 +22,7 @@
     margin: 0 auto;
 
     .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-      background-color: $background-color !important;
-      color: $secondary-color;
+      background-color: $accent-color !important;
     }
     
     .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {

@@ -2,7 +2,7 @@
 
 .category-card {
   display: block;
-  @include card-styling;
+  @include secondary-card;
   padding: 3rem;
   transition: all 0.5s ease;
 
@@ -10,7 +10,7 @@
     text-align: center;
   }
 
-  &:hover, &:focus {
-    background-color: $background-color;
+  @include breakpoint($md) {
+    padding: 2rem;
   }
 }

@@ -1,7 +1,7 @@
 @import '../../../style/theme.scss';
 
 .admin-header {
-  border-bottom: 1px solid $secondary-color;
+  background-color: $header-color;
   height: $header-height;
 
   &__wrapper {
@@ -13,20 +13,109 @@
 
   &__heading {
     font-family: $heading-font;
-    font-size: $medium-font;
+    font-size: $small-font;
     margin: auto 0;
   }
 
   &__nav {
     display: flex;
+  }
 
-    ul {
-      @include grid-list(auto auto auto auto);
-      margin: auto 0;
+  &__nav-list {
+    @include grid-list(auto auto auto auto);
+    margin: auto 0;
+  }
+
+  &__logout-button {
+    @include svg-button;
+    color: #FFF;
+
+    &:hover svg, &:focus svg {
+      color: $highlight-color;
+    }
+  }
+
+  &__burger-button, &__close-button {
+    display: none;
+    margin: auto 0;
+    padding: 0.25rem 0.5rem;
+    @include svg-button;
+    
+    svg {
+      @include secondary-link;
     }
 
-    button {
-      @include svg-button;
+    &:hover svg, &:focus svg {
+      color: $highlight-color;
+    }
+  }
+
+  a {
+    @include secondary-link;
+    padding-bottom: 0.3rem;
+
+    &.current {
+      border-bottom: 3px solid #FFF;
+    }
+
+    &:hover, &:focus {
+      border-color: $highlight-color;
+    }
+  }
+
+  @include breakpoint($lg) {
+    &__mobile-overlay {
+      &.show {
+        position: fixed;
+        width: 100%;
+        height: calc(100vh - #{$header-height});
+        z-index: 4;
+        top: $header-height;
+        left: 0;
+      }
+    }
+
+    &__nav {
+      display: flex;
+      position: fixed;
+      background-color: $primary-color;
+      top: 0;
+      right: -250px;
+      z-index: 5;
+      height: 100vh;
+      padding: 1rem;
+      width: 250px;
+      transition: 0.3s all ease;
+
+      .header__nav-list {
+        display: none;
+      }
+
+      &.show {
+        right: 0;
+
+        .admin-header__close-button {
+          display: flex;
+          position: fixed;
+          right: 1rem;
+        }
+
+        .admin-header__nav-list {
+          display: grid;
+        }
+      }
+    }
+
+    &__nav-list {
+      @include grid-list(1fr);
+      gap: 3.5rem;
+      margin: auto;
+
+      text-align: center;
+    }
+
+    &__burger-button {
+      display: flex;
     }
   }
 }

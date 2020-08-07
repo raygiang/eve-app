@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './header/Header';
+import Footer from './footer/Footer';
 import Home from './home/Home';
 import PageNotFound from '../general/404/PageNotFound';
 import WordCategories from './word-categories/WordCategories';
@@ -26,6 +27,7 @@ const Main = (): JSX.Element => {
         <Route exact path="/weekly-study-guide/:guideId" component={WeeklyStudyGuide} />
         <Route path="/" component={PageNotFound} />
       </Switch>
+      <Footer />
     </main>
   )
 }

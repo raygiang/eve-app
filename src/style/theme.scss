@@ -10,9 +10,12 @@ $highlight-color: #FFFFA8;
 $header-color: #2b825d;
 $success-color: #006100;
 $error-color: #BD0000;
+$error-hover: #660000;
+$footer-color: #fafafa;
+$footer-border: #CCC;
 
 $header-height: 65px;
-$footer-height: 38px;
+$footer-height: 42px;
 
 $heading-font: 'Rubik', 'sans-serif';
 $body-font: 'Roboto', 'sans-serif';
@@ -85,14 +88,16 @@ $small-radius: 6px;
     color: #999;
     background-color: #EEE;
     cursor: default;
-
-    &:hover {
-      color: #999;
-    }
   }
 
   &:hover, &:focus {
     background-color: $secondary-color;
+    color: #FFF;
+
+    &:disabled {
+      color: #999;
+      background-color: #EEE;
+    }
   }
 }
 
@@ -100,6 +105,10 @@ $small-radius: 6px;
   @include primary-button;
   background-color: $error-color;
   border-color: $error-color;
+
+  &:hover, &:focus {
+    background-color: $error-hover;
+  }
 }
 
 @mixin primary-link {
@@ -135,6 +144,15 @@ $small-radius: 6px;
   color: $text-color;
 }
 
+@mixin secondary-card {
+  @include card-styling;
+  border-top: 5px solid $primary-color;
+
+  &:hover, &:focus {
+    background-color: $background-color;
+  }
+}
+
 @mixin small-card {
   border: 1px solid #AAA;
   border-radius: $small-radius;
@@ -165,6 +183,8 @@ $small-radius: 6px;
   padding: 2rem 5rem;
   display: grid;
   row-gap: 1.5rem;
+  min-height: calc(100vh - #{$header-height} - #{$footer-height});
+  align-content: start;
 
   @include breakpoint($lg) {
     padding: 2rem 3rem;

@@ -22,4 +22,16 @@
       }
     }
   }
+
+  @include breakpoint($md) {
+    &__list {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  @include breakpoint($sm) {
+    &__list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 }

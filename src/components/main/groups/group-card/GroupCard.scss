@@ -1,7 +1,7 @@
 @import '../../../../style/theme.scss';
 
 .group-card-main {
-  @include card-styling;
+  @include secondary-card;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -27,9 +27,5 @@
     &:last-child {
       margin-right: 0;
     }
-  }
-
-  &:hover, &:focus {
-    background-color: $background-color;
   }
 }

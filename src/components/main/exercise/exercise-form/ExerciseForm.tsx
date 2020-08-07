@@ -44,16 +44,15 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
     <form key={exerciseId} className="exercise-form-main" onSubmit={handleSubmit(onSubmit)}>
       <h2>Questions:</h2>
       { result !== null && 
-        <div className="exercise-form-main__result-container">
           <div className="exercise-form-main__result">
-            Your score: <span className={result > 50 ? 'green' : 'red'}>{ result }%</span>
+            <div className="exercise-form-main__result-image" style={{ backgroundImage: `url(${result > 50 ? '/images/exercise-success.svg' : '/images/exercise-fail.svg'})` }} />
+            <div className="exercise-form-main__result-content">
+              <p>Your score: <span className={result > 50 ? 'green' : 'red'}>{ result }%</span></p>
+              <button type="button" className="exercise-form-main__restart-button" onClick={restartExercise}>
+                Restart
+              </button>
+            </div>
           </div>
-          <div className="exercise-form-main__result-button-container">
-            <button type="button" className="exercise-form-main__restart-button" onClick={restartExercise}>
-              Restart
-            </button>
-          </div>
-        </div> 
       }
       <div className="exercise-form-main__form-body">
         {

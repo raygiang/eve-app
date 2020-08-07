@@ -16,6 +16,7 @@ import Exercise from './exercise/Exercise';
 import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
 import AddGuide from './add-guide/AddGuide';
 import EditGuide from './edit-guide/EditGuide';
+import Footer from './footer/Footer';
 import PageNotFound from '../general/404/PageNotFound';
 import Loading from '../general/loading/Loading';
 
@@ -51,6 +52,7 @@ const Admin = (): JSX.Element => {
         <Route exact path="/admin-dashboard/edit-study-guide/:guideId" component={EditGuide} />
         <Route path="/admin-dashboard" component={PageNotFound} />
       </Switch>
+      <Footer />
     </main>
   )
 }

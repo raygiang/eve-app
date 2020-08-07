@@ -15,6 +15,7 @@ const CustomSuneditor = ({ content, setContent, height }: CustomSuneditorProps):
     <SunEditor
       setContents={content}
       setOptions={{
+        stickyToolbar: -1,
         height,
         plugins,
         buttonList: [

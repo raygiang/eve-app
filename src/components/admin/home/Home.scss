@@ -1,0 +1,41 @@
+@import '../../../style/theme.scss';
+
+.admin-home {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: $xl-font;
+  }
+
+  &__description {
+    font-size: $medium-font;
+  }
+
+  &__link-list {
+    @include center-container(500px);
+    @include grid-list(1fr);
+    grid-auto-rows: 1fr;
+  }
+
+  &__link-card {
+    @include secondary-card;
+    @include grid-list(2fr 3fr);
+  }
+  
+  &__card-image {
+    @include background-image;
+  }
+
+  &__card-heading {
+    padding: 1rem 0;
+    margin: auto 0;
+  }
+
+  @include breakpoint($sm) {
+    &__card-heading {
+      font-size: $small-font;
+    }
+  }
+}

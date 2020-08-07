@@ -28,15 +28,17 @@ const ExerciseForm = ({ words, exercise, subcategoryId, groupId, exerciseId }: E
         <h3 className="exercise-form__row-heading">
           <span className="exercise-form__highlight">{word}</span>
         </h3>
-        <label className="exercise-form__label" htmlFor={word}>Question: </label>
-        <input
-          id={word}
-          name={word}
-          className={`exercise-form__field ${errors[word] ? 'error' : ''}`}
-          type="text"
-          ref={register}
-          defaultValue={exercise.questions[word] || ''}
-        />
+        <div className="exercise-form__row-content">
+          <label className="exercise-form__label" htmlFor={word}>Question: </label>
+          <input
+            id={word}
+            name={word}
+            className={`exercise-form__field ${errors[word] ? 'error' : ''}`}
+            type="text"
+            ref={register}
+            defaultValue={exercise.questions[word] || ''}
+          />
+        </div>
       </div>
     ));
   }
