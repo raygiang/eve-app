@@ -126,6 +126,9 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
     if(wordList[word]) {
       setDefinitions(wordList[word].apiDefinitions || null);
     }
+    else {
+      setDefinitions(null);
+    }
   }, [word, wordList]);
 
   return (

@@ -15,7 +15,7 @@
     font-size: $xl-font;
   }
 
-  &__definition {
+  &__definition-box {
     @include grid-list(1fr);
   }
   

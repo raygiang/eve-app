@@ -26,14 +26,14 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
       return <p>No definitions found.</p>
     }
     else {
-      return definitions.map((definition: Definitions, index: number) => (
+      return definitions.map((definition: Definitions, index: number): JSX.Element => (
         <div key={`${definition.word}-${index}`} className="focused-word__definition-section">
           <h3 className="focused-word__heading-word">
             Word: { definition.word }
           </h3>
           {
             // Rendering Phonetic Information
-            definition.phonetics.map((phonetic: Phonetic, phoneticIndex: number) => (
+            definition.phonetics.map((phonetic: Phonetic, phoneticIndex: number): JSX.Element => (
               <div key={`${phonetic.text}-${phoneticIndex}`} className="focused-word__phonetic">
                 <p className="focused-word__pronunciation">
                   Pronunciation: { phonetic.text }
@@ -50,31 +50,35 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
           <div className="focused-word__definition-list">
             {
               //Rendering Definition
-              definition.definitions.map((definition: Definition, definitionIndex: number) => (
-                <div key={`${definition.definition}-${definitionIndex}`} className="focused-word__definition-wrapper">
-                  <p className="focused-word__type"><span className="bold">Type</span>: { definition.type }</p>
-                  <p className="focused-word__definition"><span className="bold">Definition</span>: { definition.definition }</p>
-                  {
-                    definition.example &&
-                    <p className="focused-word__example"><span className="bold">Example</span>: { definition.example }</p>
-                  }
-                  {
-                    definition.synonyms &&
-                    <>
-                      <p><span className="bold">Synonyms</span>: </p>
-                      <div className="focused-word__synonyms">
-                        {
-                          definition.synonyms.map((synonym: string) => (
-                            <span key={synonym} className="focused-word__synonym">
-                              { synonym }
-                            </span>
-                          ))
-                        }
-                      </div>
-                    </>
-                  }
-                </div>
-              ))
+              definition.definitions.reduce((result: JSX.Element[], definition: Definition, definitionIndex: number): JSX.Element[] => {
+                if(!definition.selected) return result;
+                result.push(
+                  <div key={`${definition.definition}-${definitionIndex}`} className="focused-word__definition-wrapper">
+                    <p className="focused-word__type"><span className="bold">Type:</span> { definition.type }</p>
+                    <p className="focused-word__definition"><span className="bold">Definition:</span> { definition.definition }</p>
+                    {
+                      definition.example &&
+                      <p className="focused-word__example"><span className="bold">Example:</span> { definition.example }</p>
+                    }
+                    {
+                      definition.synonyms &&
+                      <>
+                        <p><span className="bold">Synonyms:</span> </p>
+                        <div className="focused-word__synonyms">
+                          {
+                            definition.synonyms.map((synonym: string) => (
+                              <span key={synonym} className="focused-word__synonym">
+                                { synonym }
+                              </span>
+                            ))
+                          }
+                        </div>
+                      </>
+                    }
+                  </div>
+                );
+                return result;
+              }, [])
             }
           </div>
         </div>
@@ -84,7 +88,7 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
 
   return (
     <div className="focused-word">
-      <div className="focused-word__definition">
+      <div className="focused-word__definition-box">
         <h3 className="focused-word__word">
           Word: { word }
         </h3>
