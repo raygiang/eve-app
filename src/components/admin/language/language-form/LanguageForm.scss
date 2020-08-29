@@ -5,8 +5,7 @@
   @include grid-list(1fr);
 
   &__form-row {
-    @include grid-list(1fr);
-    gap: 0.25rem;
+    @include grid-list(1fr, 0.25rem);
 
     textarea {
       resize: none;

@@ -13,4 +13,10 @@
     @include center-container(800px);
     @include grid-list(1fr 1fr);
   }
+
+  @include breakpoint($md) {
+    &__category-list {
+      grid-template-columns: 1fr;
+    }
+  }
 }

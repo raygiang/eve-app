@@ -2,16 +2,15 @@
 
 .category-card {
   display: block;
-  @include card-styling;
+  @include secondary-card;
   padding: 3rem;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 
   &__heading {
     text-align: center;
-    color: $secondary-color;
   }
 
-  &:hover {
-    background-color: $background-color;
+  @include breakpoint($md) {
+    padding: 2rem;
   }
 }

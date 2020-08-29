@@ -1,17 +1,17 @@
 @import '../../../../style/theme.scss';
 
-.button-container {
-  &__word-button, &__add-button {
-    @include primary-button;
-  }
+.word-button--word, .word-button--add {
+  @include primary-button;
+}
 
-  &__add-button {
-    border-style: dashed;
+.word-button--add {
+  border: 2px dashed $primary-color;
+  background-color: transparent;
+  color: $text-color;
+
+  &:hover {
+    border-color: $secondary-color;
     background-color: transparent;
-    color: #000;
-
-    &:hover {
-      color: $secondary-color;
-    }
+    color: $hover-color;
   }
 }

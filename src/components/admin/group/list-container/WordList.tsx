@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Flipper } from "react-flip-toolkit";
 import { WordList as WordListInterface } from '../../../models/models';
 import WordButton from '../word-button/WordButton';
 import WordForm from '../word-form/WordForm';
@@ -13,47 +12,39 @@ interface WordListProps {
 }
 
 const WordList = ({ words, setSuccessMessage, subcategoryId, groupId }: WordListProps): JSX.Element => {
-  const [focusedId, setFocusedId] = useState<string | null>(null);
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const wordList = [...Object.keys(words).sort(), ''];
 
   const renderWordList = (): JSX.Element[] => {
-    return wordList.reduce((result: JSX.Element[], word: string, index: number) => {
-      if(focusedId !== word) {
-        result.push(
-          <li key={index}>
-            <WordButton
-              word={word}
-              setFocusedId={setFocusedId}
-            />
-          </li>
-        )
-      }
-      return result;
-    }, []);
+    return wordList.map((word: string, index: number): JSX.Element => (
+      <li key={index}>
+        <WordButton
+          word={word}
+          selectedWord={selectedWord}
+          setSelectedWord={setSelectedWord}
+        />
+      </li>
+    ));
   }
 
   return (
-    <Flipper
-      flipKey={focusedId}
-      className="word-list"
-      spring="verygentle"
-    >
+    <div className="word-list">
       <h2 className="word-list__heading">Word List</h2>
+      <ul className="word-list__list">
+        { renderWordList() }
+      </ul>
       {
-        focusedId !== null && 
+        selectedWord !== null && 
           <WordForm
-            word={focusedId}
-            setFocusedId={setFocusedId}
+            word={selectedWord}
+            setSelectedWord={setSelectedWord}
             wordList={words}
             setSuccessMessage={setSuccessMessage}
             subcategoryId={subcategoryId}
             groupId={groupId}
           />
       }
-      <ul className="word-list__list">
-        { renderWordList() }
-      </ul>
-    </Flipper>
+    </div>
   )
 }
 

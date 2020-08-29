@@ -9,11 +9,23 @@
     margin: auto 0;
   }
 
+  &__edit-button, .delete-button {
+    height: max-content;
+  }
+
   &__edit-button {
     @include primary-button;
   }
   
   .delete-button {
     @include secondary-button;
+  }
+
+  @include breakpoint($sm) {
+    &__heading {
+      text-align: center;
+    }
+
+    grid-template-columns: 1fr;
   }
 }

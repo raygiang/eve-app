@@ -19,7 +19,7 @@ export enum DefaultStudyGuide {
   AcademicVocab = '<table><tbody><tr><th><div><br></div></th><th><div>Exercises</div></th></tr><tr><td><div><strong>englishvocabularyexercises.com</strong></div></td><td><div><br></div><br></td></tr></tbody></table><p><br></p><p><br></p>',
   Reading = '<table><tbody><tr><th><div>Difficulty</div></th><th><div>Exercises</div></th></tr><tr><td><div><strong>Less Difficult</strong></div></td><td><div><br></div><br></td></tr><tr><td><div><strong>More Difficult</strong></div></td><td><p><br></p><br></td></tr></tbody></table><p><br></p>',
   Listening = '<table><tbody><tr><th><div>Level</div></th><th><div>Topic</div></th></tr><tr><td><div><strong>High Beginner</strong></div></td><td><div><br></div></td></tr><tr><td><div><strong>Intermediate</strong></div></td><td><div><br></div></td></tr><tr><td><div><strong>Low Advanced</strong></div></td><td><div><br></div></td></tr></tbody></table><p><br></p>',
-  Pronunciation = '<table><tbody><tr><th><div>Subject</div></th><th><div>Exercises</div></th></tr><tr><td><div><strong>General Sounds Contrast</strong></div></td></tr><tr><td><div>​<strong>Sounds of English</strong>​</div></td><td><div><br></div></td></tr><tr><td><div><div><strong>Syllable Stress</strong><br></div></div></td><td><div><br></div></td></tr></tbody></table><p><br></p>',
+  Pronunciation = '<table><tbody><tr><th><div>Subject</div></th><th><div>Exercises</div></th></tr><tr><td><div><strong>General Sounds Contrast</strong></div></td><td><div><br></div></td></tr><tr><td><div>​<strong>Sounds of English</strong>​</div></td><td><div><br></div></td></tr><tr><td><div><div><strong>Syllable Stress</strong><br></div></div></td><td><div><br></div></td></tr></tbody></table><p><br></p>',
   Grammar = '<table><tbody><tr><th><div>Exercises</div></th></tr><tr><td><div><br></div></td></tr></tbody></table><p><br></p>',
   Speaking = '<table><tbody><tr><th><div>Activity</div></th><th><div>Topic</div></th></tr><tr><td><div><strong>Important phrases to learn</strong></div></td><td><div><strong></strong><br></div><br></td></tr><tr><td><div><strong>Personal discussion topic to talk about</strong></div></td><td><div><div><br></div></div></td></tr><tr><td><div><strong>Opinion Topic to Talk About</strong></div></td><td><p><br></p></td></tr></tbody></table><p><br></p>',
   TestPrep = '<table><tbody><tr><th><div>Test</div></th><th><div>Exercises</div></th></tr><tr><td><div><strong>TOEFL</strong></div></td><td><div><br></div></td></tr><tr><td><div><strong>TOEIC</strong></div></td><td><div><br></div></td></tr><tr><td><div><strong>IELTS</strong></div></td><td><div><div><br></div></div></td></tr></tbody></table><p><br></p>',
@@ -74,6 +74,7 @@ export interface CategoryCardProps {
 export interface Word {
   customDefinition: string,
   dictionaryUrl: string,
+  apiDefinitions?: any,
 }
 
 export interface WordList {
@@ -134,6 +135,12 @@ export interface StudyGuideDocument {
   createdAt?: Date,
 }
 
+export interface StudyGuideSection {
+  id: string,
+  name: string,
+  picture: string,
+}
+
 export interface SelectedMonth {
   year: number,
   month: number,
@@ -145,3 +152,38 @@ export interface FilterDates {
 }
 
 export type FilterFunction = (selectedMonth: FilterDates) => void;
+
+export interface Phonetic {
+  text: string,
+  audio?: string,
+}
+
+export interface Meaning {
+  definition: string,
+  example?: string,
+  synonyms?: string[],
+}
+
+export interface Meanings {
+  [type: string]: Meaning[],
+}
+
+export interface ApiWord {
+  word: string,
+  phonetics: Phonetic[],
+  meaning: Meanings,
+}
+
+export interface Definition {
+  type: string,
+  definition: string,
+  example?: string,
+  synonyms?: string[] | null,
+  selected: boolean,
+}
+
+export interface Definitions {
+  word: string,
+  phonetics: Phonetic[],
+  definitions: Definition[],
+}

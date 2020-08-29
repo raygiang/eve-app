@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CollectionNames, HomeLanguage } from '../../../models/models';
 import firebase from '../../../../config/firebaseConfig';
-import SunEditor from 'suneditor-react';
-import plugins from 'suneditor/src/plugins'
-import 'suneditor/dist/css/suneditor.min.css';
+import CustomSuneditor from '../../general/custom-suneditor/CustomSuneditor';
 import './LanguageForm.scss';
 
 interface LanguageFormProps {
@@ -64,23 +62,7 @@ const LanguageForm = ({ languageId, language }: LanguageFormProps): JSX.Element 
       </div>
       <div className="language-form__form-row">
         <h3 className="language-form__label">Main Content: </h3>
-        <SunEditor
-          setContents={mainContent}
-          setOptions={{
-            height: 300,
-            plugins: plugins,
-            buttonList: [
-              ['undo', 'redo'],
-              ['fontSize'],
-              ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-              ['outdent', 'indent'],
-              ['align', 'horizontalRule', 'list'],
-              ['table', 'link', 'image', 'video', 'audio'],
-              ['fullScreen'],
-            ],
-          }}
-          onBlur={(e: FocusEvent, contents: string) => setMainContent(contents)}
-        />
+        <CustomSuneditor content={mainContent} setContent={setMainContent} height={300} />
       </div>
       { submitError && <p className="language-form__error error">{ submitError }</p> }
       { successMessage && <p className="language-form__success-message success">{ successMessage }</p> }

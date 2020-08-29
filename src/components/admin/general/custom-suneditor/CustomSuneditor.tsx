@@ -15,12 +15,13 @@ const CustomSuneditor = ({ content, setContent, height }: CustomSuneditorProps):
     <SunEditor
       setContents={content}
       setOptions={{
+        stickyToolbar: -1,
         height,
         plugins,
         buttonList: [
           ['undo', 'redo'],
           ['fontSize'],
-          ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+          ['underline', 'italic', 'strike', 'subscript', 'superscript'],
           ['outdent', 'indent'],
           ['align', 'horizontalRule', 'list'],
           ['table', 'link', 'image', 'video', 'audio'],

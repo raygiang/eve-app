@@ -33,6 +33,16 @@
   &__cancel-option {
     color: $error-color;
   }
+
+  @include breakpoint($sm) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    &__form-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
 }
 
 .expanded {

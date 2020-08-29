@@ -1,0 +1,90 @@
+@import '../../../style/theme.scss';
+
+.study-guide {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: $large-font;
+  }
+
+  &__subheading {
+    font-size: $small-font;
+  }
+
+  &__content {
+    @include grid-list(1fr, 2rem);
+  }
+  
+  &__section {
+    @include grid-list(1fr);
+    @include card-styling;
+    padding: 2rem;
+  }
+  
+  &__section-main {
+    @include grid-list(1fr 3fr, 2rem);
+  }
+
+  &__section-image {
+    @include background-image;
+  }
+
+  &__section-heading {
+    font-size: $medium-font;
+  }
+
+  &__section-content {
+    overflow-x: auto;
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+
+      th, td {
+        border: 1px solid #ccc;
+        padding: 0.5rem 1rem;
+      }
+
+      th {
+        border: 1px solid transparent;
+        background: $primary-color;
+        text-align: left;
+        text-transform: uppercase;
+        color: #FFF;
+
+        &:first-child {
+          border-top-left-radius: $small-radius;
+        }
+
+        &:last-child {
+          border-top-right-radius: $small-radius;
+        }
+      }
+    }
+
+    > table > tbody > tr {
+      &:last-child {
+        border-bottom: 5px solid $primary-color;
+      }
+    }
+  }
+
+  @include breakpoint($lg) {
+    &__section-main {
+      @include grid-list(1fr);
+    }
+
+    &__section-image {
+      height: 150px;
+    }
+  }
+
+  @include breakpoint($lg) {
+    &__section {
+      padding: 1rem;
+    }
+  }
+}

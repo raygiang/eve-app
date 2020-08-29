@@ -15,4 +15,8 @@
   .delete-button {
     @include secondary-button;
   }
+
+  @include breakpoint($sm) {
+    grid-template-columns: 1fr;
+  }
 }
