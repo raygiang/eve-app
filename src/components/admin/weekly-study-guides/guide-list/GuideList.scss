@@ -1,0 +1,10 @@
+@import '../../../../style/theme.scss';
+
+.guide-list-admin {
+  @include center-container(800px);
+  @include grid-list(1fr);
+
+  &__list {
+    @include grid-list(1fr);
+  }
+}

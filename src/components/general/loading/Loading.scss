@@ -10,6 +10,7 @@
     height: 75px;
     width: 75px;
     @include spinner(10px, $primary-color, 2s);
+    margin: 0 auto;
   }
 
   &__wrapper {

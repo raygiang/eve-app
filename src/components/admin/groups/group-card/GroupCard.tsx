@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flipped } from "react-flip-toolkit";
-import { Group } from '../../../models/models';
+import { CollectionNames, Group } from '../../../models/models';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../../general/delete-button/DeleteButton';
 import firebase from '../../../../config/firebaseConfig';
@@ -15,7 +15,7 @@ interface GroupCardProps {
 
 const GroupCard = ({ number, group, subcategoryId, setSuccessMessage }: GroupCardProps): JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
-  const groupsCollection = firebase.firestore().collection('subcategories').doc(subcategoryId).collection('groups');
+  const groupsCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId).collection(CollectionNames.Groups);
 
   const deleteGroup = (): void => {
     setDeleting(true);

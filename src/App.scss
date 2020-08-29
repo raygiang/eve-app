@@ -1,5 +1,17 @@
 @import './style/theme.scss';
 
+body {
+  color: $text-color;
+}
+
+a {
+  @include primary-link;
+}
+
+audio {
+  border-radius: $medium-radius;
+}
+
 .popover-button-container {
   position: relative;
 
@@ -18,5 +30,9 @@
 }
 
 .highlight {
-  color: $accent-color;
+  color: $primary-color;
+}
+
+.bold {
+  font-weight: bold;
 }

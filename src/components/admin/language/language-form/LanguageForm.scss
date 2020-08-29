@@ -1,0 +1,34 @@
+@import '../../../../style/theme.scss';
+
+.language-form {
+  @include center-container(800px);
+  @include grid-list(1fr);
+
+  &__form-row {
+    @include grid-list(1fr, 0.25rem);
+
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+  }
+
+  &__label {
+    font-size: $small-font;
+    font-weight: normal;
+    font-family: $body-font;
+  }
+
+  &__field {
+    @include form-input;
+  }
+
+  &__submit-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__submit-button {
+    @include primary-button;
+  }
+}

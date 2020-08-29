@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CollectionNames } from '../../../models/models';
 import firebase from '../../../../config/firebaseConfig';
 import './GroupAdd.scss';
 
@@ -10,7 +11,7 @@ interface GroupAddProps {
 const GroupAdd = ({ setSuccessMessage, subcategoryId }: GroupAddProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
-  const groupsCollection = firebase.firestore().collection('subcategories').doc(subcategoryId).collection('groups');
+  const groupsCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId).collection(CollectionNames.Groups);
 
   const addGroup = (): void => {
     setSubmitting(true);

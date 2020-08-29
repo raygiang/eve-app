@@ -1,0 +1,54 @@
+@import '../../../../../style/theme.scss';
+
+.category, .category--expanded {
+  @include card-styling;
+
+  &__name {
+    margin: auto 0;
+  }
+
+  &__button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+  }
+
+  button {
+    @include svg-button;
+  }
+}
+
+.category {
+  &__content-container {
+    @include grid-list(auto 80px);
+  }
+
+  &--expanded {
+    &__header {
+      @include grid-list(auto 40px);
+    }
+  
+    &__button-container {
+      grid-template-columns: 100%;
+    }
+  }
+}
+
+@include breakpoint($sm) {
+  .category {
+    &__name {
+      text-align: center;
+    }
+
+    &__content-container {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    &--expanded {
+      &__header {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+  }
+}

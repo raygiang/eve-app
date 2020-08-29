@@ -12,4 +12,10 @@
   &__list {
     @include grid-list(1fr 1fr);
   }
+
+  @include breakpoint($md) {
+    &__list {
+      @include grid-list(1fr);
+    }
+  }
 }

@@ -2,20 +2,10 @@
 
 .exercise-card {
   @include card-styling;
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 1rem;
+  @include grid-list(4fr 1fr 1fr);
 
   &__heading {
     margin: auto 0;
-  }
-
-  &__button-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(auto, 155px));
-    justify-content: flex-end;
-    column-gap: 1rem;
-    row-gap: 0.5rem;
   }
 
   &__edit-button {
@@ -24,5 +14,9 @@
   
   .delete-button {
     @include secondary-button;
+  }
+
+  @include breakpoint($sm) {
+    grid-template-columns: 1fr;
   }
 }
