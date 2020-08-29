@@ -13,7 +13,7 @@
 
   &__heading {
     font-family: $heading-font;
-    font-size: $small-font;
+    font-size: $medium-font;
     margin: auto 0;
   }
 
@@ -28,10 +28,15 @@
 
   &__logout-button {
     @include svg-button;
+    padding-bottom: 0.3rem;
     color: #FFF;
 
-    &:hover svg, &:focus svg {
-      color: $highlight-color;
+    &:hover {
+      border-bottom: 3px solid #FFF;
+
+      svg {
+        color: #FFF;
+      }
     }
   }
 
@@ -52,15 +57,6 @@
 
   a {
     @include secondary-link;
-    padding-bottom: 0.3rem;
-
-    &.current {
-      border-bottom: 3px solid #FFF;
-    }
-
-    &:hover, &:focus {
-      border-color: $highlight-color;
-    }
   }
 
   @include breakpoint($lg) {
@@ -107,8 +103,7 @@
     }
 
     &__nav-list {
-      @include grid-list(1fr);
-      gap: 3.5rem;
+      @include grid-list(1fr, 3.5rem);
       margin: auto;
 
       text-align: center;

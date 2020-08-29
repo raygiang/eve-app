@@ -2,7 +2,7 @@
 $primary-color: #2b825d;
 $secondary-color: #1A5640;
 $accent-color: #58b580;
-$background-color: #f6f9f7;
+$background-color: #fafafa;
 $text-color: #484848;
 $link-color: #2b825d;
 $hover-color: #2B76A1;
@@ -14,8 +14,8 @@ $error-hover: #660000;
 $footer-color: #fafafa;
 $footer-border: #CCC;
 
-$header-height: 65px;
-$footer-height: 42px;
+$header-height: 60px;
+$footer-height: 50px;
 
 $heading-font: 'Rubik', 'sans-serif';
 $body-font: 'Roboto', 'sans-serif';
@@ -92,7 +92,7 @@ $small-radius: 6px;
     cursor: default;
   }
 
-  &:hover, &:focus {
+  &:hover {
     background-color: $secondary-color;
     color: #FFF;
 
@@ -108,28 +108,31 @@ $small-radius: 6px;
   background-color: $error-color;
   border-color: $error-color;
 
-  &:hover, &:focus {
+  &:hover {
     background-color: $error-hover;
   }
 }
 
 @mixin primary-link {
   position: relative;
-  transition: 0.3s all ease;
+  transition: 0.3s color ease;
   color: $link-color;
   font-weight: bold;
 
-  &:hover, &:focus {
+  &:hover {
     color: $hover-color;
   }
 }
 
 @mixin secondary-link {
   @include primary-link;
+  transition: 0.1s border ease;
   color: #FFF;
+  padding-bottom: 0.3rem;
 
-  &:hover, &:focus {
-    color: $highlight-color;
+  &:hover, &.current {
+    color: #FFF;
+    border-bottom: 3px solid #FFF;
   }
 }
 
@@ -144,14 +147,19 @@ $small-radius: 6px;
   border-radius: $medium-radius;
   padding: 1rem;
   color: $text-color;
+
+  &:hover {
+    color: $text-color;
+  }
 }
 
 @mixin secondary-card {
   @include card-styling;
   border-top: 5px solid $primary-color;
 
-  &:hover, &:focus {
+  &:hover {
     background-color: $background-color;
+    color: $text-color;
   }
 }
 
@@ -161,10 +169,10 @@ $small-radius: 6px;
   padding: 0.25rem 0.5rem;
 }
 
-@mixin grid-list($template-columns) {
+@mixin grid-list($template-columns, $gap: 1rem) {
   list-style: none;
   display: grid;
-  gap: 1rem;
+  gap: $gap;
   grid-template-columns: $template-columns;
 }
 
@@ -182,7 +190,7 @@ $small-radius: 6px;
 }
 
 @mixin admin-wrapper {
-  padding: 2rem 5rem;
+  padding: 2.5rem 5rem;
   display: grid;
   row-gap: 1.5rem;
   min-height: calc(100vh - #{$header-height} - #{$footer-height});
@@ -218,7 +226,7 @@ $small-radius: 6px;
     font-size: 20px;
   }
 
-  &:hover, &:focus {
+  &:hover {
     svg {
       color: $hover-color;
     }

@@ -2,8 +2,7 @@
 
 .definitions-row {
   fieldset {
-    @include grid-list(1fr);
-    gap: 2rem;
+    @include grid-list(1fr, 2rem);
     border-radius: $small-radius;
     border: $light-border;
     padding: 0.5rem 1rem 2rem;
@@ -11,14 +10,6 @@
 
   legend {
     padding: 0 0.5rem;
-  }
-
-  audio {
-    border-radius: $medium-radius;
-  }
-
-  .bold {
-    font-weight: bold;
   }
 
   &__definition-section {
@@ -36,8 +27,7 @@
   }
 
   &__definition-wrapper {
-    @include grid-list(1fr);
-    gap: 0.3rem;
+    @include grid-list(1fr, 0.3rem);
   }
 
   &__synonyms {

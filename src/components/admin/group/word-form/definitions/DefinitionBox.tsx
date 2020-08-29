@@ -20,7 +20,7 @@ const DefinitionBox = ({ definitions, setDefinitions }: DefinitionBoxProps): JSX
     definitions.map((definition: Definitions, index: number) => (
       <div key={`${definition.word}-${index}`} className="definitions-row__definition-section">
         <h3 className="definitions-row__word">
-          Word: { definition.word }
+          Variation: { definition.word }
         </h3>
         {
           // Rendering Phonetic Information

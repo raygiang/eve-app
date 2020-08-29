@@ -14,8 +14,7 @@
   }
 
   &__content {
-    @include grid-list(1fr);
-    gap: 2rem;
+    @include grid-list(1fr, 2rem);
   }
   
   &__section {
@@ -25,8 +24,7 @@
   }
   
   &__section-main {
-    @include grid-list(1fr 3fr);
-    gap: 2rem;
+    @include grid-list(1fr 3fr, 2rem);
   }
 
   &__section-image {
@@ -65,11 +63,11 @@
           border-top-right-radius: $small-radius;
         }
       }
+    }
 
-      tr {
-        &:last-child {
-          border-bottom: 5px solid $primary-color;
-        }
+    > table > tbody > tr {
+      &:last-child {
+        border-bottom: 5px solid $primary-color;
       }
     }
   }

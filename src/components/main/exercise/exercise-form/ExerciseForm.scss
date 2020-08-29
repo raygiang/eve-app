@@ -8,8 +8,7 @@
   &__result {
     margin: auto 0;
     font-size: $medium-font;
-    @include grid-list(1fr 3fr);
-    gap: 2rem;
+    @include grid-list(1fr 3fr, 2rem);
   }
 
   &__result-image {

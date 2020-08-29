@@ -33,11 +33,6 @@ const CategoryCard = ({ type, categoryId, category, categoryClicked, shouldFlip,
     <Flipped
       flipId={`category-${categoryId}`}
       stagger="card"
-      onStart={(el: HTMLElement) : void => {
-        setTimeout((): void => {
-          el.classList.add("expanded")
-        }, 300)
-      }}
     >
       <div className="category">
         <Flipped inverseFlipId={`category-${categoryId}`} shouldInvert={shouldFlip(categoryId)}>

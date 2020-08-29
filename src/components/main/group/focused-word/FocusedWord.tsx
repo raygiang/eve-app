@@ -29,7 +29,7 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
       return definitions.map((definition: Definitions, index: number): JSX.Element => (
         <div key={`${definition.word}-${index}`} className="focused-word__definition-section">
           <h3 className="focused-word__heading-word">
-            Word: { definition.word }
+            Variation: { definition.word }
           </h3>
           {
             // Rendering Phonetic Information
@@ -90,7 +90,7 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
     <div className="focused-word">
       <div className="focused-word__definition-box">
         <h3 className="focused-word__word">
-          Word: { word }
+          { word }
         </h3>
         <div className="focused-word__dictionary-link-container">
           <a rel="noopener noreferrer" target="_blank" href={`https://www.merriam-webster.com/dictionary/${formattedWord}`}>
@@ -102,7 +102,7 @@ const FocusedWord = ({ word, wordInfo }: FocusedWordProps) => {
           wordInfo[word].dictionaryUrl
             && <div className="focused-word__custom-dictionary-link-container">
                 <a rel="noopener noreferrer" target="_blank" href={wordInfo[word].dictionaryUrl}>
-                  Dictionary Link
+                  Additional Dictionary Link <FontAwesomeIcon icon={faExternalLinkAlt} />
                 </a>
               </div>
         }

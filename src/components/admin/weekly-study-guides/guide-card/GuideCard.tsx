@@ -35,7 +35,7 @@ const GuideCard = ({ guide, setSuccessMessage }: GuideCardProps): JSX.Element =>
   return (
     <div className="guide-card">
       <h3 className="guide-card__heading">
-        { `${formattedStartDate} to ${formattedEndDate}` }
+        { `${formattedStartDate} - ${formattedEndDate}` }
       </h3>
       <Link to={`/admin-dashboard/edit-study-guide/${guide.id}`} className="guide-card__edit-button">
         View/Edit

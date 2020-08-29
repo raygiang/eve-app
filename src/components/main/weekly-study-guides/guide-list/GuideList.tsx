@@ -18,7 +18,7 @@ const GuideList = ({ studyGuides }: GuideListProps): JSX.Element => {
         <li key={guide.id} className="guide-list__item">
           <Link className="guide-list__card-link" to={`/weekly-study-guide/${guide.id}`}>
             <h3 className="guide-list__heading">
-              { `${formattedStartDate} to ${formattedEndDate}` }
+              { `${formattedStartDate} - ${formattedEndDate}` }
             </h3>
           </Link>
         </li>

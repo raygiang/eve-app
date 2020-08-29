@@ -1,18 +1,15 @@
 @import '../../../../style/theme.scss';
 
 .focused-word {
-  @include center-container(800px);
+  @include center-container(900px);
+  margin-top: 1rem;
 
-  audio {
-    border-radius: $medium-radius;
-  }
-
-  .bold {
-    font-weight: bold;
+  &__word, &__heading {
+    font-size: $large-font;
   }
 
   &__heading-word {
-    font-size: $xl-font;
+    font-size: $medium-font;
   }
 
   &__definition-box {
@@ -23,17 +20,21 @@
     @include grid-list(1fr);
   }
 
+  audio {
+    margin-top: 1rem;
+  }
+
   &__definition-list {
     @include grid-list(1fr 1fr);
+    padding-bottom: 1rem;
   }
 
   &__definition-wrapper {
     @include secondary-card;
-    @include grid-list(1fr);
+    @include grid-list(1fr, 0.5rem);
     align-content: flex-start;
-    gap: 0.5rem;
 
-    &:hover, &:focus {
+    &:hover {
       background-color: initial;
     }
   }
@@ -45,7 +46,7 @@
 
   &__synonym {
     margin-right: 1rem;
-    margin-top: 0.25rem;
+    margin-bottom: 1rem;
     border: $light-border;
     border-radius: $small-radius;
     padding: 0.25rem 0.5rem;

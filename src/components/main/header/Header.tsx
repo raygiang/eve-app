@@ -24,6 +24,10 @@ const Header = (): JSX.Element => {
     mobileOverlay.current?.classList.remove('show');
   }, [menuRef, mobileOverlay]);
 
+  const checkCurrentPath = (pathList: (string | null)[]): string | undefined => {
+    return pathList.includes(currentPath) ? 'current' : undefined;
+  }
+
   useEffect((): (() => void) => {
     const escapeHandler = (e: KeyboardEvent) => {
       if(e.keyCode === 27) {
@@ -53,13 +57,13 @@ const Header = (): JSX.Element => {
           </button>
           <ul className="header__nav-list">
             <li>
-              <Link to="/" ref={firstLinkRef} className={homePaths.includes(currentPath) ? 'current' : undefined}>Home</Link>
+              <Link to="/" ref={firstLinkRef} className={checkCurrentPath(homePaths)}>Home</Link>
             </li>
             <li>
-              <Link to="/word-categories" className={wordCategoryPaths.includes(currentPath) ? 'current' : undefined}>Word Categories</Link>
+              <Link to="/word-categories" className={checkCurrentPath(wordCategoryPaths)}>Word Categories</Link>
             </li>
             <li>
-              <Link to="/weekly-study-guides" className={studyGuidePaths.includes(currentPath) ? 'current' : undefined}>Weekly Study Guides</Link>
+              <Link to="/weekly-study-guides" className={checkCurrentPath(studyGuidePaths)}>Weekly Study Guides</Link>
             </li>
           </ul>
         </nav>

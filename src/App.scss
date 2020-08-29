@@ -8,6 +8,10 @@ a {
   @include primary-link;
 }
 
+audio {
+  border-radius: $medium-radius;
+}
+
 .popover-button-container {
   position: relative;
 
@@ -27,4 +31,8 @@ a {
 
 .highlight {
   color: $primary-color;
+}
+
+.bold {
+  font-weight: bold;
 }

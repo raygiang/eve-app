@@ -7,7 +7,7 @@
 
   &__form-row {
     @include card-styling;
-    @include grid-list(1fr);
+    @include grid-list(1fr, 0.5rem);
     gap: 0.5rem;
   }
 

@@ -1,7 +1,7 @@
 @import '../../../../style/theme.scss';
 
 .guide-list {
-  @include center-container(700px);
+  @include center-container(800px);
   @include grid-list(1fr);
 
   &__list {
@@ -11,14 +11,14 @@
   &__card-link {
     display: block;
     @include card-styling;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
   
     &__heading {
       text-align: center;
       color: $secondary-color;
     }
   
-    &:hover, &:focus {
+    &:hover {
       background-color: $background-color;
     }
   }

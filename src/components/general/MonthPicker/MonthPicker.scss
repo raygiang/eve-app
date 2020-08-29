@@ -1,7 +1,7 @@
 @import '../../../style/theme.scss';
 
 .month-selector {
-  @include center-container(700px);
+  @include center-container(800px);
   @include grid-list(4fr 1fr);
 
   &__input-container {

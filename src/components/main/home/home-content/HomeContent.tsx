@@ -7,7 +7,6 @@ interface HomeContentProps {
 }
 
 const HomeContent = ({ homeLanguages }: HomeContentProps): JSX.Element => {
-  // const languages = homeLanguages.map((language: HomeLanguage): string => { return language.name });
   const [activeLanguage, setActiveLanguage] = useState<HomeLanguage>(homeLanguages[0]);
 
   const renderLanguages = (): JSX.Element[] => {

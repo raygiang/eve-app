@@ -2,17 +2,19 @@
 
 .admin-footer {
   background-color: $footer-color;
-  border-top: 2px solid $footer-border;
+  border-top: 1px solid $footer-border;
   padding: 0.5rem 1rem;
   height: $footer-height;
 
   &__wrapper {
     display: flex;
     justify-content: flex-end;
+    height: 100%;
   }
 
   &__link-container {
     @include grid-list(auto);
+    margin: auto 0;
   }
 
   @include breakpoint($sm) {
@@ -20,9 +22,6 @@
     
     &__link-container {
       grid-template-columns: 1fr;
-    }
-
-    &__link-container {
       width: 100%;
     }
 

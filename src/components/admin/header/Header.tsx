@@ -30,6 +30,10 @@ const Header = (): JSX.Element => {
     mobileOverlay.current?.classList.remove('show');
   }, [menuRef, mobileOverlay]);
 
+  const checkCurrentPath = (pathList: (string | null)[]): string | undefined => {
+    return pathList.includes(currentPath) ? 'current' : undefined;
+  }
+
   useEffect((): (() => void) => {
     const escapeHandler = (e: KeyboardEvent) => {
       if(e.keyCode === 27) {
@@ -48,7 +52,7 @@ const Header = (): JSX.Element => {
     <header className="header">
       <div className="header__wrapper page-wrapper">
         <div className="header__heading">
-          <Link to="/admin-dashboard" className={homePaths.includes(currentPath) ? 'current' : undefined}>
+          <Link to="/admin-dashboard" className={checkCurrentPath(homePaths)}>
             EVE - Admin Dashboard
           </Link>
         </div>
@@ -59,13 +63,13 @@ const Header = (): JSX.Element => {
           </button>
           <ul className="admin-header__nav-list">
             <li>
-              <Link to="/admin-dashboard/edit-home" ref={firstLinkRef} className={editHomePaths.includes(currentPath) ? 'current' : undefined}>Edit Home</Link>
+              <Link to="/admin-dashboard/edit-home" ref={firstLinkRef} className={checkCurrentPath(editHomePaths)}>Edit Home</Link>
             </li>
             <li>
-              <Link to="/admin-dashboard/word-categories" className={wordCategoryPaths.includes(currentPath) ? 'current' : undefined}>Edit Word Categories</Link>
+              <Link to="/admin-dashboard/word-categories" className={checkCurrentPath(wordCategoryPaths)}>Edit Word Categories</Link>
             </li>
             <li>
-              <Link to="/admin-dashboard/weekly-study-guides" className={studyGuidePaths.includes(currentPath) ? 'current' : undefined}>Edit Weekly Study Guides</Link>
+              <Link to="/admin-dashboard/weekly-study-guides" className={checkCurrentPath(studyGuidePaths)}>Edit Weekly Study Guides</Link>
             </li>
             <li>
               <button className="admin-header__logout-button" onClick={logOut} title="Log Out">
