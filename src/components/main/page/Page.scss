@@ -1,0 +1,14 @@
+@import '../../../style/theme.scss';
+
+.single-page {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+  
+  &__main-content {
+    @include grid-list(1fr);
+    @include wysiwyg-content;
+    padding: 3rem 0;
+    overflow-x: auto;
+  }
+}

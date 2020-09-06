@@ -29,7 +29,7 @@ export const formatDictionaryResults = (data: ApiWord[]): Definitions[] => {
   return definitions;
 }
 
-export const getCollectionName = (type: CategoryTypes | PageTypes): string => {
+export const getCollectionName = (type: string): string => {
   switch(type) {
     case CategoryTypes.Top:
       return CollectionNames.Categories;

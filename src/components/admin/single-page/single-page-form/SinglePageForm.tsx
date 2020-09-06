@@ -9,7 +9,7 @@ import './SinglePageForm.scss';
 interface SinglePageFormProps {
   pageId: string,
   page: HomeLanguage,
-  type: PageTypes,
+  type: string,
 }
 
 const SinglePageForm = ({ pageId, page, type }: SinglePageFormProps): JSX.Element => {

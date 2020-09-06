@@ -1,7 +1,6 @@
 import React from 'react';
 import { MatchProps, PageTypes } from '../../models/models';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { getCollectionName } from '../../../utils/utils';
@@ -15,7 +14,7 @@ interface SinglePageProps {
 
 const SinglePage = ({ match } : SinglePageProps): JSX.Element => {
   const pageId = match.params.pageId;
-  const type = match.params.type;
+  const type: string = match.params.type;
   const collectionName = getCollectionName(type);
 
   useFirestoreConnect([
@@ -45,7 +44,7 @@ const SinglePage = ({ match } : SinglePageProps): JSX.Element => {
       <div className="single-page-admin__wrapper page-wrapper">
         <div className="single-page-admin__header">
           <h1 className="single-page-admin__heading">
-            Editing <span className="highlight">{pageData.name}</span> in {type}s
+            Editing <span className="highlight">{pageData.name}</span> in {Object(PageTypes)[type]}
           </h1>
         </div>
         <p className="single-page-admin__description">Here you can edit the content that appears in {pageData.name}.</p>

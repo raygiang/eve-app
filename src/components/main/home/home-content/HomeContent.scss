@@ -69,37 +69,7 @@
 
   &__main-content {
     @include grid-list(1fr);
-
-    ul {
-      padding: 0 2rem;
-    }
-
-    li {
-      @include colored-bullets;
-    }
-
-    .se-component {
-      width: auto;
-
-      img {
-        width: 100% !important;
-        height: auto;
-      }
-    }
-  }
-
-  figure {
-    display: flex;
-    justify-content: center;
-    margin: 1rem auto !important;
-  }
-
-  hr {
-    margin: 2.5rem auto;
-    width: 50%;
-    height: 3px;
-    border: 0;
-    background-color: $accent-color;
+    @include wysiwyg-content;
   }
 
   @include breakpoint($lg) {
