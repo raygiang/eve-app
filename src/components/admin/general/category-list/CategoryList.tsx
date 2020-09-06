@@ -9,9 +9,10 @@ interface CategoryListProps {
   type: CategoryTypes,
   categories: Category[],
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+  uniqueIdentifiers?: string[],
 }
 
-const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProps): JSX.Element => {
+const CategoryList = ({ type, categories, setSuccessMessage, uniqueIdentifiers } : CategoryListProps): JSX.Element => {
   const [focusedIds, setFocusedIds] = useState<Map<string, boolean>>(new Map());
 
   const categoryClicked = (id: string) : void => {
@@ -43,6 +44,7 @@ const CategoryList = ({ type, categories, setSuccessMessage } : CategoryListProp
                 categoryClicked={categoryClicked}
                 shouldFlip={shouldFlip}
                 setSuccessMessage={setSuccessMessage}
+                uniqueIdentifiers={uniqueIdentifiers}
               />
         }
       </li>

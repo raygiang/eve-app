@@ -3,6 +3,13 @@ export enum CategoryTypes {
   Top = 'Category',
   Sub = 'Subcategory',
   Lang = 'Language',
+  Page = 'Page',
+}
+
+export enum PageTypes {
+  Language = 'Language',
+  Contact = 'Contact',
+  Page = 'Private Page',
 }
 
 export enum CollectionNames {
@@ -12,6 +19,8 @@ export enum CollectionNames {
   Exercises = 'exercises',
   HomeLanguages = 'home-languages',
   StudyGuides = 'weekly-study-guides',
+  Pages = 'pages',
+  Contact = 'contact-page',
 }
 
 export enum DefaultStudyGuide {
@@ -32,8 +41,9 @@ export interface ParamsProps {
   subcategoryId: string,
   groupId: string,
   exerciseId: string,
-  languageId: string,
+  pageId: string,
   guideId: string,
+  type: PageTypes,
 }
 
 export interface MatchProps {
@@ -57,18 +67,20 @@ export interface CategoryDocument {
   bannerHeading?: string,
   bannerText?: string,
   mainContent?: string,
+  slug?: string,
 }
 
 export type CategoryClickFunction = (id: string) => void;
 export type ShouldFlipFunction = (id: string) => (prevDecisionData: string, currentDecisionData: string) => boolean;
 
 export interface CategoryCardProps {
-  type: CategoryTypes,
+  type: CategoryTypes | PageTypes,
   categoryId: string,
   category: Category,
   categoryClicked: CategoryClickFunction,
   shouldFlip: ShouldFlipFunction,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+  uniqueIdentifiers?: string[],
 }
 
 export interface Word {

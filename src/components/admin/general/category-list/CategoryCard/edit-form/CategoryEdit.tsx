@@ -2,34 +2,48 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { CollectionNames, CategoryTypes, CategoryClickFunction } from '../../../../../models/models';
+import { CategoryTypes, CategoryClickFunction, PageTypes } from '../../../../../models/models';
+import { getCollectionName } from '../../../../../../utils/utils';
 import firebase from '../../../../../../config/firebaseConfig';
 import './CategoryEdit.scss';
 
 interface CategoryEditProps {
-  type: CategoryTypes,
+  type: CategoryTypes | PageTypes,
   categoryId: string,
   categoryName: string,
   categoryClicked: CategoryClickFunction,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
+  uniqueIdentifiers?: string[],
 }
 
-const CategoryEdit = ({ type, categoryId, categoryName, categoryClicked, setSuccessMessage } : CategoryEditProps): JSX.Element => {
+const CategoryEdit = ({ type, categoryId, categoryName, categoryClicked, setSuccessMessage, uniqueIdentifiers } : CategoryEditProps): JSX.Element => {
   const [updateError, setUpdateError] = useState('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [cancelRef, setCancelRef] = useState<HTMLButtonElement | null>(null);
   const { register, handleSubmit, errors } = useForm();
-  const collectionName = type === CategoryTypes.Top
-    ? CollectionNames.Categories
-    : type === CategoryTypes.Sub
-      ? CollectionNames.Subcategories
-      : CollectionNames.HomeLanguages;
+  const collectionName = getCollectionName(type);
   const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const onSubmit = (data: any) : void => {
     if(categoryName !== data.name) {
       setSubmitting(true);
-      categoriesCollection.doc(categoryId).update({ name: data.name }).then((): void => {
+      let updatedFields;
+
+      if(type === CategoryTypes.Page) {
+        const newSlug = data.name.trim().replaceAll(' ', '-').toLowerCase();
+        if(uniqueIdentifiers?.indexOf(newSlug) !== -1) {
+          setSubmitting(false);
+          setUpdateError('A page with this title already exists.');
+          setSuccessMessage('');
+          return;
+        }
+        updatedFields = { name: data.name, slug: newSlug };
+      }
+      else {
+        updatedFields = { name: data.name };
+      }
+
+      categoriesCollection.doc(categoryId).update(updatedFields).then((): void => {
         setSuccessMessage(`Renamed to ${data.name}`);
         setSubmitting(false);
         cancelRef?.click();
