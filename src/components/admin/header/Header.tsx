@@ -10,9 +10,8 @@ const Header = (): JSX.Element => {
   const firstLinkRef = createRef<HTMLAnchorElement>();
   const mobileOverlay = createRef<HTMLDivElement>();
   const currentPath = window.location.pathname.split('/')[2] || null;
-  const homePaths: (string | null)[] = [null];
-  const editHomePaths: (string | null)[] = ['home-languages', 'language'];
-  const wordCategoryPaths: (string | null)[] = ['word-categories', 'subcategories', 'groups', 'group', 'exercise'];
+  const homePaths: (string | null)[] = [null, 'home-languages', 'pages', 'edit-single'];
+  const wordCategoryPaths: (string | null)[] = ['word-categories', 'top-level-categories', 'subcategories', 'group', 'exercise'];
   const studyGuidePaths: (string | null)[] = ['weekly-study-guides', 'add-study-guide', 'edit-study-guide'];
 
   const logOut = (): void => {
@@ -52,7 +51,7 @@ const Header = (): JSX.Element => {
     <header className="header">
       <div className="header__wrapper page-wrapper">
         <div className="header__heading">
-          <Link to="/admin-dashboard" className={checkCurrentPath(homePaths)}>
+          <Link to="/admin-dashboard">
             EVE - Admin Dashboard
           </Link>
         </div>
@@ -63,7 +62,7 @@ const Header = (): JSX.Element => {
           </button>
           <ul className="admin-header__nav-list">
             <li>
-              <Link to="/admin-dashboard/home-languages" ref={firstLinkRef} className={checkCurrentPath(editHomePaths)}>Edit Home</Link>
+              <Link to="/admin-dashboard" ref={firstLinkRef} className={checkCurrentPath(homePaths)}>All Options</Link>
             </li>
             <li>
               <Link to="/admin-dashboard/word-categories" className={checkCurrentPath(wordCategoryPaths)}>Edit Word Categories</Link>

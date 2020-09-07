@@ -54,7 +54,7 @@ const Groups = ({ match }: GroupProps): JSX.Element => {
           <h1 className="groups-admin__heading">
             Groups in <span className="highlight">{parentCategory.name}</span>
           </h1>
-          <Link to={`/admin-dashboard/subcategories/${parentCategory.parent}`}>
+          <Link to={`/admin-dashboard/top-level-categories/${parentCategory.parent}`}>
             Back to Subcategories Page
           </Link>
         </div>
