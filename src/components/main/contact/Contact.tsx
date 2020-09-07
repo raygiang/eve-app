@@ -15,8 +15,6 @@ const Contact = (): JSX.Element => {
 
   if(!isLoaded(contactContent)) return <Loading />;
 
-  console.log(contactContent)
-
   return (
     <div className="contact-page">
       <div className="contact-page__wrapper page-wrapper">

@@ -44,6 +44,7 @@ export interface ParamsProps {
   pageId: string,
   guideId: string,
   type: PageTypes,
+  slug: string,
 }
 
 export interface MatchProps {
@@ -94,7 +95,7 @@ export interface WordList {
 }
 
 export interface QuestionList {
-  [word: string]: string,
+  [word: string]: string | undefined,
 }
 
 export interface Exercise {

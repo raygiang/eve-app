@@ -1,26 +1,35 @@
 import React from 'react';
 import Loading from '../../general/loading/Loading';
+import PageNotFound from '../../general/404/PageNotFound';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
-import { CollectionNames } from '../../models/models';
+import { CollectionNames, MatchProps } from '../../models/models';
 import './Page.scss';
 
-const Page = (): JSX.Element => {
+interface PageProps {
+  match: MatchProps,
+}
+
+const Page = ({ match }: PageProps): JSX.Element => {
+  const pageSlug = match.params.slug;
+
   useFirestoreConnect([
-    { collection: CollectionNames.Pages, where:['slug', '==', 'beer'], storeAs: 'page' },
+    { collection: CollectionNames.Pages, where:['slug', '==', pageSlug], storeAs: 'page' },
   ]);
 
   const pageContent = useSelector(({ firestore: { ordered } }: any) => ordered['page'], isEqual);
 
   if(!isLoaded(pageContent)) return <Loading />;
 
-  console.log(pageContent)
+  if(!pageContent || !pageContent[0]) {
+    return <PageNotFound />
+  }
 
   return (
     <div className="single-page">
       <div className="single-page__wrapper page-wrapper">
-        <div className="single-page__main-content" dangerouslySetInnerHTML={{ __html: pageContent ? pageContent[0].mainContent : '' }}></div>
+        <div className="single-page__main-content" dangerouslySetInnerHTML={{ __html: pageContent[0].mainContent }}></div>
       </div>
     </div>
   )

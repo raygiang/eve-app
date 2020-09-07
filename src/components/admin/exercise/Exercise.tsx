@@ -61,11 +61,9 @@ const Exercise = ({ match }: ExerciseProps): JSX.Element => {
         </div>
         <p className="exercise-admin__description">
           This is the interface for editing an exercise inside of a group.
-          Questions left blank will not appear in the exercise.
-          The order of the questions will be randomized.
+          Please upload your htm export from Gerry's Vocabulary Teacher to proceed.
         </p>
         <ExerciseForm
-          words={group.words}
           exercise={exercise}
           subcategoryId={subcategoryId}
           groupId={groupId}
