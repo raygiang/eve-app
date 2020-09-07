@@ -8,6 +8,5 @@
   &__main-content {
     @include grid-list(1fr);
     @include wysiwyg-content;
-    padding: 3rem 0;
   }
 }
