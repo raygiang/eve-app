@@ -5,6 +5,7 @@
 
   &__question-card {
     @include card-styling;
+    @include grid-list(1fr);
   }
 
   @include breakpoint($md) {

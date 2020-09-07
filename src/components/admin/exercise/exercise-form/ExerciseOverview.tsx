@@ -15,6 +15,9 @@ const ExerciseOverview = ({ questionList }: ExerciseOverviewProps): JSX.Element 
             <p className="exercise-container__question">
               <span className="bold">Question: </span>{questionList[answer]}
             </p>
+            <p className="exercise-container__question">
+              <span className="bold">Answer: </span>{answer}
+            </p>
           </div>
         ))
       }
