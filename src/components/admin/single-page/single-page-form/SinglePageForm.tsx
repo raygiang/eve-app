@@ -60,7 +60,7 @@ const SinglePageForm = ({ pageId, page, type }: SinglePageFormProps): JSX.Elemen
                   name="banner-heading"
                   className="single-page-form__field"
                   type="text"
-                  ref={register}
+                  ref={register()}
                   defaultValue={page.bannerHeading || ''}
                 />
               </div>
@@ -70,7 +70,7 @@ const SinglePageForm = ({ pageId, page, type }: SinglePageFormProps): JSX.Elemen
                   id="banner-text"
                   name="banner-text"
                   className="single-page-form__field"
-                  ref={register}
+                  ref={register()}
                   defaultValue={page.bannerText || ''}
                 />
               </div>

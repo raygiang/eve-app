@@ -101,7 +101,7 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
                   id={`field-${index}`}
                   className="exercise-form-main__select-field"
                   defaultValue=""
-                  ref={register({ required: 'Please choose a word.' })}
+                  ref={register()}
                 >
                   <option value="" disabled>Select a Word</option>
                   { renderOptions() }
