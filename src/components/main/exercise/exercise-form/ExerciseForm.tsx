@@ -37,6 +37,8 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
     const score = Math.round(correctCounter * 100 / shuffledWords.length);
     setResult(score);
     setResultArray(newResultArray);
+
+    setSubmitting(false);
   }
 
   const renderOptions = (): JSX.Element[] => (
