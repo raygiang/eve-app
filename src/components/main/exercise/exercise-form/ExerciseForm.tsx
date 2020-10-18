@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { QuestionList } from '../../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGrinBeam, faFrownOpen } from '@fortawesome/free-regular-svg-icons';
+import { faGrinBeam, faFrownOpen, faMeh } from '@fortawesome/free-regular-svg-icons';
 import './ExerciseForm.scss';
 
 interface ExerciseFormProps {
@@ -14,22 +14,23 @@ interface ExerciseFormProps {
 const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [result, setResult] = useState<number | null>(null);
-  const [resultArray, setResultArray] = useState<boolean[]>([]);
+  const [resultArray, setResultArray] = useState<(boolean|undefined)[]>([]);
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     let correctCounter = 0;
-    const newResultArray: boolean[] = []
+    const newResultArray: (boolean|undefined)[] = []
 
     shuffledWords.forEach((word: string, index: number) => {
       const submittedAnswer = data[`field-${index}`];
-      if(questions[submittedAnswer] === questions[word]) {
+      if(questions[submittedAnswer] === undefined){
+        newResultArray[index] = undefined;
+      } else if(questions[submittedAnswer] === questions[word]) {
         correctCounter++;
         newResultArray[index] = true;
-      }
-      else {
+      } else {
         newResultArray[index] = false;
       }
     });
@@ -56,6 +57,9 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
 
   const getResultClass = (index: number): string => {
     if(resultArray.length) {
+      if(resultArray[index] === undefined){
+        return 'unanswered';
+      }
       return resultArray[index] ? 'correct' : 'incorrect';
     }
     else {
@@ -65,12 +69,21 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
 
   const getResultMessage = (index: number): JSX.Element => {
     if(resultArray[index]) {
+
       return (
         <>
           <FontAwesomeIcon icon={faGrinBeam} /> Congratulations, you got the this question correct!
         </>
       )
     }
+
+    if(resultArray[index] === undefined){
+        return (
+          <>
+            <FontAwesomeIcon icon={faMeh} /> Please select an answer.
+          </>
+        )
+      }
     return (
       <>
         <FontAwesomeIcon icon={faFrownOpen} /> Sorry, the answer you chose was incorrect.
