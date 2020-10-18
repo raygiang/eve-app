@@ -1,5 +1,6 @@
 import React from 'react';
 import { MatchProps, PageTypes } from '../../models/models';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
@@ -48,6 +49,13 @@ const SinglePage = ({ match } : SinglePageProps): JSX.Element => {
           </h1>
         </div>
         <p className="single-page-admin__description">Here you can edit the content that appears in {pageData.name}.</p>
+        {
+          type === 'Page'
+            ? <p>
+                <Link to={`/page/${pageData.slug}`} target="_blank">This is the link to your private page.</Link>
+              </p>
+            : ''
+        }
         <SinglePageForm pageId={pageId} page={pageData} type={type} />
       </div>
     </section>

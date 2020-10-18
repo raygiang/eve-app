@@ -28,7 +28,7 @@ const Page = ({ match }: PageProps): JSX.Element => {
 
   return (
     <div className="single-page">
-      <div className="single-page__wrapper page-wrapper">
+      <div className="single-page__wrapper">
         <div className="single-page__main-content" dangerouslySetInnerHTML={{ __html: pageContent[0].mainContent }}></div>
       </div>
     </div>

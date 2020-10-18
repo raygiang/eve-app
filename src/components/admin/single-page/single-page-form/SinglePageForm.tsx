@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { HomeLanguage, PageTypes } from '../../../models/models';
 import { getCollectionName } from '../../../../utils/utils';
 import firebase from '../../../../config/firebaseConfig';
-import CustomSuneditor from '../../general/custom-suneditor/CustomSuneditor';
+import CustomEditor from '../../general/custom-suneditor/CustomEditor';
 import './SinglePageForm.scss';
 
 interface SinglePageFormProps {
@@ -79,7 +79,7 @@ const SinglePageForm = ({ pageId, page, type }: SinglePageFormProps): JSX.Elemen
       }
       <div className="single-page-form__form-row">
         <h3 className="single-page-form__label">Main Content: </h3>
-        <CustomSuneditor content={mainContent} setContent={setMainContent} height={300} />
+        <CustomEditor content={mainContent} setContent={setMainContent} height={450} />
       </div>
       { submitError && <p className="single-page-form__error error">{ submitError }</p> }
       { successMessage && <p className="single-page-form__success-message success">{ successMessage }</p> }

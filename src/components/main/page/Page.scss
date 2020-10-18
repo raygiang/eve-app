@@ -2,7 +2,7 @@
 
 .single-page {
   &__wrapper {
-    @include admin-wrapper;
+    padding: 2rem;
   }
   
   &__main-content {
