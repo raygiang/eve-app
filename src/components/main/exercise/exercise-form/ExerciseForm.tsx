@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { QuestionList } from '../../../models/models';
+import { QuestionList, Question } from '../../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGrinBeam, faFrownOpen, faMeh } from '@fortawesome/free-regular-svg-icons';
 import './ExerciseForm.scss';
 
 interface ExerciseFormProps {
   exerciseId: string,
-  shuffledWords: string[],
+  shuffledWords: number[],
   questions: QuestionList,
 }
 
@@ -23,11 +23,11 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
     let correctCounter = 0;
     const newResultArray: (boolean|undefined)[] = []
 
-    shuffledWords.forEach((word: string, index: number) => {
+    shuffledWords.forEach((questionIndex: number, index: number) => {
       const submittedAnswer = data[`field-${index}`];
-      if(questions[submittedAnswer] === undefined){
+      if(submittedAnswer === ''){
         newResultArray[index] = undefined;
-      } else if(questions[submittedAnswer] === questions[word]) {
+      } else if(submittedAnswer === questions[questionIndex].answer) {
         correctCounter++;
         newResultArray[index] = true;
       } else {
@@ -43,8 +43,8 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
   }
 
   const renderOptions = (): JSX.Element[] => (
-    Object.keys(questions).map((word: string): JSX.Element => (
-      <option key={word} value={word}>{word}</option>
+    questions.map((questionObj: Question, index: number): JSX.Element => (
+      <option key={index} value={questionObj.answer}>{questionObj.answer}</option>
     ))
   )
 
@@ -107,10 +107,10 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
       }
       <div className="exercise-form-main__form-body">
         {
-          shuffledWords.map((word: string, index: number) => (
+          shuffledWords.map((word: number, index: number) => (
             <div key={index} className={`exercise-form-main__form-row ${getResultClass(index)}`}>
               <div className="exercise-form-main__field-container">
-                <label htmlFor={`field-${index}`}>{ (index + 1) + '. ' + questions[word] }</label>
+                <label htmlFor={`field-${index}`}>{ (index + 1) + '. ' + questions[word].question }</label>
                 <select
                   name={`field-${index}`}
                   id={`field-${index}`}

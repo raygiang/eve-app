@@ -94,9 +94,12 @@ export interface WordList {
   [word: string]: Word,
 }
 
-export interface QuestionList {
-  [word: string]: string | undefined,
+export interface Question {
+  answer: string,
+  question: string | undefined
 }
+
+export type QuestionList = Question[]
 
 export interface Exercise {
   id?: string,

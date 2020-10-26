@@ -28,7 +28,7 @@ const Exercise = ({ match }: ExerciseProps): JSX.Element => {
   
   if(!isLoaded(exercise)) return <Loading />;
 
-  const shuffledWords = shuffle(Object.keys(exercise.questions));
+  const shuffledWords = shuffle(Object.keys(exercise.questions).map(index => parseInt(index)));
 
   return (
     <section className="group">
