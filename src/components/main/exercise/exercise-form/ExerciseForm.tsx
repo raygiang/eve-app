@@ -42,11 +42,19 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
     setSubmitting(false);
   }
 
-  const renderOptions = (): JSX.Element[] => (
-    questions.map((questionObj: Question, index: number): JSX.Element => (
-      <option key={index} value={questionObj.answer}>{questionObj.answer}</option>
-    ))
-  )
+  const renderOptions = (): JSX.Element[] => {
+    const seen: string[] = [];
+    const options: JSX.Element[] = [];
+
+    questions.forEach((questionObj: Question, index: number) => {
+      if (!seen.includes(questionObj.answer)) {
+        seen.push(questionObj.answer);
+        options.push(<option key={index} value={questionObj.answer}>{questionObj.answer}</option>);
+      }
+    })
+
+    return options;
+  }
 
   const restartExercise = (): void => {
     setSubmitting(false);
