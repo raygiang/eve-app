@@ -1,5 +1,5 @@
 import React from 'react';
-import { QuestionList } from '../../../models/models';
+import { QuestionList, Question } from '../../../models/models';
 import './ExerciseOverview.scss';
 
 interface ExerciseOverviewProps {
@@ -10,13 +10,13 @@ const ExerciseOverview = ({ questionList }: ExerciseOverviewProps): JSX.Element 
   return (
     <div className="exercise-container">
       {
-        Object.keys(questionList).map((answer: string) => (
-          <div className="exercise-container__question-card" key={answer}>
+        questionList.map((questionObj: Question, index: number) => (
+          <div className="exercise-container__question-card" key={index}>
             <p className="exercise-container__question">
-              <span className="bold">Question: </span>{questionList[answer]}
+              <span className="bold">Question: </span>{questionObj.question}
             </p>
             <p className="exercise-container__question">
-              <span className="bold">Answer: </span>{answer}
+              <span className="bold">Answer: </span>{questionObj.answer}
             </p>
           </div>
         ))
