@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { CollectionNames, Exercise, QuestionList } from '../../../models/models';
+import { CollectionNames, Exercise, QuestionList, Question } from '../../../models/models';
 import { useForm } from 'react-hook-form';
 import firebase from '../../../../config/firebaseConfig';
 import './ExerciseForm.scss';
@@ -47,7 +47,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
     setSubmitting(false);
   }
 
-  const parseRow = (row: Element): QuestionList => {
+  const parseRow = (row: Element): Question => {
     const questionElement = row.querySelector('.LeftItem');
     const answerElement = row.querySelector('.RightItem select');
     let questionId = answerElement ? answerElement.id : '';
@@ -66,7 +66,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
 
     const answer: any = answerList.current.get(questionId);
 
-    return { [answer]: trimmedQuestion }
+    return { answer: answer, question: trimmedQuestion }
   }
 
   const onSubmit = (data: any): void => {
@@ -81,10 +81,13 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
         return;
       }
 
-      let exerciseList: QuestionList = {};
+      let exerciseList: QuestionList = [];
 
       questionRows.forEach((row: Element) => {
-        exerciseList = { ...exerciseList, ...parseRow(row) };
+        let newRow = parseRow(row);
+        if (newRow?.question?.length) {
+          exerciseList.push(newRow);
+        }
       });
 
       setQuestionList(exerciseList);

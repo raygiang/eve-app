@@ -1,35 +1,36 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { QuestionList } from '../../../models/models';
+import { QuestionList, Question } from '../../../models/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGrinBeam, faFrownOpen } from '@fortawesome/free-regular-svg-icons';
+import { faGrinBeam, faFrownOpen, faMeh } from '@fortawesome/free-regular-svg-icons';
 import './ExerciseForm.scss';
 
 interface ExerciseFormProps {
   exerciseId: string,
-  shuffledWords: string[],
+  shuffledWords: number[],
   questions: QuestionList,
 }
 
 const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [result, setResult] = useState<number | null>(null);
-  const [resultArray, setResultArray] = useState<boolean[]>([]);
+  const [resultArray, setResultArray] = useState<(boolean|undefined)[]>([]);
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data: any) : void => {
     setSubmitting(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     let correctCounter = 0;
-    const newResultArray: boolean[] = []
+    const newResultArray: (boolean|undefined)[] = []
 
-    shuffledWords.forEach((word: string, index: number) => {
+    shuffledWords.forEach((questionIndex: number, index: number) => {
       const submittedAnswer = data[`field-${index}`];
-      if(questions[submittedAnswer] === questions[word]) {
+      if(submittedAnswer === ''){
+        newResultArray[index] = undefined;
+      } else if(submittedAnswer === questions[questionIndex].answer) {
         correctCounter++;
         newResultArray[index] = true;
-      }
-      else {
+      } else {
         newResultArray[index] = false;
       }
     });
@@ -37,13 +38,23 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
     const score = Math.round(correctCounter * 100 / shuffledWords.length);
     setResult(score);
     setResultArray(newResultArray);
+
+    setSubmitting(false);
   }
 
-  const renderOptions = (): JSX.Element[] => (
-    Object.keys(questions).map((word: string): JSX.Element => (
-      <option key={word} value={word}>{word}</option>
-    ))
-  )
+  const renderOptions = (): JSX.Element[] => {
+    const seen: string[] = [];
+    const options: JSX.Element[] = [];
+
+    questions.forEach((questionObj: Question, index: number) => {
+      if (!seen.includes(questionObj.answer)) {
+        seen.push(questionObj.answer);
+        options.push(<option key={index} value={questionObj.answer}>{questionObj.answer}</option>);
+      }
+    })
+
+    return options;
+  }
 
   const restartExercise = (): void => {
     setSubmitting(false);
@@ -54,6 +65,9 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
 
   const getResultClass = (index: number): string => {
     if(resultArray.length) {
+      if(resultArray[index] === undefined){
+        return 'unanswered';
+      }
       return resultArray[index] ? 'correct' : 'incorrect';
     }
     else {
@@ -63,12 +77,21 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
 
   const getResultMessage = (index: number): JSX.Element => {
     if(resultArray[index]) {
+
       return (
         <>
           <FontAwesomeIcon icon={faGrinBeam} /> Congratulations, you got the this question correct!
         </>
       )
     }
+
+    if(resultArray[index] === undefined){
+        return (
+          <>
+            <FontAwesomeIcon icon={faMeh} /> Please select an answer.
+          </>
+        )
+      }
     return (
       <>
         <FontAwesomeIcon icon={faFrownOpen} /> Sorry, the answer you chose was incorrect.
@@ -92,10 +115,10 @@ const ExerciseForm = ({ exerciseId, shuffledWords, questions}: ExerciseFormProps
       }
       <div className="exercise-form-main__form-body">
         {
-          shuffledWords.map((word: string, index: number) => (
+          shuffledWords.map((word: number, index: number) => (
             <div key={index} className={`exercise-form-main__form-row ${getResultClass(index)}`}>
               <div className="exercise-form-main__field-container">
-                <label htmlFor={`field-${index}`}>{ (index + 1) + '. ' + questions[word] }</label>
+                <label htmlFor={`field-${index}`}>{ (index + 1) + '. ' + questions[word].question }</label>
                 <select
                   name={`field-${index}`}
                   id={`field-${index}`}
