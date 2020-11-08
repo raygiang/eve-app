@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { HomeLanguage, PageTypes } from '../../../models/models';
 import { getCollectionName } from '../../../../utils/utils';
 import firebase from '../../../../config/firebaseConfig';
-import CustomEditor from '../../general/custom-suneditor/CustomEditor';
+import CustomEditor from '../../general/custom-editor/CustomEditor';
 import './SinglePageForm.scss';
 
 interface SinglePageFormProps {

@@ -4,7 +4,7 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import firebase from '../../../../config/firebaseConfig';
 import 'react-day-picker/lib/style.css';
 import './GuideForm.scss';
-import CustomEditor from '../custom-suneditor/CustomEditor';
+import CustomEditor from '../custom-editor/CustomEditor';
 
 interface GuideFormProps {
   guideId?: string,
