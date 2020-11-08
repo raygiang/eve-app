@@ -22,9 +22,7 @@ const Page = ({ match }: PageProps): JSX.Element => {
 
   if(!isLoaded(pageContent)) return <Loading />;
 
-  if(!pageContent || !pageContent[0]) {
-    return <PageNotFound />
-  }
+  if(!pageContent || !pageContent[0]) return <PageNotFound />;
 
   return (
     <div className="single-page">

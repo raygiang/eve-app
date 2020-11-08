@@ -109,7 +109,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
           <input className="hidden" type="file" id="exercise-file" name="exercise-file" disabled={submitting} ref={register({ required: 'Please select a file first.' })} />
           { errors['exercise-file'] && <p className="exercise-content__error error">{ errors['exercise-file'].message }</p> }
           <div className="exercise-content__button-container">
-            <label className="exercise-content__upload-button" htmlFor="exercise-file">Upload an Exported htm</label>
+            <label className="exercise-content__upload-button" htmlFor="exercise-file">Upload an Exported HTM</label>
             <button className="exercise-content__form-submit" type="submit" disabled={submitting}>Preview Exercise</button>
             <button className="exercise-content__save-button" type="button" disabled={submitting} onClick={updateExercise}>Save Exercise</button>
           </div>
