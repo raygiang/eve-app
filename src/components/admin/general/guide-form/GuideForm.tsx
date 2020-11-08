@@ -4,7 +4,7 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import firebase from '../../../../config/firebaseConfig';
 import 'react-day-picker/lib/style.css';
 import './GuideForm.scss';
-import CustomSuneditor from '../custom-suneditor/CustomSuneditor';
+import CustomEditor from '../custom-suneditor/CustomEditor';
 
 interface GuideFormProps {
   guideId?: string,
@@ -167,35 +167,35 @@ const GuideForm = ({ guideId, guide }: GuideFormProps): JSX.Element => {
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">General Vocabulary Content: </h3>
-        <CustomSuneditor content={generalVocabContent} setContent={setGeneralVocabContent} height={200} />
+        <CustomEditor content={generalVocabContent} setContent={setGeneralVocabContent} height={300} />
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">Academic Vocabulary Content: </h3>
-        <CustomSuneditor content={academicVocabContent} setContent={setAcademicVocabContent} height={200} />
+        <CustomEditor content={academicVocabContent} setContent={setAcademicVocabContent} height={300} />
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">Reading Content: </h3>
-        <CustomSuneditor content={readingContent} setContent={setReadingContent} height={200} />
+        <CustomEditor content={readingContent} setContent={setReadingContent} height={300} />
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">Listening Content: </h3>
-        <CustomSuneditor content={listeningContent} setContent={setListeningContent} height={200} />
+        <CustomEditor content={listeningContent} setContent={setListeningContent} height={300} />
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">Pronunciation Content: </h3>
-        <CustomSuneditor content={pronunciationContent} setContent={setPronunciationContent} height={200} />
+        <CustomEditor content={pronunciationContent} setContent={setPronunciationContent} height={300} />
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">Grammar Content: </h3>
-        <CustomSuneditor content={grammarContent} setContent={setGrammarContent} height={200} />
+        <CustomEditor content={grammarContent} setContent={setGrammarContent} height={300} />
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">Speaking Content: </h3>
-        <CustomSuneditor content={speakingContent} setContent={setSpeakingContent} height={200} />
+        <CustomEditor content={speakingContent} setContent={setSpeakingContent} height={300} />
       </div>
       <div className="add-guide-form__field-row">
         <h3 className="add-guide-form__subheading">Test Preparation Content: </h3>
-        <CustomSuneditor content={testPrepContent} setContent={setTestPrepContent} height={200} />
+        <CustomEditor content={testPrepContent} setContent={setTestPrepContent} height={300} />
       </div>
       { submitError && <p className="add-guide-form__error error">{ submitError }</p> }
       { successMessage && <p className="add-guide-form__success-message success">{ successMessage }</p> }

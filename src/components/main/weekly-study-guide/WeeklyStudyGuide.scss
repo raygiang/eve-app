@@ -38,38 +38,7 @@
   &__section-content {
     overflow-x: auto;
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-
-      th, td {
-        border: 1px solid #ccc;
-        padding: 0.5rem 1rem;
-      }
-
-      th {
-        border: 1px solid transparent;
-        background: $primary-color;
-        text-align: left;
-        text-transform: uppercase;
-        color: #FFF;
-
-        &:first-child {
-          border-top-left-radius: $small-radius;
-        }
-
-        &:last-child {
-          border-top-right-radius: $small-radius;
-        }
-      }
-    }
-
-    > table > tbody > tr {
-      &:last-child {
-        border-bottom: 5px solid $primary-color;
-      }
-    }
+    @include wysiwyg-content;
   }
 
   @include breakpoint($lg) {

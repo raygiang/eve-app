@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import CategoryEdit from './edit-form/CategoryEdit';
 import { Flipped } from "react-flip-toolkit";
-import { CollectionNames, CategoryTypes, CategoryCardProps } from '../../../../models/models';
+import { CategoryCardProps, PageTypes } from '../../../../models/models';
 import { Link } from 'react-router-dom';
+import { getCollectionName } from '../../../../../utils/utils';
 import DeleteButton from '../../delete-button/DeleteButton';
 import firebase from '../../../../../config/firebaseConfig';
 import './Category.scss';
 
-const CategoryCardExpanded = ({ type, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage } : CategoryCardProps): JSX.Element => {
+const CategoryCardExpanded = ({ type, categoryId, category, categoryClicked, shouldFlip, setSuccessMessage, uniqueIdentifiers } : CategoryCardProps): JSX.Element => {
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>('');
-  const collectionName = type === CategoryTypes.Top
-    ? CollectionNames.Categories
-    : type === CategoryTypes.Sub
-      ? CollectionNames.Subcategories
-      : CollectionNames.HomeLanguages;
+  const collectionName = getCollectionName(type);
   const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const deleteCategory = (): void => {
@@ -45,7 +42,7 @@ const CategoryCardExpanded = ({ type, categoryId, category, categoryClicked, sho
             <div className="category--expanded__header">
               <Flipped flipId={`heading-${categoryId}`} stagger="card-content" shouldFlip={shouldFlip(categoryId)}>
                 <h3 className="category--expanded__name">
-                  <Link to={`/admin-dashboard/${type === CategoryTypes.Top ? CollectionNames.Subcategories : type === CategoryTypes.Sub ? CollectionNames.Groups : 'language'}/${categoryId}`}>
+                  <Link to={`/admin-dashboard/${type in PageTypes ? `edit-single/${type}` : collectionName}/${categoryId}`}>
                     {category.name}
                   </Link>
                 </h3>
@@ -62,6 +59,7 @@ const CategoryCardExpanded = ({ type, categoryId, category, categoryClicked, sho
               categoryName={category.name}
               categoryClicked={categoryClicked}
               setSuccessMessage={setSuccessMessage}
+              uniqueIdentifiers={uniqueIdentifiers}
             />
             { deleteError && <p className="category--expanded__delete-error error">{ deleteError }</p> }
           </div>

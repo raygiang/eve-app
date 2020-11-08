@@ -1,0 +1,12 @@
+@import '../../../style/theme.scss';
+
+.contact-page {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+  
+  &__main-content {
+    @include grid-list(1fr);
+    @include wysiwyg-content;
+  }
+}

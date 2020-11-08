@@ -58,7 +58,7 @@ const Group = ({ match }: GroupProps): JSX.Element => {
           <h1 className="group-admin__heading">
             Editing Group
           </h1>
-          <Link to={`/admin-dashboard/groups/${subcategoryId}`}>
+          <Link to={`/admin-dashboard/subcategories/${subcategoryId}`}>
             Back to {subcategory.name}
           </Link>
         </div>
