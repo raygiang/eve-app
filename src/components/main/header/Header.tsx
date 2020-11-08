@@ -11,7 +11,7 @@ const Header = (): JSX.Element => {
   const currentPath = window.location.pathname.split('/')[1] || null;
   const homePaths: (string | null)[] = [null];
   const wordCategoryPaths: (string | null)[] = ['word-categories', 'subcategories', 'groups', 'group', 'exercise'];
-  const studyGuidePaths: (string | null)[] = ['weekly-study-guides', 'weekly-study-guide'];
+  // const studyGuidePaths: (string | null)[] = ['weekly-study-guides', 'weekly-study-guide'];
 
   const toggleMobileMenu = (): void => {
     menuRef.current?.classList.toggle('show');
@@ -62,9 +62,9 @@ const Header = (): JSX.Element => {
             <li>
               <Link to="/word-categories" className={checkCurrentPath(wordCategoryPaths)}>Word Categories</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/weekly-study-guides" className={checkCurrentPath(studyGuidePaths)}>Weekly Study Guides</Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
         <button className="header__burger-button" onClick={toggleMobileMenu}>

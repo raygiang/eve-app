@@ -17,10 +17,10 @@ const Home = (): JSX.Element => {
             <div className="admin-home__card-image" style={{ backgroundImage: 'url(/images/category.svg)' }} />
             <h2 className="admin-home__card-heading">Word Categories</h2>
           </Link>
-          <Link className="admin-home__link-card" to="/admin-dashboard/weekly-study-guides">
+          {/* <Link className="admin-home__link-card" to="/admin-dashboard/weekly-study-guides">
             <div className="admin-home__card-image" style={{ backgroundImage: 'url(/images/study.svg)' }} />
             <h2 className="admin-home__card-heading">Weekly Study Guides</h2>
-          </Link>
+          </Link> */}
           <Link className="admin-home__link-card" to="/admin-dashboard/pages">
             <div className="admin-home__card-image" style={{ backgroundImage: 'url(/images/private.svg)' }} />
             <h2 className="admin-home__card-heading">Private Pages</h2>
