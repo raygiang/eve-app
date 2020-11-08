@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CollectionNames, CategoryTypes, CategoryDocument } from '../../../models/models';
+import { CategoryTypes, CategoryDocument } from '../../../models/models';
 import firebase from '../../../../config/firebaseConfig';
+import { getCollectionName } from '../../../../utils/utils';
 import './CategoryAdd.scss';
 
 interface CategoryAddProps {
@@ -9,17 +10,14 @@ interface CategoryAddProps {
   successMessage: string,
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>,
   parentId?: string,
+  uniqueIdentifiers?: string[],
 }
 
-const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: CategoryAddProps): JSX.Element => {
+const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId, uniqueIdentifiers }: CategoryAddProps): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [addError, setAddError] = useState<string>('');
   const { register, handleSubmit, errors, reset } = useForm();
-  const collectionName = type === CategoryTypes.Top
-    ? CollectionNames.Categories
-    : type === CategoryTypes.Sub
-      ? CollectionNames.Subcategories
-      : CollectionNames.HomeLanguages;
+  const collectionName = getCollectionName(type);
   const categoriesCollection = firebase.firestore().collection(collectionName);
 
   const onSubmit = (data: any) : void => {
@@ -35,6 +33,16 @@ const CategoryAdd = ({ type, successMessage, setSuccessMessage, parentId }: Cate
       newDocument.bannerHeading = '';
       newDocument.bannerText = '';
       newDocument.mainContent = '';
+    }
+    else if(type === CategoryTypes.Page) {
+      const newSlug = data.name.trim().replaceAll(' ', '-').toLowerCase();
+      if(uniqueIdentifiers?.indexOf(newSlug) !== -1) {
+        setSubmitting(false);
+        setAddError('A page with this title already exists.');
+        setSuccessMessage('');
+        return;
+      }
+      newDocument.slug = newSlug;
     }
 
     categoriesCollection.doc().set(newDocument).then((): void => {

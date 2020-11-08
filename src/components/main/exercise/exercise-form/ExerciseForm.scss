@@ -32,6 +32,19 @@
 
   &__form-row {
     @include card-styling;
+    @include grid-list(1fr);
+
+    &.correct {
+      background-color: #E4FFDF;
+    }
+
+    &.unanswered {
+      background-color: #FFF5BE;
+    }
+
+    &.incorrect {
+      background-color: #FFE0E1;
+    }
   }
 
   &__field-container {
@@ -43,6 +56,10 @@
   &__select-field {
     padding: 0.25rem 0.5rem;
     height: max-content;
+  }
+
+  &__result-message {
+    font-weight: bold;
   }
 
   &__button-row {

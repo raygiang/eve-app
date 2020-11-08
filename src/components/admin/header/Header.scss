@@ -45,13 +45,12 @@
     margin: auto 0;
     padding: 0.25rem 0.5rem;
     @include svg-button;
+    @include secondary-link;
     
-    svg {
-      @include secondary-link;
-    }
-
-    &:hover svg, &:focus svg {
-      color: $highlight-color;
+    &:hover {
+      svg {
+        color: #fff;
+      }
     }
   }
 

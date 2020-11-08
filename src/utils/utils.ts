@@ -1,4 +1,4 @@
-import { ApiWord, Meaning, Definitions } from "../components/models/models";
+import { ApiWord, Meaning, Definitions, CategoryTypes, CollectionNames, PageTypes } from "../components/models/models";
 
 export const formatDictionaryResults = (data: ApiWord[]): Definitions[] => {
   const definitions: Definitions[] = [];
@@ -27,4 +27,25 @@ export const formatDictionaryResults = (data: ApiWord[]): Definitions[] => {
   })
 
   return definitions;
+}
+
+export const getCollectionName = (type: string): string => {
+  switch(type) {
+    case CategoryTypes.Top:
+      return CollectionNames.Categories;
+    case CategoryTypes.Sub:
+      return CollectionNames.Subcategories;
+    case CategoryTypes.Lang:
+      return CollectionNames.HomeLanguages;
+    case CategoryTypes.Page:
+      return CollectionNames.Pages;
+    case PageTypes.Language:
+      return CollectionNames.HomeLanguages;
+    case PageTypes.Contact:
+      return CollectionNames.Contact;
+    case PageTypes.Page:
+      return CollectionNames.Pages;
+    default:
+      return '';
+  }
 }

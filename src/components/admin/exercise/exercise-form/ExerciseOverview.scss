@@ -1,0 +1,14 @@
+@import '../../../../style/theme.scss';
+
+.exercise-container {
+  @include grid-list(1fr 1fr);
+
+  &__question-card {
+    @include card-styling;
+    @include grid-list(1fr);
+  }
+
+  @include breakpoint($md) {
+    grid-template-columns: 1fr;
+  }
+}
