@@ -23,7 +23,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
   const exerciseCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId)
     .collection(CollectionNames.Groups).doc(groupId).collection(CollectionNames.Exercises).doc(exerciseId);
   
-  const updateExercise = () : void => {
+  const saveExercise = () : void => {
     setSubmitting(true);
 
     if(!Object.keys(questionList).length) {
@@ -111,7 +111,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
           <div className="exercise-content__button-container">
             <label className="exercise-content__upload-button" htmlFor="exercise-file">Upload an Exported HTM</label>
             <button className="exercise-content__form-submit" type="submit" disabled={submitting}>Preview Exercise</button>
-            <button className="exercise-content__save-button" type="button" disabled={submitting} onClick={updateExercise}>Save Exercise</button>
+            <button className="exercise-content__save-button" type="button" disabled={submitting} onClick={saveExercise}>Save Exercise</button>
           </div>
         </form>
       </div>
