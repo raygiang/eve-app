@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { CollectionNames, Exercise, QuestionList, Question } from '../../../models/models';
 import { useForm } from 'react-hook-form';
 import firebase from '../../../../config/firebaseConfig';
@@ -12,17 +12,44 @@ interface ExerciseFormProps {
   exerciseId: string,
 }
 
+// Function to parse individual row into a Question object
+const parseRow = (row: Element, answerMap: Map<string, string>): Question => {
+  const questionElement = row.querySelector('.LeftItem');
+  const answerElement = row.querySelector('.RightItem select');
+  let questionId = answerElement ? answerElement.id : '';
+  questionId = questionId.substring(questionId.indexOf('_') + 1, questionId.length);
+  const fullQuestion = questionElement?.textContent;
+  const trimmedQuestion = fullQuestion?.substring((parseInt(questionId) + 1).toString().length + 2, fullQuestion.length);
+
+  const answer: string = answerMap.get(questionId) || '';
+
+  return { answer: answer, question: trimmedQuestion }
+}
+
+// Function to generate answerMap
+// answerMap passed in to parseRow
+// Worth skipping the useRef perhaps?
+const makeAnswerMap = (questionRows: NodeListOf<Element>) => {
+  const answerMap = new Map<string, string>();
+  const possibleAnswers = questionRows[0].querySelector('.RightItem select')?.querySelectorAll('option');
+
+  possibleAnswers?.forEach((answer: HTMLOptionElement): void => {
+    answerMap.set(answer.value, answer.innerHTML)
+  })
+
+  return answerMap;
+}
+
 const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: ExerciseFormProps): JSX.Element => {
-  const answerList = useRef<null | Map<string, string>>(null);
   const [questionList, setQuestionList] = useState<QuestionList>(exercise.questions);
   const [currentUpload, setCurrentUpload] = useState<string>('No file uploaded yet');
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
-  const { register, handleSubmit, errors, reset } = useForm();
+  const { register, errors, reset } = useForm();
   const exerciseCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId)
     .collection(CollectionNames.Groups).doc(groupId).collection(CollectionNames.Exercises).doc(exerciseId);
-  
+
   const saveExercise = () : void => {
     setSubmitting(true);
 
@@ -47,70 +74,61 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
     setSubmitting(false);
   }
 
-  const parseRow = (row: Element): Question => {
-    const questionElement = row.querySelector('.LeftItem');
-    const answerElement = row.querySelector('.RightItem select');
-    let questionId = answerElement ? answerElement.id : '';
-    questionId = questionId.substring(questionId.indexOf('_') + 1, questionId.length);
-    const fullQuestion = questionElement?.textContent;
-    const trimmedQuestion = fullQuestion?.substring((parseInt(questionId) + 1).toString().length + 2, fullQuestion.length);
+  const parseFile = (e: any): void => {
 
-    if(!answerList.current) {
-      const answerMap = new Map<string, string>();
-      const possibleAnswers = answerElement?.querySelectorAll('option');
-      possibleAnswers?.forEach((answer: any): void => {
-        answerMap.set(answer.value, answer.innerHTML);
-      })
-      answerList.current = answerMap;
-    }
+    // Reset messages and question list
+    // prior to parsing uploaded HTM
+    setSubmitError('');
+    setSuccessMessage('');
+    setQuestionList(exercise.questions);
 
-    const answer: any = answerList.current.get(questionId);
+    const file = e?.target?.files[0];
 
-    return { answer: answer, question: trimmedQuestion }
-  }
+    // Start parsing the uploaded file.
+    // Update the current file name to be displayed.
+    // Early error if parsing failed.
+    // Update questionList state.
+    if (file) {
 
-  const onSubmit = (data: any): void => {
-    data['exercise-file'][0].text().then((res: any) => {
-      const exerciseHtml = document.createElement("html");
-      exerciseHtml.innerHTML = res;
-      const questionRows = exerciseHtml.querySelectorAll('#Questions tr');
+      setCurrentUpload(file.name);
 
-      if(!questionRows.length) {
-        setSuccessMessage('');
-        setSubmitError('Error parsing file. Please ensure you uploaded the correct file.');
-        return;
-      }
+      file.text().then((res: any) => {
+        const exerciseHtml = document.createElement("html");
+        exerciseHtml.innerHTML = res;
+        const questionRows = exerciseHtml.querySelectorAll('#Questions tr');
 
-      let exerciseList: QuestionList = [];
-
-      questionRows.forEach((row: Element) => {
-        let newRow = parseRow(row);
-        if (newRow?.question?.length) {
-          exerciseList.push(newRow);
+        if(!questionRows.length) {
+          setSuccessMessage('');
+          setSubmitError('Error parsing file. Please ensure you uploaded the correct file.');
+          return;
         }
-      });
 
-      setQuestionList(exerciseList);
+        const answerMap = makeAnswerMap(questionRows);
 
-      answerList.current = null;
-    });
-  }
-
-  const updateFileName = (e: any): void => {
-    if(e.target.files && e.target.files[0]) setCurrentUpload(e.target.files[0].name);
+        setQuestionList(
+          Array.from(questionRows).filter((row: Element): boolean => {
+            let newRow = parseRow(row, answerMap);
+            return Boolean(newRow?.question?.length);
+          }).map((row: Element): Question => {
+            return parseRow(row, answerMap);
+          })
+        );
+      })
+    } else {
+      setSubmitError('No files found. Please ensure a file is uploaded.')
+    }
   }
 
   return (
     <div className="exercise-content">
       <div className="exercise-content__form-container">
         <h2>Upload Form</h2>
-        <form onChange={updateFileName} className="exercise-content__form" onSubmit={handleSubmit(onSubmit)}>
+        <form onChange={parseFile} className="exercise-content__form">
           <p>{ currentUpload }</p>
           <input className="hidden" type="file" id="exercise-file" name="exercise-file" disabled={submitting} ref={register({ required: 'Please select a file first.' })} />
           { errors['exercise-file'] && <p className="exercise-content__error error">{ errors['exercise-file'].message }</p> }
           <div className="exercise-content__button-container">
             <label className="exercise-content__upload-button" htmlFor="exercise-file">Upload an Exported HTM</label>
-            <button className="exercise-content__form-submit" type="submit" disabled={submitting}>Preview Exercise</button>
             <button className="exercise-content__save-button" type="button" disabled={submitting} onClick={saveExercise}>Save Exercise</button>
           </div>
         </form>
