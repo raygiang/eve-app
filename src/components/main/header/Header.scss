@@ -22,7 +22,7 @@
   }
 
   &__nav-list {
-    @include grid-list(auto auto auto);
+    @include grid-list(auto auto auto auto);
     margin: auto 0;
   }
 

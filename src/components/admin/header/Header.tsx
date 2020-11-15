@@ -35,7 +35,7 @@ const Header = (): JSX.Element => {
 
   useEffect((): (() => void) => {
     const escapeHandler = (e: KeyboardEvent) => {
-      if(e.keyCode === 27) {
+      if(e.key === 'Escape') {
         if(menuRef.current?.classList.contains('show')) hideMobileMenu();
       }
     }

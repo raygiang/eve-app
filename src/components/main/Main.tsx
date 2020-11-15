@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './header/Header';
 import Footer from './footer/Footer';
+import UserLogin from './login/Login';
+import Register from './register/Register';
 import Home from './home/Home';
 import PageNotFound from '../general/404/PageNotFound';
 import WordCategories from './word-categories/WordCategories';
@@ -19,6 +21,8 @@ const Main = (): JSX.Element => {
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={UserLogin} />
+        <Route exact path="/register" component={Register} />
         <Route exact path="/word-categories" component={WordCategories} />
         <Route exact path="/subcategories/:categoryId" component={Subcategories} />
         <Route exact path="/groups/:subcategoryId/" component={Groups} />
