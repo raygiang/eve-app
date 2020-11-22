@@ -21,8 +21,13 @@ const Login = (): JSX.Element => {
       <div className="login-page__wrapper page-wrapper">
         <h1 className="login-page__heading">English Vocabulary Exercises - Login</h1>
         <LoginForm />
-        <div className="login-page__register-container">
-          <Link to="/register">Don't have an account? Register here.</Link>
+        <div className="login-page__link-container">
+          <div className="login-page__link">
+            <Link to="/register">Don't have an account? Register here.</Link>
+          </div>
+          <div className="login-page__link">
+            <Link to="/forgot-password">Forgot your password?</Link>
+          </div>
         </div>
       </div>
     </section>

@@ -22,8 +22,6 @@ const Header = (): JSX.Element => {
 
   const auth = useSelector((state: RootState) => state.firebase.auth, isEqual);
 
-  console.log(auth.uid)
-
   const logOut = (): void => {
     firebase.auth().signOut();
     history.push('/')
