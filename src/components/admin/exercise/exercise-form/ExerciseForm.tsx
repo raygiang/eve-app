@@ -122,8 +122,8 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
     <div className="exercise-content">
       <div className="exercise-content__form-container">
 
-        <h2>Upload Form</h2>
         <div className="exercise-content__form">
+          <h2>Upload Form</h2>
           <p>{ currentUpload }</p>
 
           <input className="hidden" type="file" id="exercise-file" name="exercise-file" disabled={submitting} onChange={parseFile} />
