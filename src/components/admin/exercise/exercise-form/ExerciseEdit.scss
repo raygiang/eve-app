@@ -1,0 +1,33 @@
+@import '../../../../style/theme.scss';
+
+textarea {
+  resize: none;
+}
+
+.exercise-container {
+  display: grid;
+  width: 100%;
+  row-gap: 2rem;
+
+  &__form-row {
+    @include secondary-card
+    display: grid;
+    grid-template-columns: max-content auto;
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+    @include card-styling;
+  }
+
+  &__row-heading {
+    grid-column: span 2;
+  }
+
+  &__field {
+    @include form-input;
+    margin: auto 0;
+  }
+
+  &__highlight {
+    color: $secondary-color;
+  }
+}

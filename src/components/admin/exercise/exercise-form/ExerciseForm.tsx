@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { CollectionNames, Exercise, QuestionList, Question } from '../../../models/models';
-import { useForm } from 'react-hook-form';
 import firebase from '../../../../config/firebaseConfig';
 import './ExerciseForm.scss';
-import ExerciseOverview from './ExerciseOverview';
+import ExerciseEdit from './ExerciseEdit'
+{/* import ExerciseOverview from './ExerciseOverview'; */}
 
 interface ExerciseFormProps {
   exercise: Exercise,
   subcategoryId: string,
   groupId: string,
-  exerciseId: string,
+  exerciseId: string
 }
 
 // Function to parse individual row into a Question object
@@ -29,7 +29,7 @@ const parseRow = (row: Element, answerMap: Map<string, string>): Question => {
 // Function to generate answerMap
 // answerMap passed in to parseRow
 // Worth skipping the useRef perhaps?
-const makeAnswerMap = (questionRows: NodeListOf<Element>) => {
+const makeAnswerMap = (questionRows: NodeListOf<Element>): Map<string, string> => {
   const answerMap = new Map<string, string>();
   const possibleAnswers = questionRows[0].querySelector('.RightItem select')?.querySelectorAll('option');
 
@@ -46,15 +46,17 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
-  const { register, errors, reset } = useForm();
   const exerciseCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId)
     .collection(CollectionNames.Groups).doc(groupId).collection(CollectionNames.Exercises).doc(exerciseId);
 
-  const saveExercise = () : void => {
+  const saveExercise = (e: any): void => {
+    e.preventDefault();
+
+    setSuccessMessage('');
+    setSubmitError('');
     setSubmitting(true);
 
     if(!Object.keys(questionList).length) {
-      setSuccessMessage('');
       setSubmitError('Save Failed. The exercise is empty.');
       setSubmitting(false);
       return;
@@ -62,15 +64,12 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
 
     exerciseCollection.update({ questions: questionList }).then((): void => {
       setSuccessMessage('Exercise has been saved.');
-      setSubmitError('');
-      setSubmitting(false);
       setCurrentUpload('No file uploaded yet');
-      reset();
     }).catch((error: { message: string }): void => {
       setSuccessMessage('');
       setSubmitError(error.message);
-      setSubmitting(false);
     });
+
     setSubmitting(false);
   }
 
@@ -122,26 +121,41 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
   return (
     <div className="exercise-content">
       <div className="exercise-content__form-container">
+
         <h2>Upload Form</h2>
-        <form onChange={parseFile} className="exercise-content__form">
+        <div className="exercise-content__form">
           <p>{ currentUpload }</p>
-          <input className="hidden" type="file" id="exercise-file" name="exercise-file" disabled={submitting} ref={register({ required: 'Please select a file first.' })} />
-          { errors['exercise-file'] && <p className="exercise-content__error error">{ errors['exercise-file'].message }</p> }
+
+          <input className="hidden" type="file" id="exercise-file" name="exercise-file" disabled={submitting} onChange={parseFile} />
+
           <div className="exercise-content__button-container">
             <label className="exercise-content__upload-button" htmlFor="exercise-file">Upload an Exported HTM</label>
-            <button className="exercise-content__save-button" type="button" disabled={submitting} onClick={saveExercise}>Save Exercise</button>
+            <button
+              className="exercise-content__save-button"
+              type="submit"
+              disabled={submitting}
+              onClick={saveExercise}
+            >
+              Save Exercise
+            </button>
           </div>
-        </form>
-      </div>
-      { successMessage && <p className="exercise-content__success success">{ successMessage }</p> }
-      { submitError && <p className="exercise-content__error error">{ submitError }</p> }
-      <div className="exercise-content__preview-container">
-        <h2>Exercise Preview</h2>
-        {
-          Object.keys(questionList).length
-            ? <ExerciseOverview questionList={questionList} />
-            : <p>This exercise is currently empty.</p>
-        }
+        </div>
+
+        { successMessage && <h3 className="exercise-content__success success">{ successMessage }</h3> }
+        { submitError && <h3 className="exercise-content__error error">{ submitError }</h3> }
+
+        <div className="exercise-content__preview-container">
+          <h2>Preview</h2>
+          {
+            Object.keys(questionList).length
+              ? <ExerciseEdit
+                questionList={questionList}
+                setQuestionList={setQuestionList}
+              />
+              : <p>This exercise is currently empty.</p>
+          }
+        </div>
+
       </div>
     </div>
   )
