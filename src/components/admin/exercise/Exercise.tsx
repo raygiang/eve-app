@@ -61,7 +61,7 @@ const Exercise = ({ match }: ExerciseProps): JSX.Element => {
         </div>
         <p className="exercise-admin__description">
           This is the interface for editing an exercise inside of a group.
-          Please upload your htm export from Gerry's Vocabulary Teacher to proceed.
+          Please upload an HTM export from Gerry's Vocabulary Teacher to proceed.
         </p>
         <ExerciseForm
           exercise={exercise}
