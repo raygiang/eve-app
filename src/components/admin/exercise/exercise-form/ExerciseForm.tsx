@@ -3,7 +3,6 @@ import { CollectionNames, Exercise, QuestionList, Question } from '../../../mode
 import firebase from '../../../../config/firebaseConfig';
 import './ExerciseForm.scss';
 import ExerciseEdit from './ExerciseEdit'
-{/* import ExerciseOverview from './ExerciseOverview'; */}
 
 interface ExerciseFormProps {
   exercise: Exercise,
