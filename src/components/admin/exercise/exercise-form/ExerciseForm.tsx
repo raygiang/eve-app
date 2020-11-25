@@ -48,7 +48,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
   const exerciseCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId)
     .collection(CollectionNames.Groups).doc(groupId).collection(CollectionNames.Exercises).doc(exerciseId);
 
-  const saveExercise = (e: any): void => {
+  const saveExercise = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
     setSuccessMessage('');
@@ -72,7 +72,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
     setSubmitting(false);
   }
 
-  const parseFile = (e: any): void => {
+  const parseFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
 
     // Reset messages and question list
     // prior to parsing uploaded HTM
@@ -80,7 +80,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
     setSuccessMessage('');
     setQuestionList(exercise.questions);
 
-    const file = e?.target?.files[0];
+    const file = e.target.files ? e.target.files[0] : null;
 
     // Start parsing the uploaded file.
     // Update the current file name to be displayed.
@@ -90,7 +90,7 @@ const ExerciseForm = ({ exercise, subcategoryId, groupId, exerciseId }: Exercise
 
       setCurrentUpload(file.name);
 
-      file.text().then((res: any) => {
+      (file as any).text().then((res: string) => {
         const exerciseHtml = document.createElement("html");
         exerciseHtml.innerHTML = res;
         const questionRows = exerciseHtml.querySelectorAll('#Questions tr');

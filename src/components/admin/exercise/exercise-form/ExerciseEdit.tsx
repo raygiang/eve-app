@@ -9,7 +9,11 @@ interface ExerciseEditProps {
 
 const ExerciseEdit = ({questionList, setQuestionList}: ExerciseEditProps): JSX.Element => {
 
-  const updateQuestionList = (e: any, index: number, changeAnswer: boolean = true): void => {
+  const updateQuestionList = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      index: number,
+      changeAnswer: boolean = true
+  ): void => {
     const newList = questionList.map(exerciseObj => Object.assign({}, exerciseObj));
     const field = changeAnswer ? 'answer' : 'question';
 
