@@ -11,14 +11,24 @@ const ExerciseEdit = ({questionList, setQuestionList}: ExerciseEditProps): JSX.E
 
   const updateQuestionList = (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      index: number,
-      changeAnswer: boolean = true
   ): void => {
     const newList = questionList.map(exerciseObj => Object.assign({}, exerciseObj));
-    const field = changeAnswer ? 'answer' : 'question';
+    const [field, index]: string[] = e.target.id.split('-');
 
-    newList[index][field] = e.target.value;
-    setQuestionList(newList);
+    if (field && index){
+      const exerciseObj = newList[parseInt(index)];
+      const newValue = e.target.value;
+
+      if (field === 'answer') {
+        exerciseObj.answer = newValue;
+      }
+
+      if (field === 'question') {
+        exerciseObj.question = newValue;
+      }
+
+      setQuestionList(newList);
+    }
   }
 
   return (
@@ -29,15 +39,15 @@ const ExerciseEdit = ({questionList, setQuestionList}: ExerciseEditProps): JSX.E
           <div key={index} className="exercise-container__form-row">
             <label htmlFor={answer}>Answer: </label>
             <input
-              id={answer}
-              onChange={e => updateQuestionList(e, index)}
+              id={`answer-${index}`}
+              onChange={updateQuestionList}
               className={"exercise-container__field"}
               value={answer || "<! No answer provided !>"}
             />
             <label htmlFor={`${answer}-answer`}>Question: </label>
             <textarea
-              id={`${answer}-answer`}
-              onChange={e => updateQuestionList(e, index, false)}
+              id={`question-${index}`}
+              onChange={updateQuestionList}
               className={"exercise-container__field"}
               value={question || "<! No question provided !>"}
             />
