@@ -1,0 +1,11 @@
+@import '../../../style/theme.scss';
+
+.account-page {
+  &__wrapper {
+    @include admin-wrapper;
+  }
+
+  &__heading {
+    font-size: 30px;
+  }
+}

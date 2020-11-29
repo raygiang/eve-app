@@ -35,6 +35,9 @@ const Admin = (): JSX.Element => {
   else if(!auth.uid) {
     return <Redirect to='/admin-login' />
   }
+  else if(auth.uid !== process.env.REACT_APP_ADMIN_UID) {
+    return <Redirect to='/' />
+  }
 
   return (
     <main className="admin-dashboard">
