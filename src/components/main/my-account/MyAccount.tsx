@@ -15,16 +15,13 @@ const MyAccount = (): JSX.Element => {
     return <Redirect to='/' />
   }
 
-  console.log(auth);
-
   return (
     <section className="account-page">
       <div className="account-page__wrapper page-wrapper">
         <h1 className="account-page__heading">{'Welcome Back' + (auth.displayName ? ` ${auth.displayName}` : '!')}</h1>
         <div className="account-page__overview">
           <p>
-            This is the interface for editing an exercise inside of a group.
-            Please upload your htm export from Gerry's Vocabulary Teacher to proceed.
+            This is where you can find information about your account or update your profile.
           </p>
         </div>
         <AccountForm auth={auth} />
