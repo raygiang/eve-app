@@ -21,6 +21,7 @@ export enum CollectionNames {
   StudyGuides = 'weekly-study-guides',
   Pages = 'pages',
   Contact = 'contact-page',
+  Products = 'products',
 }
 
 export enum DefaultStudyGuide {
@@ -202,4 +203,11 @@ export interface Definitions {
   word: string,
   phonetics: Phonetic[],
   definitions: Definition[],
+}
+
+export interface Product {
+  name: string,
+  description: string,
+  stripe_metadata_price: string,
+  stripe_metadata_price_id: string,
 }
