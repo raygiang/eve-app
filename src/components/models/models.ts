@@ -205,10 +205,10 @@ export interface Definitions {
   definitions: Definition[],
 }
 
-export interface Price {
+export interface Product {
   id: string,
-  currency: string,
   description: string,
-  interval: string,
-  unit_amount: number,
+  name: string,
+  stripe_metadata_price: number,
+  stripe_metadata_price_id: string,
 }
