@@ -8,8 +8,8 @@ textarea {
   @include grid-list(1fr, 2em);
 
   &__form-row {
-    @include secondary-card
-    @include grid-list(max-content auto, 0.5rem)
+    @include secondary-card;
+    @include grid-list(max-content auto, 0.5rem);
     @include card-styling;
   }
 
