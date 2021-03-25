@@ -151,6 +151,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
         />
       </div>
       { errors.word && <p className="word-form__error error">{ errors.word.message }</p> }
+      { submitError && <p className="category-edit__error error">{ submitError }</p> }
       <div className="word-form__field-row">
         <label htmlFor="custom-definition">Custom Definition: </label>
         <textarea
