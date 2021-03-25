@@ -66,11 +66,19 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
         }
         else {
           setDefinitions([]);
+          if(data?.title?.toLowerCase() === 'no definitions found') {
+            setSubmitError('No definitions found for the entered word');
+          }
         }
+      }).catch(error => {
+        setDefinitions([]);
+        setSubmitError('Something went wrong while trying to process data, please try again');
+        console.log(error);
       });
     }).catch(error => {
-      console.log(error.message);
-    });
+      setDefinitions([]);
+      setSubmitError('Something went wrong, please try again');
+      console.log(error);
     }).finally(() => setSubmitting(false));
   }
 
