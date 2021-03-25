@@ -129,6 +129,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
     else {
       setDefinitions(null);
     }
+    setSubmitError('');
   }, [word, wordList]);
 
   return (
