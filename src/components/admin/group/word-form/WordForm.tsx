@@ -43,7 +43,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
   }
 
   const searchDefinitions = (): void => {
-    const word = getValues('word').replace(' ', '_');
+    const word = getValues('word');
 
     if(!word) {
       setSubmitError('Please enter a word first');
@@ -63,16 +63,23 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
             'dictionary-url': getValues('dictionary-url'),
           });
           setDefinitions(formatDictionaryResults(data));
-          setSubmitting(false);
         }
         else {
           setDefinitions([]);
-          setSubmitting(false);
+          if(data?.title?.toLowerCase() === 'no definitions found') {
+            setSubmitError('No definitions found for the entered word');
+          }
         }
+      }).catch(error => {
+        setDefinitions([]);
+        setSubmitError('Something went wrong while trying to process data, please try again');
+        console.log(error);
       });
     }).catch(error => {
-      console.log(error.message);
-    });
+      setDefinitions([]);
+      setSubmitError('Something went wrong, please try again');
+      console.log(error);
+    }).finally(() => setSubmitting(false));
   }
 
   const onSubmit = (data: any) : void => {
@@ -129,6 +136,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
     else {
       setDefinitions(null);
     }
+    setSubmitError('');
   }, [word, wordList]);
 
   return (
@@ -150,6 +158,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
         />
       </div>
       { errors.word && <p className="word-form__error error">{ errors.word.message }</p> }
+      { submitError && <p className="category-edit__error error">{ submitError }</p> }
       <div className="word-form__field-row">
         <label htmlFor="custom-definition">Custom Definition: </label>
         <textarea
@@ -171,8 +180,6 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
           defaultValue={wordList[word] && wordList[word].dictionaryUrl}
         />
       </div>
-      { definitions && <DefinitionBox definitions={definitions} setDefinitions={setDefinitions} /> }
-      { submitError && <p className="category-edit__error error">{ submitError }</p> }
       <div className="word-form__submit-row">
         <button disabled={submitting} className="word-form__def-button" type="button" onClick={searchDefinitions}>
           Get Definitions
@@ -182,6 +189,17 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
         </button>
         { word && <DeleteButton disabled={!definitions || submitting} deleteFunction={deleteWord} text="Delete" /> }
       </div>
+
+      { definitions && <DefinitionBox definitions={definitions} setDefinitions={setDefinitions} /> }
+
+      { definitions && definitions.length > 0 &&
+        <div className="word-form__submit-row">
+          <button disabled={!definitions || submitting} className="word-form__save-button" type="submit">
+            { word ? 'Save' : 'Add' }
+          </button>
+          { word && <DeleteButton disabled={!definitions || submitting} deleteFunction={deleteWord} text="Delete" /> }
+        </div>
+      }
     </form>
   )
 }

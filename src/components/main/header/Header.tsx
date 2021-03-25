@@ -1,17 +1,31 @@
 import React, { createRef, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers/rootReducer';
+import { isEqual } from 'lodash';
+import { Link, useHistory  } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faDoorOpen, faTimes } from '@fortawesome/free-solid-svg-icons';
+import firebase from '../../../config/firebaseConfig';
 import './Header.scss';
+import Loading from '../../general/loading/Loading';
 
 const Header = (): JSX.Element => {
+  const history = useHistory()
   const menuRef = createRef<HTMLElement>();
   const firstLinkRef = createRef<HTMLAnchorElement>();
   const mobileOverlay = createRef<HTMLDivElement>();
   const currentPath = window.location.pathname.split('/')[1] || null;
   const homePaths: (string | null)[] = [null];
   const wordCategoryPaths: (string | null)[] = ['word-categories', 'subcategories', 'groups', 'group', 'exercise'];
-  const studyGuidePaths: (string | null)[] = ['weekly-study-guides', 'weekly-study-guide'];
+  // const studyGuidePaths: (string | null)[] = ['weekly-study-guides', 'weekly-study-guide'];
+  const accountPaths: (string | null)[] = ['login', 'register', 'my-account'];
+
+  const auth = useSelector((state: RootState) => state.firebase.auth, isEqual);
+
+  const logOut = (): void => {
+    firebase.auth().signOut();
+    history.push('/')
+  }
 
   const toggleMobileMenu = (): void => {
     menuRef.current?.classList.toggle('show');
@@ -30,7 +44,7 @@ const Header = (): JSX.Element => {
 
   useEffect((): (() => void) => {
     const escapeHandler = (e: KeyboardEvent) => {
-      if(e.keyCode === 27) {
+      if(e.key === 'Escape') {
         if(menuRef.current?.classList.contains('show')) hideMobileMenu();
       }
     }
@@ -41,6 +55,14 @@ const Header = (): JSX.Element => {
       window.removeEventListener('keydown', escapeHandler);
     }
   }, [hideMobileMenu, menuRef]);
+
+  if(!auth.isLoaded) {
+    return (
+      <section className="admin-dashboard">
+        <Loading />
+      </section>
+    );
+  }
 
   return (
     <header className="header">
@@ -62,9 +84,21 @@ const Header = (): JSX.Element => {
             <li>
               <Link to="/word-categories" className={checkCurrentPath(wordCategoryPaths)}>Word Categories</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/weekly-study-guides" className={checkCurrentPath(studyGuidePaths)}>Weekly Study Guides</Link>
+            </li> */}
+            <li>
+              <Link to={auth.uid ? 'my-account' : 'login'} className={checkCurrentPath(accountPaths)}>{auth.uid ? 'My Account' : 'Login / Register'}</Link>
             </li>
+            {
+              auth.uid
+                ? <li>
+                    <button className="admin-header__logout-button" onClick={logOut} title="Log Out">
+                      <FontAwesomeIcon icon={faDoorOpen} />
+                    </button>
+                  </li>
+                : <></>
+            }
           </ul>
         </nav>
         <button className="header__burger-button" onClick={toggleMobileMenu}>

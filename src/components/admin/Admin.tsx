@@ -13,9 +13,9 @@ import Subcategories from './subcategories/Subcategories';
 import Groups from './groups/Groups';
 import Group from './group/Group';
 import Exercise from './exercise/Exercise';
-import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
-import AddGuide from './add-guide/AddGuide';
-import EditGuide from './edit-guide/EditGuide';
+// import WeeklyStudyGuides from './weekly-study-guides/WeeklyStudyGuides';
+// import AddGuide from './add-guide/AddGuide';
+// import EditGuide from './edit-guide/EditGuide';
 import EditPages from './edit-pages/EditPages';
 import Footer from './footer/Footer';
 import PageNotFound from '../general/404/PageNotFound';
@@ -35,6 +35,9 @@ const Admin = (): JSX.Element => {
   else if(!auth.uid) {
     return <Redirect to='/admin-login' />
   }
+  else if(auth.uid !== process.env.REACT_APP_ADMIN_UID) {
+    return <Redirect to='/' />
+  }
 
   return (
     <main className="admin-dashboard">
@@ -47,9 +50,9 @@ const Admin = (): JSX.Element => {
         <Route exact path="/admin-dashboard/subcategories/:subcategoryId" component={Groups} />
         <Route exact path="/admin-dashboard/group/:subcategoryId/:groupId" component={Group} />
         <Route exact path="/admin-dashboard/exercise/:subcategoryId/:groupId/:exerciseId" component={Exercise} />
-        <Route exact path="/admin-dashboard/weekly-study-guides" component={WeeklyStudyGuides} />
+        {/* <Route exact path="/admin-dashboard/weekly-study-guides" component={WeeklyStudyGuides} />
         <Route exact path="/admin-dashboard/add-study-guide" component={AddGuide} />
-        <Route exact path="/admin-dashboard/edit-study-guide/:guideId" component={EditGuide} />
+        <Route exact path="/admin-dashboard/edit-study-guide/:guideId" component={EditGuide} /> */}
         <Route exact path="/admin-dashboard/pages" component={EditPages} />
         <Route exact path="/admin-dashboard/edit-single/:type/:pageId" component={SinglePage} />
         <Route path="/admin-dashboard" component={PageNotFound} />
