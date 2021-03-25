@@ -18,7 +18,7 @@ export const formatDictionaryResults = (data: ApiWord[]): Definitions[] => {
           definition: definition.definition,
           example: definition.example || '',
           synonyms: definition.synonyms || null,
-          selected: true,
+          selected: false,
         });
       });
     });
