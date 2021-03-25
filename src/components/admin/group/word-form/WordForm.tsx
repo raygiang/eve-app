@@ -43,7 +43,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
   }
 
   const searchDefinitions = (): void => {
-    const word = getValues('word').replace(' ', '_');
+    const word = getValues('word');
 
     if(!word) {
       setSubmitError('Please enter a word first');
