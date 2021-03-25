@@ -171,8 +171,6 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
           defaultValue={wordList[word] && wordList[word].dictionaryUrl}
         />
       </div>
-      { definitions && <DefinitionBox definitions={definitions} setDefinitions={setDefinitions} /> }
-      { submitError && <p className="category-edit__error error">{ submitError }</p> }
       <div className="word-form__submit-row">
         <button disabled={submitting} className="word-form__def-button" type="button" onClick={searchDefinitions}>
           Get Definitions
@@ -182,6 +180,17 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
         </button>
         { word && <DeleteButton disabled={!definitions || submitting} deleteFunction={deleteWord} text="Delete" /> }
       </div>
+
+      { definitions && <DefinitionBox definitions={definitions} setDefinitions={setDefinitions} /> }
+
+      { definitions && definitions.length > 0 &&
+        <div className="word-form__submit-row">
+          <button disabled={!definitions || submitting} className="word-form__save-button" type="submit">
+            { word ? 'Save' : 'Add' }
+          </button>
+          { word && <DeleteButton disabled={!definitions || submitting} deleteFunction={deleteWord} text="Delete" /> }
+        </div>
+      }
     </form>
   )
 }
