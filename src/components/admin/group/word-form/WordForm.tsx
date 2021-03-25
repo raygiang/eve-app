@@ -63,16 +63,15 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
             'dictionary-url': getValues('dictionary-url'),
           });
           setDefinitions(formatDictionaryResults(data));
-          setSubmitting(false);
         }
         else {
           setDefinitions([]);
-          setSubmitting(false);
         }
       });
     }).catch(error => {
       console.log(error.message);
     });
+    }).finally(() => setSubmitting(false));
   }
 
   const onSubmit = (data: any) : void => {
