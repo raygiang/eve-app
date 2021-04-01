@@ -34,7 +34,6 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
     groupCollection.update({ words: wordListCopy }).then((): void => {
       setSuccessMessage(successMessage);
       setSubmitting(false);
-      setSelectedWord(null);
     }).catch((error: { message: string }): void => {
       setSuccessMessage('');
       setSubmitError(error.message);
@@ -65,18 +64,15 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
           setDefinitions(formatDictionaryResults(data));
         }
         else {
-          setDefinitions([]);
           if(data?.title?.toLowerCase() === 'no definitions found') {
             setSubmitError('No definitions found for the entered word');
           }
         }
       }).catch(error => {
-        setDefinitions([]);
         setSubmitError('Something went wrong while trying to process data, please try again');
         console.log(error);
       });
     }).catch(error => {
-      setDefinitions([]);
       setSubmitError('Something went wrong, please try again');
       console.log(error);
     }).finally(() => setSubmitting(false));
