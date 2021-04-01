@@ -22,7 +22,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
   const [definitions, setDefinitions] = useState<Definitions[] | null>(null);
-  const { register, handleSubmit, errors, getValues, reset } = useForm();
+  const { register, handleSubmit, errors, getValues, reset, setValue } = useForm();
   const groupCollection = firebase.firestore().collection(CollectionNames.Subcategories).doc(subcategoryId).collection(CollectionNames.Groups).doc(groupId);
 
   const updateGroupCollection = (data: any, newWord: string, wordListCopy: WordList, successMessage: string): void => {
@@ -126,6 +126,7 @@ const WordForm = ({ word, setSelectedWord, wordList, setSuccessMessage, subcateg
   }
 
   useEffect(() => {
+    setValue('word', word);
     if(wordList[word]) {
       setDefinitions(wordList[word].apiDefinitions || null);
     }
