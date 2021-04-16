@@ -21,6 +21,7 @@ const SubscriptionForm = ({ auth }: SubscriptionFormProps): JSX.Element => {
 
   const [error, setError] = useState('');
   const [loadingCheckout, setLoadingCheckout] = useState(false);
+  const [loadingPortal, setLoadingPortal] = useState(false);
 
   const user = firebase.firestore().collection('users').doc(auth.uid);
 
@@ -62,6 +63,16 @@ const SubscriptionForm = ({ auth }: SubscriptionFormProps): JSX.Element => {
     })
   }
 
+  const handlePortalClick = async () => {
+
+    setLoadingPortal(true);
+    const functionRef = firebase
+      .app()
+      .functions('us-central1')
+      .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
+    const { data } = await functionRef({ returnUrl: window.location.origin });
+      window.location.assign(data.url);
+  }
 
   const [subscription, setSubscription] = useState(null);
 
@@ -74,13 +85,23 @@ const SubscriptionForm = ({ auth }: SubscriptionFormProps): JSX.Element => {
       <h2 className="subscription__heading">Subscription</h2>
 
       {loadingCheckout && <p>Loading cart...</p>}
+      {loadingPortal && <p>Loading customer portal...</p>}
+
       {error && <p className="error">Error creating a cart. Please refresh the page and try again.</p>}
 
-      { subscription
-        ? <p>You are currently subscribed to { subscription }.</p>
-        : <p>You currently do not have a subscription.</p>
-      }
+      <p className="subscription__status">
+        { subscription
+          ? `You are currently subscribed to ${subscription}.`
+          : 'You currently do not have a subscription.'
+        }
+      </p>
 
+      <button
+        className="subscription__manage"
+        onClick={handlePortalClick}
+        disabled={loadingPortal}>
+          Manage your Stripe account { subscription && 'and subscription' }
+      </button>
 
       {/* replace with auth.emailVerified when ready */}
       { !auth.emailVerified

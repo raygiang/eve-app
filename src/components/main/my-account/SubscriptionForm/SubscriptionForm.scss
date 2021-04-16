@@ -10,6 +10,16 @@
     @include grid-list(1fr 1fr);
   }
 
+  &__status {
+    color: $success-color;
+    font-weight: bold;
+    font-size: $small-font;
+  }
+
+  &__manage {
+    @include primary-button;
+  }
+
   &__subscribe {
     @include primary-button;
   }
